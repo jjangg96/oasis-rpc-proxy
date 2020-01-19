@@ -33,7 +33,7 @@ func GetBlock(c *gin.Context) {
 
 	client := api.NewConsensusClient(conn)
 
-	_, err = client.GetBlock(c, height)
+	_, err = client.StateToGenesis(c, height)
 	if err != nil {
 		c.JSON(http.StatusUnauthorized, Response{Message: "could not get block"})
 		return
