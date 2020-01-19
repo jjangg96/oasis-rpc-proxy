@@ -9,10 +9,14 @@ import (
 	"strconv"
 )
 
+type Response struct {
+	Message string `json:"message"`
+}
+
 func GetBlock(c *gin.Context) {
 	height, err := (strconv.ParseInt(c.Param("height"), 10, 64))
 	if err != nil {
-		c.JSON(http.StatusBadRequest, "height must be a number")
+		c.JSON(http.StatusBadRequest, Response{Message: "height must be a number"})
 		return
 	}
 
@@ -21,7 +25,7 @@ func GetBlock(c *gin.Context) {
 
 	conn, err := grpc.Dial(config.GetOasisSocket(), opts...)
 	if err != nil {
-		c.JSON(http.StatusBadRequest, "error connecting to grpc server")
+		c.JSON(http.StatusBadRequest, Response{Message: "error connecting to grpc server"})
 		return
 	}
 	defer conn.Close()
@@ -30,9 +34,9 @@ func GetBlock(c *gin.Context) {
 
 	block, err := client.GetBlock(c, height)
 	if err != nil {
-		c.JSON(http.StatusUnauthorized, "could not get block")
+		c.JSON(http.StatusUnauthorized, Response{Message: "could not get block"})
 		return
 	}
 
-	c.JSON(http.StatusOK, block)
+	c.JSON(http.StatusOK, Response{Message: "All good"})
 }
