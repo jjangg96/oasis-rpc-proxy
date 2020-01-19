@@ -1,32 +1,36 @@
 package controllers
 
 import (
-	"fmt"
-	"github.com/silentlight/oasis-test/config"
 	"github.com/gin-gonic/gin"
 	"github.com/oasislabs/oasis-core/go/consensus/api"
+	"github.com/silentlight/oasis-test/config"
 	"google.golang.org/grpc"
 	"net/http"
+	"strconv"
 )
 
 func GetBlock(c *gin.Context) {
+	height, err := (strconv.ParseInt(c.Param("height"), 10, 64))
+	if err != nil {
+		c.JSON(http.StatusBadRequest, "height must be a number")
+		return
+	}
+
 	var opts []grpc.DialOption
 	opts = append(opts, grpc.WithInsecure())
 
 	conn, err := grpc.Dial(config.GetOasisSocket(), opts...)
 	if err != nil {
-		fmt.Println("error connecting to grpc", err.Error())
+		c.JSON(http.StatusBadRequest, "error connecting to grpc server")
 		return
 	}
 	defer conn.Close()
 
 	client := api.NewConsensusClient(conn)
 
-	height := int64(0)
-
 	block, err := client.GetBlock(c, height)
 	if err != nil {
-		fmt.Println("could not get block", err.Error())
+		c.JSON(http.StatusUnauthorized, "could not get block")
 		return
 	}
 
