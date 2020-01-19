@@ -20,10 +20,11 @@ func GetBlock(c *gin.Context) {
 		return
 	}
 
-	var opts []grpc.DialOption
-	opts = append(opts, grpc.WithInsecure())
-
-	conn, err := grpc.Dial(config.GetOasisSocket(), opts...)
+	conn, err := grpc.Dial(
+		config.GetOasisSocket(),
+		grpc.WithInsecure(),
+		grpc.WithDefaultCallOptions(grpc.WaitForReady(true)),
+	)
 	if err != nil {
 		c.JSON(http.StatusBadRequest, Response{Message: "error connecting to grpc server"})
 		return
