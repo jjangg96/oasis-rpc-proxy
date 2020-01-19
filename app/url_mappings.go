@@ -1,6 +1,6 @@
 package app
 
-import "github.com/figment-networks/oasis-rpc-proxy/controllers"
+import "github.com/silentlight/oasis-test/controllers"
 
 func mapUrl() {
 	router.GET("/block/:block_id", controllers.GetBlock)

@@ -2,7 +2,7 @@ package controllers
 
 import (
 	"fmt"
-	"github.com/figment-networks/oasis-rpc-proxy/config"
+	"github.com/silentlight/oasis-test/config"
 	"github.com/gin-gonic/gin"
 	"github.com/oasislabs/oasis-core/go/consensus/api"
 	"google.golang.org/grpc"

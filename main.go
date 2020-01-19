@@ -1,6 +1,6 @@
 package main
 
-import "github.com/figment-networks/oasis-rpc-proxy/app"
+import "github.com/silentlight/oasis-test/app"
 
 func main() {
 	app.StartApp()
