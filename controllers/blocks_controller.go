@@ -1,6 +1,8 @@
 package controllers
 
 import (
+	"encoding/json"
+	"fmt"
 	"github.com/gin-gonic/gin"
 	oasisGrpc "github.com/oasislabs/oasis-core/go/common/grpc"
 	"github.com/oasislabs/oasis-core/go/consensus/api"
@@ -41,5 +43,8 @@ func GetBlock(c *gin.Context) {
 		return
 	}
 
+	b, _ := json.Marshal(block)
+	fmt.Printf("%v\n", string(b))
+	
 	c.JSON(http.StatusOK, block)
 }
