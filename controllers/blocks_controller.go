@@ -1,9 +1,9 @@
 package controllers
 
 import (
-	"encoding/json"
 	"fmt"
 	"github.com/gin-gonic/gin"
+	"github.com/oasislabs/oasis-core/go/common/cbor"
 	oasisGrpc "github.com/oasislabs/oasis-core/go/common/grpc"
 	"github.com/oasislabs/oasis-core/go/consensus/api"
 	//"github.com/oasislabs/oasis-core/go/scheduler/api"
@@ -43,8 +43,13 @@ func GetBlock(c *gin.Context) {
 		return
 	}
 
-	b, _ := json.Marshal(block)
-	fmt.Printf("%v\n", string(b))
-	
+	meta := ""
+	err = cbor.Unmarshal(block.Meta, meta)
+
+	fmt.Printf("%v\n", meta)
+
+	//b, _ := json.Marshal(block)
+	//fmt.Printf("%v\n", string(b))
+
 	c.JSON(http.StatusOK, block)
 }
