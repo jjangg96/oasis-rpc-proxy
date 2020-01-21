@@ -2,8 +2,9 @@ package controllers
 
 import (
 	"github.com/gin-gonic/gin"
-	//"github.com/oasislabs/oasis-core/go/consensus/api"
-	"github.com/oasislabs/oasis-core/go/scheduler/api"
+	oasisGrpc "github.com/oasislabs/oasis-core/go/common/grpc"
+	"github.com/oasislabs/oasis-core/go/consensus/api"
+	//"github.com/oasislabs/oasis-core/go/scheduler/api"
 	"github.com/silentlight/oasis-test/config"
 	"google.golang.org/grpc"
 	"net/http"
@@ -21,7 +22,7 @@ func GetBlock(c *gin.Context) {
 		return
 	}
 
-	conn, err := grpc.Dial(
+	conn, err := oasisGrpc.Dial(
 		config.GetOasisSocket(),
 		grpc.WithInsecure(),
 		grpc.WithDefaultCallOptions(grpc.WaitForReady(true)),
@@ -32,9 +33,9 @@ func GetBlock(c *gin.Context) {
 	}
 	defer conn.Close()
 
-	client := api.NewSchedulerClient(conn)
+	client := api.NewConsensusClient(conn)
 
-	_, err = client.GetValidators(c, height)
+	_, err = client.GetBlock(c, height)
 	if err != nil {
 		c.JSON(http.StatusUnauthorized, Response{Message: "could not get block"})
 		return
