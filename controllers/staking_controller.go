@@ -104,7 +104,7 @@ func GetAccountDetails(c *gin.Context) {
 	}
 
 	var address signature.PublicKey
-	if err := address.UnmarshalHex(c.Param("account_address")); err != nil {
+	if err := address.UnmarshalText([]byte(c.Param("account_address"))); err != nil {
 		log.Error("failed to parse account address", err)
 		c.JSON(http.StatusBadRequest, utils.ApiError{Message: "failed to parse account address"})
 		return
@@ -180,7 +180,7 @@ func GetDebondingDelegations(c *gin.Context) {
 	}
 
 	var address signature.PublicKey
-	if err := address.UnmarshalHex(c.Param("account_address")); err != nil {
+	if err := address.UnmarshalText([]byte(c.Param("account_address"))); err != nil {
 		log.Error("failed to parse account address", err)
 		c.JSON(http.StatusBadRequest, utils.ApiError{Message: "failed to parse account address"})
 		return
