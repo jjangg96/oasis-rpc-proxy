@@ -5,12 +5,12 @@ import (
 	"github.com/figment-networks/oasis-rpc-proxy/log"
 	"github.com/figment-networks/oasis-rpc-proxy/utils"
 	"github.com/gin-gonic/gin"
-	"github.com/oasislabs/oasis-core/go/consensus/api"
+	"github.com/oasislabs/oasis-core/go/scheduler/api"
 	"net/http"
 	"strconv"
 )
 
-func GetTransactions(c *gin.Context) {
+func GetValidators(c *gin.Context) {
 	height, err := (strconv.ParseInt(c.Param("height"), 10, 64))
 	if err != nil {
 		log.Error("height must be a number", err)
@@ -26,14 +26,14 @@ func GetTransactions(c *gin.Context) {
 	}
 	defer conn.Close()
 
-	client := api.NewConsensusClient(conn)
+	client := api.NewSchedulerClient(conn)
 
-	transactions, err := client.GetTransactions(c, height)
+	validators, err := client.GetValidators(c, height)
 	if err != nil {
-		log.Error("could not get transactions", err)
-		c.JSON(http.StatusBadRequest, utils.ApiError{Message: "could not get transactions"})
+		log.Error("could not get list of validators", err)
+		c.JSON(http.StatusBadRequest, utils.ApiError{Message: "could not get list of validators"})
 		return
 	}
 
-	c.JSON(http.StatusOK, utils.ApiResponse{Message: "Success", Data: transactions})
+	c.JSON(http.StatusOK, utils.ApiResponse{Message: "Success", Data: validators})
 }
