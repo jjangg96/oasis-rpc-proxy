@@ -12,6 +12,10 @@ import (
 	"strconv"
 )
 
+type Response struct {
+	Message string `json:"message"`
+}
+
 func GetBlock(c *gin.Context) {
 	height, err := (strconv.ParseInt(c.Param("height"), 10, 64))
 	if err != nil {
