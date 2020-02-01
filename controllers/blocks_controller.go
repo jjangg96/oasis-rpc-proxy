@@ -12,8 +12,9 @@ import (
 	"strconv"
 )
 
-type Response struct {
-	Message string `json:"message"`
+type GetBlockResponse struct {
+	Message string          `json:"message"`
+	Data    tmApi.BlockMeta `json:"data"`
 }
 
 func GetBlock(c *gin.Context) {
@@ -48,5 +49,5 @@ func GetBlock(c *gin.Context) {
 		return
 	}
 
-	c.JSON(http.StatusOK, utils.ApiResponse{Message: "Success", Data: tmBlockMeta})
+	c.JSON(http.StatusOK, GetBlockResponse{Message: "Success", Data: tmBlockMeta})
 }
