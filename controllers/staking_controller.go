@@ -6,13 +6,45 @@ import (
 	"github.com/figment-networks/oasis-rpc-proxy/utils"
 	"github.com/gin-gonic/gin"
 	"github.com/oasislabs/oasis-core/go/common/crypto/signature"
+	"github.com/oasislabs/oasis-core/go/common/quantity"
 	"github.com/oasislabs/oasis-core/go/staking/api"
 	"net/http"
 	"strconv"
 )
 
+type (
+	GetTotalSupplyResponse struct {
+		Message string             `json:"message"`
+		Data    *quantity.Quantity `json:"data"`
+	}
+	GetCommonPoolResponse struct {
+		Message string             `json:"message"`
+		Data    *quantity.Quantity `json:"data"`
+	}
+	GetAccountsResponse struct {
+		Message string                `json:"message"`
+		Data    []signature.PublicKey `json:"data"`
+	}
+	GetAccountDetailsResponse struct {
+		Message string       `json:"message"`
+		Data    *api.Account `json:"data"`
+	}
+	GetThresholdResponse struct {
+		Message string             `json:"message"`
+		Data    *quantity.Quantity `json:"data"`
+	}
+	GetDebondingDelegationsResponse struct {
+		Message string                                             `json:"message"`
+		Data    map[signature.PublicKey][]*api.DebondingDelegation `json:"data"`
+	}
+	GetStateToGenesisResponse struct {
+		Message string       `json:"message"`
+		Data    *api.Genesis `json:"data"`
+	}
+)
+
 func GetTotalSupply(c *gin.Context) {
-	height, err := (strconv.ParseInt(c.Param("height"), 10, 64))
+	height, err := strconv.ParseInt(c.Param("height"), 10, 64)
 	if err != nil {
 		log.Error("height must be a number", err)
 		c.JSON(http.StatusBadRequest, utils.ApiError{Message: "height must be a number"})
@@ -36,11 +68,11 @@ func GetTotalSupply(c *gin.Context) {
 		return
 	}
 
-	c.JSON(http.StatusOK, utils.ApiResponse{Message: "Success", Data: totalSupply})
+	c.JSON(http.StatusOK, GetTotalSupplyResponse{Message: "Success", Data: totalSupply})
 }
 
 func GetCommonPool(c *gin.Context) {
-	height, err := (strconv.ParseInt(c.Param("height"), 10, 64))
+	height, err := strconv.ParseInt(c.Param("height"), 10, 64)
 	if err != nil {
 		log.Error("height must be a number", err)
 		c.JSON(http.StatusBadRequest, utils.ApiError{Message: "height must be a number"})
@@ -64,11 +96,11 @@ func GetCommonPool(c *gin.Context) {
 		return
 	}
 
-	c.JSON(http.StatusOK, utils.ApiResponse{Message: "Success", Data: commonPool})
+	c.JSON(http.StatusOK, GetCommonPoolResponse{Message: "Success", Data: commonPool})
 }
 
 func GetAccounts(c *gin.Context) {
-	height, err := (strconv.ParseInt(c.Param("height"), 10, 64))
+	height, err := strconv.ParseInt(c.Param("height"), 10, 64)
 	if err != nil {
 		log.Error("height must be a number", err)
 		c.JSON(http.StatusBadRequest, utils.ApiError{Message: "height must be a number"})
@@ -92,11 +124,11 @@ func GetAccounts(c *gin.Context) {
 		return
 	}
 
-	c.JSON(http.StatusOK, utils.ApiResponse{Message: "Success", Data: accounts})
+	c.JSON(http.StatusOK, GetAccountsResponse{Message: "Success", Data: accounts})
 }
 
 func GetAccountDetails(c *gin.Context) {
-	height, err := (strconv.ParseInt(c.Param("height"), 10, 64))
+	height, err := strconv.ParseInt(c.Param("height"), 10, 64)
 	if err != nil {
 		log.Error("height must be a number", err)
 		c.JSON(http.StatusBadRequest, utils.ApiError{Message: "height must be a number"})
@@ -130,18 +162,18 @@ func GetAccountDetails(c *gin.Context) {
 		return
 	}
 
-	c.JSON(http.StatusOK, utils.ApiResponse{Message: "Success", Data: accountInfo})
+	c.JSON(http.StatusOK, GetAccountDetailsResponse{Message: "Success", Data: accountInfo})
 }
 
 func GetThreshold(c *gin.Context) {
-	height, err := (strconv.ParseInt(c.Param("height"), 10, 64))
+	height, err := strconv.ParseInt(c.Param("height"), 10, 64)
 	if err != nil {
 		log.Error("height must be a number", err)
 		c.JSON(http.StatusBadRequest, utils.ApiError{Message: "height must be a number"})
 		return
 	}
 
-	kind, err := (strconv.ParseInt(c.Param("kind"), 10, 64))
+	kind, err := strconv.ParseInt(c.Param("kind"), 10, 64)
 	if err != nil {
 		log.Error("kind must be a number", err)
 		c.JSON(http.StatusBadRequest, utils.ApiError{Message: "kind must be a number"})
@@ -160,7 +192,7 @@ func GetThreshold(c *gin.Context) {
 
 	accountInfo, err := client.Threshold(c, &api.ThresholdQuery{
 		Height: height,
-		Kind:  api.ThresholdKind(kind),
+		Kind:   api.ThresholdKind(kind),
 	})
 	if err != nil {
 		log.Error("could not get account details", err)
@@ -168,11 +200,11 @@ func GetThreshold(c *gin.Context) {
 		return
 	}
 
-	c.JSON(http.StatusOK, utils.ApiResponse{Message: "Success", Data: accountInfo})
+	c.JSON(http.StatusOK, GetThresholdResponse{Message: "Success", Data: accountInfo})
 }
 
 func GetDebondingDelegations(c *gin.Context) {
-	height, err := (strconv.ParseInt(c.Param("height"), 10, 64))
+	height, err := strconv.ParseInt(c.Param("height"), 10, 64)
 	if err != nil {
 		log.Error("height must be a number", err)
 		c.JSON(http.StatusBadRequest, utils.ApiError{Message: "height must be a number"})
@@ -206,11 +238,11 @@ func GetDebondingDelegations(c *gin.Context) {
 		return
 	}
 
-	c.JSON(http.StatusOK, utils.ApiResponse{Message: "Success", Data: accountInfo})
+	c.JSON(http.StatusOK, GetDebondingDelegationsResponse{Message: "Success", Data: accountInfo})
 }
 
 func GetStateToGenesis(c *gin.Context) {
-	height, err := (strconv.ParseInt(c.Param("height"), 10, 64))
+	height, err := strconv.ParseInt(c.Param("height"), 10, 64)
 	if err != nil {
 		log.Error("height must be a number", err)
 		c.JSON(http.StatusBadRequest, utils.ApiError{Message: "height must be a number"})
@@ -234,5 +266,5 @@ func GetStateToGenesis(c *gin.Context) {
 		return
 	}
 
-	c.JSON(http.StatusOK, utils.ApiResponse{Message: "Success", Data: genesis})
+	c.JSON(http.StatusOK, GetStateToGenesisResponse{Message: "Success", Data: genesis})
 }

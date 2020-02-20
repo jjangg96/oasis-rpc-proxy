@@ -10,8 +10,13 @@ import (
 	"strconv"
 )
 
+type GetValidatorsResponse struct {
+	Message string          `json:"message"`
+	Data    []*api.Validator `json:"data"`
+}
+
 func GetValidators(c *gin.Context) {
-	height, err := (strconv.ParseInt(c.Param("height"), 10, 64))
+	height, err := strconv.ParseInt(c.Param("height"), 10, 64)
 	if err != nil {
 		log.Error("height must be a number", err)
 		c.JSON(http.StatusBadRequest, utils.ApiError{Message: "height must be a number"})
@@ -35,5 +40,5 @@ func GetValidators(c *gin.Context) {
 		return
 	}
 
-	c.JSON(http.StatusOK, utils.ApiResponse{Message: "Success", Data: validators})
+	c.JSON(http.StatusOK, GetValidatorsResponse{Message: "Success", Data: validators})
 }

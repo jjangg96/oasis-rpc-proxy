@@ -10,6 +10,11 @@ import (
 	"strconv"
 )
 
+type GetTransactionsResponse struct {
+	Message string   `json:"message"`
+	Data    [][]byte `json:"data"`
+}
+
 func GetTransactions(c *gin.Context) {
 	height, err := (strconv.ParseInt(c.Param("height"), 10, 64))
 	if err != nil {
@@ -35,5 +40,5 @@ func GetTransactions(c *gin.Context) {
 		return
 	}
 
-	c.JSON(http.StatusOK, utils.ApiResponse{Message: "Success", Data: transactions})
+	c.JSON(http.StatusOK, GetTransactionsResponse{Message: "Success", Data: transactions})
 }
