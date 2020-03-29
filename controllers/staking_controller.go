@@ -25,6 +25,9 @@ type (
 		Message string                `json:"message"`
 		Data    []signature.PublicKey `json:"data"`
 	}
+	GetAccountDetailsRequest struct {
+		PublicKey string `form:"public_key" binding:"required"`
+	}
 	GetAccountDetailsResponse struct {
 		Message string       `json:"message"`
 		Data    *api.Account `json:"data"`
@@ -135,10 +138,21 @@ func GetAccountDetails(c *gin.Context) {
 		return
 	}
 
-	var address signature.PublicKey
-	if err := address.UnmarshalText([]byte(c.Param("account_address"))); err != nil {
-		log.Error("failed to parse account address", err)
-		c.JSON(http.StatusBadRequest, utils.ApiError{Message: "failed to parse account address"})
+	var req GetAccountDetailsRequest
+	if err := c.ShouldBind(&req); err != nil {
+		msg := "invalid request parameters"
+		log.Error(msg, err)
+		c.JSON(http.StatusBadRequest, utils.ApiError{Message: msg})
+		return
+	}
+
+	// Get entityId
+	publicKey := signature.PublicKey{}
+	err = publicKey.UnmarshalText([]byte(req.PublicKey))
+	if err != nil {
+		msg := "entity_id must be a valid public key"
+		log.Error(msg, err)
+		c.JSON(http.StatusBadRequest, utils.ApiError{Message: msg})
 		return
 	}
 
@@ -154,7 +168,7 @@ func GetAccountDetails(c *gin.Context) {
 
 	accountInfo, err := client.AccountInfo(c, &api.OwnerQuery{
 		Height: height,
-		Owner:  address,
+		Owner:  publicKey,
 	})
 	if err != nil {
 		log.Error("could not get account details", err)
@@ -211,10 +225,21 @@ func GetDebondingDelegations(c *gin.Context) {
 		return
 	}
 
-	var address signature.PublicKey
-	if err := address.UnmarshalText([]byte(c.Param("account_address"))); err != nil {
-		log.Error("failed to parse account address", err)
-		c.JSON(http.StatusBadRequest, utils.ApiError{Message: "failed to parse account address"})
+	var req GetAccountDetailsRequest
+	if err := c.ShouldBind(&req); err != nil {
+		msg := "invalid request parameters"
+		log.Error(msg, err)
+		c.JSON(http.StatusBadRequest, utils.ApiError{Message: msg})
+		return
+	}
+
+	// Get entityId
+	publicKey := signature.PublicKey{}
+	err = publicKey.UnmarshalText([]byte(req.PublicKey))
+	if err != nil {
+		msg := "entity_id must be a valid public key"
+		log.Error(msg, err)
+		c.JSON(http.StatusBadRequest, utils.ApiError{Message: msg})
 		return
 	}
 
@@ -230,7 +255,7 @@ func GetDebondingDelegations(c *gin.Context) {
 
 	accountInfo, err := client.DebondingDelegations(c, &api.OwnerQuery{
 		Height: height,
-		Owner:  address,
+		Owner:  publicKey,
 	})
 	if err != nil {
 		log.Error("could not get account details", err)

@@ -5,14 +5,24 @@ import (
 	"github.com/figment-networks/oasis-rpc-proxy/log"
 	"github.com/figment-networks/oasis-rpc-proxy/utils"
 	"github.com/gin-gonic/gin"
+	"github.com/oasislabs/oasis-core/go/common/crypto/signature"
+	tmcrypto "github.com/oasislabs/oasis-core/go/consensus/tendermint/crypto"
+	registryApi "github.com/oasislabs/oasis-core/go/registry/api"
 	"github.com/oasislabs/oasis-core/go/scheduler/api"
 	"net/http"
 	"strconv"
 )
 
 type GetValidatorsResponse struct {
-	Message string          `json:"message"`
-	Data    []*api.Validator `json:"data"`
+	Message string      `json:"message"`
+	Data    []Validator `json:"data"`
+}
+
+type Validator struct {
+	ID          signature.PublicKey `json:"id"`
+	VotingPower int64               `json:"voting_power"`
+	Address 	string				`json:"address"`
+	Node        interface{}         `json:"node"`
 }
 
 func GetValidators(c *gin.Context) {
@@ -33,11 +43,34 @@ func GetValidators(c *gin.Context) {
 
 	client := api.NewSchedulerClient(conn)
 
-	validators, err := client.GetValidators(c, height)
+	rawValidators, err := client.GetValidators(c, height)
 	if err != nil {
 		log.Error("could not get list of validators", err)
 		c.JSON(http.StatusBadRequest, utils.ApiError{Message: "could not get list of validators"})
 		return
+	}
+
+	var validators []Validator
+	for _, validator := range rawValidators {
+		// Get validator (node) details
+		client2 := registryApi.NewRegistryClient(conn)
+		node, err2 := client2.GetNode(c, &registryApi.IDQuery{
+			Height: height,
+			ID:     validator.ID,
+		})
+		if err2 != nil {
+			log.Error("could not get node details", err2)
+		}
+
+		cID := node.Consensus.ID
+		tmAddr := tmcrypto.PublicKeyToTendermint(&cID).Address().String()
+
+		validators = append(validators, Validator{
+			ID: validator.ID,
+			Address: tmAddr,
+			VotingPower: validator.VotingPower,
+			Node:      node,
+		})
 	}
 
 	c.JSON(http.StatusOK, GetValidatorsResponse{Message: "Success", Data: validators})
