@@ -63,7 +63,7 @@ func GetTransactions(c *gin.Context) {
 		return
 	}
 
-	resp := GetTransactionsResponse{Message: "success"}
+	resp := GetTransactionsResponse{Message: "success", Data: []Transaction{}}
 	for _, rawTx := range transactions {
 		stx := base64.StdEncoding.EncodeToString(rawTx)
 		t := Transaction{

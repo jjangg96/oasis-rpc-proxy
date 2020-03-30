@@ -6,6 +6,7 @@ import (
 	"github.com/figment-networks/oasis-rpc-proxy/utils"
 	"github.com/gin-gonic/gin"
 	"github.com/oasislabs/oasis-core/go/common/crypto/signature"
+	"github.com/oasislabs/oasis-core/go/common/node"
 	tmcrypto "github.com/oasislabs/oasis-core/go/consensus/tendermint/crypto"
 	registryApi "github.com/oasislabs/oasis-core/go/registry/api"
 	"github.com/oasislabs/oasis-core/go/scheduler/api"
@@ -21,8 +22,8 @@ type GetValidatorsResponse struct {
 type Validator struct {
 	ID          signature.PublicKey `json:"id"`
 	VotingPower int64               `json:"voting_power"`
-	Address 	string				`json:"address"`
-	Node        interface{}         `json:"node"`
+	Address     string              `json:"address"`
+	Node        node.Node           `json:"node"`
 }
 
 func GetValidators(c *gin.Context) {
@@ -66,10 +67,10 @@ func GetValidators(c *gin.Context) {
 		tmAddr := tmcrypto.PublicKeyToTendermint(&cID).Address().String()
 
 		validators = append(validators, Validator{
-			ID: validator.ID,
-			Address: tmAddr,
+			ID:          validator.ID,
+			Address:     tmAddr,
 			VotingPower: validator.VotingPower,
-			Node:      node,
+			Node:        *node,
 		})
 	}
 
