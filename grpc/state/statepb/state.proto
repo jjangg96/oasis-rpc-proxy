@@ -1,0 +1,259 @@
+syntax = "proto3";
+
+package state;
+option go_package = "statepb";
+
+import "google/protobuf/timestamp.proto";
+import "google/protobuf/duration.proto";
+
+message RegistryParameters {
+    // DebugAllowUnroutableAddresses is true iff node registration should
+    // allow unroutable addreses.
+    bool debug_allow_unroutable_addresses = 1;
+
+    // DebugAllowTestRuntimes is true iff test runtimes should be allowed to
+    // be registered.
+    bool DebugAllowTestRuntimes = 2;
+
+    // DebugAllowEntitySignedNodeRegistration is true iff node registration
+    // signed by entity signing keys should be allowed.
+    bool DebugAllowEntitySignedNodeRegistration = 3;
+
+    // DebugBypassStake is true iff the registry should bypass all of the staking
+    // related checks and operations.
+    bool DebugBypassStake = 4;
+
+    // DisableRuntimeRegistration is true iff runtime registration should be
+    // disabled outside of the genesis block.
+    bool DisableRuntimeRegistration = 5;
+
+    // DisableRuntimeRegistration is true iff key manager runtime registration should be
+    // disabled outside of the genesis block.
+    bool DisableKeyManagerRuntimeRegistration = 6;
+
+    // GasCosts are the registry transaction gas costs.
+    map<string, uint64> GasCosts = 7;
+
+    // MaxNodeExpiration is the maximum number of epochs relative to the epoch
+    // at registration time that a single node registration is valid for.
+    uint64 MaxNodeExpiration = 8;
+}
+
+message Entity {
+    string PublicKey = 1;
+}
+
+message Registry {
+    // Parameters are the registry consensus parameters.
+    RegistryParameters parameters = 1;
+
+    // Entities is the initial list of entities.
+    repeated Entity entities = 2;
+}
+
+message Slash {
+    bytes Amount = 1;
+    uint64 FreezeInterval = 2;
+}
+
+message RewardStep {
+    uint64 Until = 1;
+    bytes Scale = 2;
+}
+
+message CommissionScheduleRules {
+    uint64 RateChangeInterval = 1;
+    uint64 RateBoundLead = 2;
+    int64 MaxRateSteps = 3;
+    int64 MaxBoundSteps = 4;
+}
+
+message StakingParameters {
+    map<int64, bytes> Thresholds = 1;
+    uint64 DebondingInterval = 2;
+    repeated RewardStep RewardSchedule = 3;
+    uint64 SigningRewardThresholdNumerator = 4;
+    uint64 SigningRewardThresholdDenominator = 5;
+    CommissionScheduleRules CommissionScheduleRules = 6;
+    map<string, Slash> Slashing = 7;
+    map<string, uint64> GasCosts = 8;
+    bytes MinDelegationAmount = 9;
+
+    bool DisableTransfers = 10;
+    bool DisableDelegation = 11;
+    map<string, bool> UndisableTransfersFrom = 12;
+
+    // (Replicated in staking app `disburseFees` method. Keep both explanations in sync.)
+    // A block's fees are split into $n$ portions, one corresponding to each validator.
+    // For each validator $V$ that signs the block, $V$'s corresponding portion is disbursed between $V$ and the
+    // proposer $P$. The ratio of this split are controlled by `FeeSplitVote` and `FeeSplitPropose`.
+    // Portions corresponding to validators that don't sign the block go to the common pool.
+
+    // FeeSplitVote is the proportion of block fee portions that go to the validator that signs.
+    bytes FeeSplitVote = 13;
+    // FeeSplitPropose is the proportion of block fee portions that go to the proposer.
+    bytes FeeSplitPropose = 14;
+
+    // RewardFactorEpochSigned is the factor for a reward distributed per epoch to
+    // entities that have signed at least a threshold fraction of the blocks.
+    bytes RewardFactorEpochSigned = 15;
+    // RewardFactorBlockProposed is the factor for a reward distributed per block
+    // to the entity that proposed the block.
+    bytes RewardFactorBlockProposed = 16;
+}
+
+message Staking {
+    bytes total_supply = 1;
+    bytes common_pool = 2;
+    StakingParameters parameters = 3;
+    map<string, Account> ledger = 4;
+    map<string, DelegationEntry> delegations = 5;
+    map<string, DebondingDelegationEntry> debonding_delegations = 6;
+}
+
+message Delegation {
+    bytes shares = 1;
+}
+
+message DebondingDelegation {
+    bytes shares = 1;
+    uint64 DebondEndTime = 2;
+}
+
+message DelegationEntry {
+    map<string, Delegation> entries = 1;
+}
+
+message DebondingDelegationInnerEntry {
+    repeated DebondingDelegation debondingDelegations = 1;
+}
+
+message DebondingDelegationEntry {
+    map<string, DebondingDelegationInnerEntry> entries = 1;
+}
+
+message GeneralAccount {
+    bytes Balance = 1;
+    uint64 Nonce = 2;
+    uint64 TransfersNotBefore = 3;
+}
+
+message SharePool {
+    bytes Balance = 1;
+    bytes TotalShares = 2;
+}
+
+message CommissionRateStep {
+    uint64 Start = 1;
+    bytes Rate = 2;
+}
+
+message CommissionRateBoundStep {
+    uint64 Start = 1;
+    bytes RateMin = 2;
+    bytes RateMax = 3;
+}
+
+message CommissionSchedule {
+    repeated CommissionRateStep Rates = 1;
+    repeated CommissionRateBoundStep Bounds = 2;
+}
+
+// ThresholdKind is the kind of staking threshold.
+message ThresholdKinds {
+    repeated int32 Kinds = 1;
+}
+
+message StakeAccumulator {
+    // Claims are the stake claims that must be satisfied at any given point. Adding a new claim is
+    // only possible if all of the existing claims plus the new claim is satisfied.
+    map<string, ThresholdKinds> Claims = 1;
+}
+
+message EscrowAccount {
+    SharePool Active = 1;
+    SharePool Debonding = 2;
+    CommissionSchedule CommissionSchedule = 3;
+    StakeAccumulator StakeAccumulator = 4;
+}
+
+message Account {
+    GeneralAccount General = 1;
+    EscrowAccount Escrow = 2;
+}
+
+message SchedulerParams {
+    // MinValidators is the minimum number of validators that MUST be
+    // present in elected validator sets.
+    int64 MinValidators = 1;
+
+    // MaxValidators is the maximum number of validators that MAY be
+    // present in elected validator sets.
+    int64 MaxValidators = 2;
+
+    // MaxValidatorsPerEntity is the maximum number of validators that
+    // may be elected per entity in a single validator set.
+    int64 MaxValidatorsPerEntity = 3;
+
+    // DebugBypassStake is true iff the scheduler should bypass all of
+    // the staking related checks and operations.
+    bool DebugBypassStake = 4;
+
+    // DebugStaticValidators is true iff the scheduler should use
+    // a static validator set instead of electing anything.
+    bool DebugStaticValidators = 5;
+
+    // RewardFactorEpochElectionAny is the factor for a reward
+    // distributed per epoch to entities that have any node considered
+    // in any election.
+    bytes RewardFactorEpochElectionAny = 6;
+}
+
+message Scheduler {
+    SchedulerParams params = 1;
+}
+
+message ConsensusParams {
+    google.protobuf.Duration TimeoutCommit = 1;
+    bool SkipTimeoutCommit = 2;
+    google.protobuf.Duration EmptyBlockInterval = 3;
+
+    uint64 MaxTxSize = 4;
+    uint64 MaxBlockSize = 5;
+    uint64 MaxBlockGas = 6;
+    uint64 MaxEvidenceAge = 7;
+}
+
+message Consensus {
+    string Backend = 1;
+    ConsensusParams params = 2;
+}
+
+message State {
+    // Height is the block height at which the document was generated.
+    int64 Height = 1;
+    // Time is the time the genesis block was constructed.
+    google.protobuf.Timestamp Time = 2;
+    // ChainID is the ID of the chain.
+    string ChainID = 3;
+    // Registry is the registry genesis state.
+    Registry registry = 4;
+    // Staking is the staking genesis state.
+    Staking staking = 5;
+    // Scheduler is the scheduler genesis state.
+    Scheduler scheduler = 6;
+    // Consensus is the consensus genesis state.
+    Consensus consensus = 7;
+}
+
+message GetByHeightRequest {
+    int64 height = 1;
+}
+
+message GetByHeightResponse {
+    State state = 1;
+}
+
+service StateService {
+    rpc GetByHeight (GetByHeightRequest) returns (GetByHeightResponse) {};
+}

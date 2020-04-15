@@ -1,0 +1,76 @@
+syntax = "proto3";
+
+package block;
+option go_package = "blockpb";
+
+import "google/protobuf/timestamp.proto";
+
+message Block {
+    Header header = 1;
+    Commit last_commit = 2;
+}
+
+message Header {
+    Version version = 1;
+    string chain_id = 2;
+    int64 height = 3;
+    google.protobuf.Timestamp time = 4;
+    int64 num_txs = 5;
+    int64 total_txs = 6;
+
+    // prev block info
+    BlockID last_block_id = 7;
+
+    // hashes of block data
+    string last_commit_hash = 8;
+    string data_hash = 9;
+
+    // hashes from the app output from the prev block
+    string validators_hash = 10;
+    string next_validators_hash = 11;
+    string consensus_hash = 12;
+    string app_hash = 13;
+    // root hash of all results from the txs from the previous block
+    string last_results_hash = 14;
+
+    // consensus info
+    string evidence_hash = 15;
+    string proposer_address = 16;
+}
+
+message Version {
+    uint64 block = 1;
+    uint64 app = 2;
+}
+
+message BlockID {
+    string hash = 1;
+}
+
+message Commit {
+    BlockID block_id = 1;
+    int64 height = 2;
+    int64 round = 3;
+    string hash = 4;
+    repeated Vote votes = 5;
+}
+
+// Vote represents a prevote, precommit, or commit vote from validators for consensus.
+message Vote {
+    string type = 1;
+    string validator_address = 2;
+    int64 validator_index = 3;
+    string signature = 4;
+}
+
+message GetByHeightRequest {
+    int64 height = 1;
+}
+
+message GetByHeightResponse {
+    Block block = 1;
+}
+
+service BlockService {
+    rpc GetByHeight (GetByHeightRequest) returns (GetByHeightResponse) {};
+}
