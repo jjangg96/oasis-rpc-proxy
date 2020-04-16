@@ -1,0 +1,23 @@
+syntax = "proto3";
+
+package chain;
+option go_package = "chainpb";
+
+import "google/protobuf/timestamp.proto";
+
+message Chain {
+    string ChainId = 1;
+    string ChainName = 2;
+    google.protobuf.Timestamp GenesisTime = 3;
+    int64 Height = 4;
+}
+
+message GetCurrentRequest {}
+
+message GetCurrentResponse {
+    Chain Chain = 1;
+}
+
+service ChainService {
+    rpc GetCurrent (GetCurrentRequest) returns (GetCurrentResponse) {};
+}
