@@ -6,8 +6,8 @@ option go_package = "chainpb";
 import "google/protobuf/timestamp.proto";
 
 message Chain {
-    string ChainId = 1;
-    string ChainName = 2;
+    string Id = 1;
+    string Name = 2;
     google.protobuf.Timestamp GenesisTime = 3;
     int64 Height = 4;
 }

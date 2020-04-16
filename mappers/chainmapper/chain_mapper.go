@@ -13,8 +13,8 @@ func ToPb(doc api.Document) (*chainpb.Chain, error) {
 	}
 
 	return &chainpb.Chain{
-		ChainId:     doc.Hash().String(),
-		ChainName:   doc.ChainID,
+		Id:     doc.Hash().String(),
+		Name:   doc.ChainID,
 		GenesisTime: time,
 		Height:      doc.Height,
 	}, nil
