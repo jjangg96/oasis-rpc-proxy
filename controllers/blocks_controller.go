@@ -6,8 +6,8 @@ import (
 	"strconv"
 
 	"github.com/figment-networks/oasis-rpc-proxy/connections"
-	"github.com/figment-networks/oasis-rpc-proxy/log"
 	"github.com/figment-networks/oasis-rpc-proxy/utils"
+	"github.com/figment-networks/oasis-rpc-proxy/utils/log"
 	"github.com/gin-gonic/gin"
 	"github.com/oasislabs/oasis-core/go/common/cbor"
 	"github.com/oasislabs/oasis-core/go/consensus/api"

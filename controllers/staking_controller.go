@@ -2,8 +2,8 @@ package controllers
 
 import (
 	"github.com/figment-networks/oasis-rpc-proxy/connections"
-	"github.com/figment-networks/oasis-rpc-proxy/log"
 	"github.com/figment-networks/oasis-rpc-proxy/utils"
+	"github.com/figment-networks/oasis-rpc-proxy/utils/log"
 	"github.com/gin-gonic/gin"
 	"github.com/oasislabs/oasis-core/go/common/crypto/signature"
 	"github.com/oasislabs/oasis-core/go/common/quantity"

@@ -3,7 +3,7 @@ package app
 import (
 	"fmt"
 	"github.com/figment-networks/oasis-rpc-proxy/config"
-	"github.com/figment-networks/oasis-rpc-proxy/log"
+	"github.com/figment-networks/oasis-rpc-proxy/utils/log"
 	"github.com/gin-gonic/gin"
 	genesisFile "github.com/oasislabs/oasis-core/go/genesis/file"
 )
@@ -24,7 +24,7 @@ func StartApp() {
 		panic(err)
 	}
 
-	port := config.GetAppPort()
+	port := config.AppPort()
 	log.Info(fmt.Sprintf("Starting server at port %s...", port))
 	if err := router.Run(fmt.Sprintf(":%s", port)); err != nil {
 		panic(err)

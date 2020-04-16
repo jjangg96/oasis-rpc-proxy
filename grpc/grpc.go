@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"github.com/figment-networks/oasis-rpc-proxy/config"
 	"github.com/figment-networks/oasis-rpc-proxy/grpc/block/blockpb"
 	"github.com/figment-networks/oasis-rpc-proxy/grpc/block/blockserver"
 	"github.com/figment-networks/oasis-rpc-proxy/grpc/chain/chainpb"
@@ -12,7 +13,7 @@ import (
 	"github.com/figment-networks/oasis-rpc-proxy/grpc/transaction/transactionserver"
 	"github.com/figment-networks/oasis-rpc-proxy/grpc/validator/validatorpb"
 	"github.com/figment-networks/oasis-rpc-proxy/grpc/validator/validatorserver"
-	"github.com/figment-networks/oasis-rpc-proxy/log"
+	"github.com/figment-networks/oasis-rpc-proxy/utils/log"
 	"github.com/oasislabs/oasis-core/go/genesis/api"
 	genesisFile "github.com/oasislabs/oasis-core/go/genesis/file"
 	"google.golang.org/grpc"
@@ -49,7 +50,9 @@ func main() {
 }
 
 func initGenesis() *api.Document {
-	genesis, err := genesisFile.NewFileProvider("genesis.json")
+	log.Debug(fmt.Sprintf("genesis file path: %s", config.GenesisFilePath()))
+
+	genesis, err := genesisFile.NewFileProvider(config.GenesisFilePath())
 	if err != nil {
 		log.Error("failed to load genesis file", err)
 		panic(err)

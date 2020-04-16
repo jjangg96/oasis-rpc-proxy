@@ -4,8 +4,8 @@ import (
 	"context"
 	"github.com/figment-networks/oasis-rpc-proxy/connections"
 	"github.com/figment-networks/oasis-rpc-proxy/grpc/transaction/transactionpb"
-	"github.com/figment-networks/oasis-rpc-proxy/log"
 	"github.com/figment-networks/oasis-rpc-proxy/mappers/transactionmapper"
+	"github.com/figment-networks/oasis-rpc-proxy/utils/log"
 	"github.com/oasislabs/oasis-core/go/consensus/api"
 )
 

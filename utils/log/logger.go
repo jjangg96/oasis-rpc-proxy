@@ -13,7 +13,7 @@ var (
 )
 
 func init() {
-	level, err := parseLevel(config.LogLevel)
+	level, err := parseLevel(config.LogLevel())
 	if err != nil {
 		level = zap.DebugLevel
 	}

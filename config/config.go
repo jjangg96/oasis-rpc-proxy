@@ -3,30 +3,47 @@ package config
 import "os"
 
 const (
-	oasisSocketVariable = "OASIS_SOCKET"
-	LogLevel            = "info"
-	goEnvironment       = "GO_ENVIRONMENT"
-	production          = "production"
-	appPortVariable     = "PORT"
+	oasisSocketVariable     = "OASIS_SOCKET"
+	genesisFilePathVariable = "GENESIS_FILE_PATH"
+	goEnvironmentVariable   = "GO_ENVIRONMENT"
+	logLevelVariable        = "LOG_LEVEL"
+	appPortVariable         = "PORT"
+
+	production = "production"
 )
 
 var (
-	oasisSocket = os.Getenv(oasisSocketVariable)
-	appPort     = "8080"
+	oasisSocket     = os.Getenv(oasisSocketVariable)
+	appPort         = "8080"
+	genesisFilePath = "genesis.json"
+	logLevel        = "info"
 )
 
-func GetOasisSocket() string {
+func OasisSocket() string {
 	return oasisSocket
 }
 
-func GetAppPort () string {
+func AppPort() string {
 	if port := os.Getenv(appPortVariable); port != "" {
 		return port
 	}
-
 	return appPort
 }
 
+func GenesisFilePath() string {
+	if filePath := os.Getenv(genesisFilePathVariable); filePath != "" {
+		return filePath
+	}
+	return genesisFilePath
+}
+
+func LogLevel() string {
+	if level := os.Getenv(logLevelVariable); level != "" {
+		return level
+	}
+	return logLevel
+}
+
 func IsProduction() bool {
-	return os.Getenv(goEnvironment) == production
+	return os.Getenv(goEnvironmentVariable) == production
 }
