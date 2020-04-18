@@ -42,7 +42,6 @@ func ToPb(rawAccount api.Account) *statepb.Account {
 		General: &statepb.GeneralAccount{
 			Balance:            rawAccount.General.Balance.ToBigInt().Bytes(),
 			Nonce:              rawAccount.General.Nonce,
-			TransfersNotBefore: uint64(rawAccount.General.TransfersNotBefore),
 		},
 		Escrow: &statepb.EscrowAccount{
 			Active: &statepb.SharePool{

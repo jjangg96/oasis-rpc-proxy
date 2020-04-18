@@ -21,7 +21,7 @@ require (
 	github.com/leodido/go-urn v1.2.0 // indirect
 	github.com/mattn/go-isatty v0.0.12 // indirect
 	github.com/oasislabs/ed25519 v0.0.0-20200302143042-29f6767a7c3e // indirect
-	github.com/oasislabs/oasis-core/go v0.0.0-20200304114707-807935769a93
+	github.com/oasislabs/oasis-core/go v0.0.0-20200416133018-d855e35c169c
 	github.com/pelletier/go-toml v1.6.0 // indirect
 	github.com/prometheus/client_golang v1.5.0 // indirect
 	github.com/prometheus/procfs v0.0.10 // indirect
@@ -41,7 +41,7 @@ require (
 	golang.org/x/sys v0.0.0-20200302150141-5c8b2ff67527 // indirect
 	golang.org/x/tools v0.0.0-20200305140159-d7d444866696 // indirect
 	google.golang.org/genproto v0.0.0-20200305110556-506484158171 // indirect
-	google.golang.org/grpc v1.27.1
+	google.golang.org/grpc v1.28.1
 	gopkg.in/go-playground/validator.v9 v9.31.0 // indirect
 	gopkg.in/ini.v1 v1.52.0 // indirect
 	gopkg.in/yaml.v2 v2.2.8 // indirect

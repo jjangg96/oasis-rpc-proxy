@@ -38,7 +38,7 @@ func ToPb(rawBlock api.Block) (*blockpb.Block, error) {
 	for _, vote := range blockMeta.LastCommit.Precommits {
 		// it has nil value when validator has not voted meaning that it was most likely offline
 		if vote == nil {
-			votes = append(votes, nil)
+			votes = append(votes, &blockpb.Vote{})
 		} else {
 			votes = append(votes, &blockpb.Vote{
 				Type:                 fmt.Sprintf("%d", vote.Type),

@@ -89,17 +89,19 @@ message StakingParameters {
     // proposer $P$. The ratio of this split are controlled by `FeeSplitVote` and `FeeSplitPropose`.
     // Portions corresponding to validators that don't sign the block go to the common pool.
 
-    // FeeSplitVote is the proportion of block fee portions that go to the validator that signs.
-    bytes FeeSplitVote = 13;
-    // FeeSplitPropose is the proportion of block fee portions that go to the proposer.
-    bytes FeeSplitPropose = 14;
+    // FeeSplitWeightPropose is the proportion of block fee portions that go to the proposer.
+    bytes FeeSplitWeightPropose = 13;
+    // FeeSplitWeightVote is the proportion of block fee portions that go to the validator that votes.
+    bytes FeeSplitWeightVote = 14;
+    // FeeSplitWeightNextPropose is the proportion of block fee portions that go to the next block's proposer.
+    bytes FeeSplitWeightNextPropose = 15;
 
     // RewardFactorEpochSigned is the factor for a reward distributed per epoch to
     // entities that have signed at least a threshold fraction of the blocks.
-    bytes RewardFactorEpochSigned = 15;
+    bytes RewardFactorEpochSigned = 16;
     // RewardFactorBlockProposed is the factor for a reward distributed per block
     // to the entity that proposed the block.
-    bytes RewardFactorBlockProposed = 16;
+    bytes RewardFactorBlockProposed = 17;
 }
 
 message Staking {
