@@ -1,22 +1,30 @@
 # oasis-rpc-proxy
 
-Gin-based proxy server over Oasis gRPC.
+### Description
+gRPC proxy over Oasis gRPC. Currently the only way to connect to Oasis node is using unix socket.
+This proxy is responsible for exposing Oasis node's data to the outside work using gRPC. 
+It also serves as a anti-corruption layer which is responsible for converting raw Oasis data to 
+the format understood by oasishub-indexer 
 
-## 1. Available endpoints
+### Available gRPC Services
 
-* _/block/:height_ - get block meta
-* _/transactions/:height_ - get transactions at given height
-* _/validators/:height_ - get validators at given height
-* _/staking/:height/total_supply_ - get total supply at given height
-* _/staking/:height/accounts_ - get accounts at given height
-* _/staking/:height/state_to_genesis_ - get state to genesis at given height
-* _/staking/:height/accounts/:account_address_ - get account details at given height for give public key
-* _/staking/:height/debonding_delegators/:account_address_ - get debonding delegators for give account public key
-* _/staking/:height/threshold/:kind_ - get threshold for given height and type
+* _ChainService@GetCurrent_ - get current chain information
+* _BlockService@GetByHeight_ - get block data by height
+* _StateService@GetByHeight_ - get state data by height
+* _ValidatorService@GetByHeight_ - get validators data by height
+* _TransactionsService@GetByHeight_ - get transactions data by height
 
-## 2 Environmental variables
+### Environmental variables
 
 * APP_PORT - What port to use for API
-* GIN_MODE - set this to release on production
 * GO_ENVIRONMENT - set go environment (production | development)
 * OASIS_SOCKET - absolute path to oasis node socket
+* GENESIS_FILE_PATH - absolute path to genesis.json (It is needed for decrypting transactions)
+
+### Running the project
+
+To run the project use:
+
+```shell script
+go run main.go
+```
