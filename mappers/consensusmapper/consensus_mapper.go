@@ -19,10 +19,11 @@ func ToPb(rawConsensus genesis.Genesis) *statepb.Consensus {
 				Seconds: int64(rawConsensus.Parameters.EmptyBlockInterval.Seconds()),
 				Nanos:   int32(rawConsensus.Parameters.EmptyBlockInterval.Nanoseconds()),
 			},
-			MaxTxSize:      rawConsensus.Parameters.MaxTxSize,
-			MaxBlockSize:   rawConsensus.Parameters.MaxBlockSize,
-			MaxBlockGas:    uint64(rawConsensus.Parameters.MaxBlockGas),
-			MaxEvidenceAge: rawConsensus.Parameters.MaxEvidenceAge,
+			MaxTxSize:            rawConsensus.Parameters.MaxTxSize,
+			MaxBlockSize:         rawConsensus.Parameters.MaxBlockSize,
+			MaxBlockGas:          uint64(rawConsensus.Parameters.MaxBlockGas),
+			MaxEvidenceAgeBlocks: rawConsensus.Parameters.MaxEvidenceAgeBlocks,
+			MaxEvidenceAgeTime:   rawConsensus.Parameters.MaxEvidenceAgeTime.String(),
 		},
 	}
 }

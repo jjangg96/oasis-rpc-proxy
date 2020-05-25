@@ -223,7 +223,8 @@ message ConsensusParams {
     uint64 MaxTxSize = 4;
     uint64 MaxBlockSize = 5;
     uint64 MaxBlockGas = 6;
-    uint64 MaxEvidenceAge = 7;
+    uint64 MaxEvidenceAgeBlocks = 7;
+    string MaxEvidenceAgeTime = 8;
 }
 
 message Consensus {

@@ -5,6 +5,7 @@ import (
 	"errors"
 	"fmt"
 	"github.com/figment-networks/oasis-rpc-proxy/grpc/transaction/transactionpb"
+	"github.com/figment-networks/oasis-rpc-proxy/utils/log"
 	"github.com/oasislabs/oasis-core/go/common/cbor"
 	"github.com/oasislabs/oasis-core/go/consensus/api/transaction"
 	"reflect"
@@ -20,15 +21,18 @@ func ToPb(rawTx []byte) *transactionpb.Transaction {
 
 	sigTx, err := ToSignedTransaction(rawTx, stx, &t)
 	if err != nil {
+		log.Error("error getting signed transaction", err)
 		return &t
 	}
 
 	tx, err := ToTransaction(sigTx, stx, &t)
 	if err != nil {
+		log.Error("error getting transaction", err)
 		return &t
 	}
 
 	if err := sanityCheck(tx, stx, &t); err != nil {
+		log.Error("error during sanity check", err)
 		return &t
 	}
 

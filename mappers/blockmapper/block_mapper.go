@@ -2,7 +2,6 @@ package blockmapper
 
 import (
 	"encoding/base64"
-	"fmt"
 	"github.com/figment-networks/oasis-rpc-proxy/grpc/block/blockpb"
 	"github.com/golang/protobuf/ptypes"
 	"github.com/oasislabs/oasis-core/go/common/cbor"
@@ -35,29 +34,23 @@ func ToPb(rawBlock api.Block) (*blockpb.Block, error) {
 
 	// Votes
 	var votes []*blockpb.Vote
-	for _, vote := range blockMeta.LastCommit.Precommits {
+	for i, vote := range blockMeta.LastCommit.Signatures {
 		// it has nil value when validator has not voted meaning that it was most likely offline
-		if vote == nil {
-			votes = append(votes, &blockpb.Vote{})
-		} else {
-			votes = append(votes, &blockpb.Vote{
-				Type:                 fmt.Sprintf("%d", vote.Type),
-				ValidatorAddress:     vote.ValidatorAddress.String(),
-				ValidatorIndex:       int64(vote.ValidatorIndex),
-				Signature:            base64.StdEncoding.EncodeToString(vote.Signature),
-			})
-		}
+		votes = append(votes, &blockpb.Vote{
+			BlockIdFlag:      int64(vote.BlockIDFlag),
+			ValidatorAddress: vote.ValidatorAddress.String(),
+			ValidatorIndex:   int64(i),
+			Signature:        base64.StdEncoding.EncodeToString(vote.Signature),
+		})
 	}
 
 	return &blockpb.Block{
 		Header: &blockpb.Header{
-			Version: version,
-			ChainId:  blockMeta.Header.ChainID,
-			Height:   blockMeta.Header.Height,
-			Time:     time,
-			NumTxs:   blockMeta.Header.NumTxs,
-			TotalTxs: blockMeta.Header.TotalTxs,
-			LastBlockId: lastBlockId,
+			Version:            version,
+			ChainId:            blockMeta.Header.ChainID,
+			Height:             blockMeta.Header.Height,
+			Time:               time,
+			LastBlockId:        lastBlockId,
 			LastCommitHash:     blockMeta.Header.LastCommitHash.String(),
 			DataHash:           blockMeta.Header.DataHash.String(),
 			ValidatorsHash:     blockMeta.Header.ValidatorsHash.String(),
@@ -69,11 +62,11 @@ func ToPb(rawBlock api.Block) (*blockpb.Block, error) {
 			ProposerAddress:    blockMeta.Header.ProposerAddress.String(),
 		},
 		LastCommit: &blockpb.Commit{
-			BlockId:              lastBlockId,
-			Height:               blockMeta.LastCommit.Height(),
-			Round:                int64(blockMeta.LastCommit.Round()),
-			Hash:                 blockMeta.LastCommit.Hash().String(),
-			Votes:                votes,
+			BlockId: lastBlockId,
+			Height:  blockMeta.LastCommit.Height,
+			Round:   int64(blockMeta.LastCommit.Round),
+			Hash:    blockMeta.LastCommit.Hash().String(),
+			Votes:   votes,
 		},
 	}, nil
 }

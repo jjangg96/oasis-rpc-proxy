@@ -6,6 +6,10 @@ This proxy is responsible for exposing Oasis node's data to the outside work usi
 It also serves as a anti-corruption layer which is responsible for converting raw Oasis data to 
 the format understood by oasishub-indexer 
 
+### Oasis Core version
+```shell script
+20.6
+```
 ### Available gRPC Services
 
 * _ChainService@GetCurrent_ - get current chain information
