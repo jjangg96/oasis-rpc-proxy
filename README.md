@@ -21,10 +21,15 @@ the format understood by the oasishub-indexer
 
 ### Environmental variables
 
-* `APP_PORT` - What port to use for API
-* `GO_ENVIRONMENT` - set go environment (production | development)
+* `APP_ENV` - application environment (development | production) 
+* `SERVER_ADDR` - address to use for API
+* `SERVER_PORT` - port to use for API
 * `OASIS_SOCKET` - absolute path to oasis node socket
 * `GENESIS_FILE_PATH` - absolute path to genesis.json (It is needed for decrypting transactions)
+* `LOG_LEVEL` - level of log
+* `LOG_OUTPUT` - log output (ie. stdout or /tmp/logs.json)
+* `ROLLBAR_ACCESS_TOKEN` - Rollbar access token for error reporting
+
 
 ### Running the project
 

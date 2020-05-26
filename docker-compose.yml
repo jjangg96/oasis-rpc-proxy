@@ -1,0 +1,24 @@
+version: "3.7"
+
+networks:
+  internal:
+    name: internal
+    driver: bridge
+
+services:
+  server:
+    build: .
+    command: -cmd=grpc
+    networks:
+      - internal
+    ports:
+      - "50051:50051"
+    environment:
+      APP_ENV: development
+      OASIS_SOCKET: localhost:50051
+      SERVER_PORT: 50051
+      SERVER_ADDRESS: 0.0.0.0
+      GENESIS_FILE_PATH: genesis.json
+      LOG_LEVEL: debug
+      LOG_OUTPUT: stdout
+      ROLLBAR_ACCESS_TOKEN:
