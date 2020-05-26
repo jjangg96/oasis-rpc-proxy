@@ -1,5 +1,5 @@
 {
-  "oasis_socket": "internal.sock",
+  "oasis_socket": "unix:/home/oasis/internal.sock",
   "server_port": 50051,
   "server_address": "localhost",
   "genesis_file_path": "genesis.json",
