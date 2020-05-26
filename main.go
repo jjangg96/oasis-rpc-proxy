@@ -1,7 +1,9 @@
 package main
 
-import "github.com/figment-networks/oasis-rpc-proxy/app"
+import (
+	"github.com/figment-networks/oasis-rpc-proxy/cli"
+)
 
 func main() {
-	app.StartApp()
+	cli.Run()
 }

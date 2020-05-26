@@ -2,43 +2,39 @@ package blockserver
 
 import (
 	"context"
-	"github.com/figment-networks/oasis-rpc-proxy/connections"
+	"github.com/figment-networks/oasis-rpc-proxy/client"
 	"github.com/figment-networks/oasis-rpc-proxy/grpc/block/blockpb"
 	"github.com/figment-networks/oasis-rpc-proxy/mapper"
-	"github.com/figment-networks/oasis-rpc-proxy/utils/log"
-	"github.com/oasislabs/oasis-core/go/consensus/api"
+	"github.com/figment-networks/oasis-rpc-proxy/utils/logger"
 )
 
 type Server interface {
 	GetByHeight(context.Context, *blockpb.GetByHeightRequest) (*blockpb.GetByHeightResponse, error)
 }
 
-type server struct{}
-
-func New() Server {
-	return &server{}
+type server struct {
+	client *client.Client
 }
 
-func (*server) GetByHeight(ctx context.Context, req *blockpb.GetByHeightRequest) (*blockpb.GetByHeightResponse, error) {
-	conn, err := connections.GetOasisConn()
-	if err != nil {
-		log.Error("error connecting to gRPC server", err)
-		return nil, err
+func New(c *client.Client) Server {
+	return &server{
+		client: c,
 	}
-	defer conn.Close()
+}
 
-	client := api.NewConsensusClient(conn)
-
-	rawBlock, err := client.GetBlock(ctx, req.Height)
+func (s *server) GetByHeight(ctx context.Context, req *blockpb.GetByHeightRequest) (*blockpb.GetByHeightResponse, error) {
+	logger.Info("Getting block by height")
+	rawBlock, err := s.client.Consensus.GetBlockByHeight(ctx, req.Height)
 	if err != nil {
-		log.Error("could not get block", err)
 		return nil, err
 	}
 
+	logger.Info("Done")
 	block, err := mapper.BlockToPb(*rawBlock)
 	if err != nil {
 		return nil, err
 	}
 
+	logger.Info("Mapped")
 	return &blockpb.GetByHeightResponse{Block: block}, nil
 }

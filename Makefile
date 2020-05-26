@@ -1,5 +1,11 @@
-.PHONY: grpc-go
+.PHONY: grpc-go build test docker docker-build docker-push
 
+GIT_COMMIT   ?= $(shell git rev-parse HEAD)
+GO_VERSION   ?= $(shell go version | awk {'print $$3'})
+DOCKER_IMAGE ?= figmentnetworks/oasis-rpc-proxy
+DOCKER_TAG   ?= latest
+
+# Generate proto buffs
 grpc-go:
 	@protoc -I ./ grpc/account/accountpb/account.proto --go_out=plugins=grpc:.
 	@mv github.com/figment-networks/oasis-rpc-proxy/grpc/account/accountpb/account.pb.go grpc/account/accountpb/account.pb.go
@@ -14,3 +20,31 @@ grpc-go:
 	@protoc -I ./ grpc/validator/validatorpb/validator.proto --go_out=plugins=grpc:.
 	@mv github.com/figment-networks/oasis-rpc-proxy/grpc/validator/validatorpb/validator.pb.go grpc/validator/validatorpb/validator.pb.go
 	@rm -rvf github.com
+
+# Build the binary
+build:
+	go build \
+		-ldflags "\
+			-X github.com/figment-networks/oasis-rpc-proxy/cli.gitCommit=${GIT_COMMIT} \
+			-X github.com/figment-networks/oasis-rpc-proxy/cli.goVersion=${GO_VERSION}"
+
+# Run tests
+test:
+	go test -race -cover ./...
+
+# Build a local docker image for testing
+docker:
+	docker build -t oasis-rpc-proxy -f Dockerfile .
+
+# Build a public docker image
+docker-build:
+	docker build \
+		-t ${DOCKER_IMAGE}:${DOCKER_TAG} \
+		-f Dockerfile \
+		.
+
+# Push docker images
+docker-push:
+	docker tag ${DOCKER_IMAGE}:${DOCKER_TAG} ${DOCKER_IMAGE}:latest
+	docker push ${DOCKER_IMAGE}:${DOCKER_TAG}
+	docker push ${DOCKER_IMAGE}:latest

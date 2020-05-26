@@ -1,0 +1,8 @@
+{
+  "oasis_socket": "internal.sock",
+  "server_port": 50051,
+  "server_address": "localhost",
+  "genesis_file_path": "genesis.json",
+  "log_level": "info",
+  "log_output": "stdout"
+}

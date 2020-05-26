@@ -7,7 +7,7 @@ import (
 	tmtypes "github.com/tendermint/tendermint/types"
 )
 
-func ChainToPb(doc api.Document) (*chainpb.Chain, error) {
+func ChainToPb(doc *api.Document) (*chainpb.Chain, error) {
 	time, err := ptypes.TimestampProto(doc.Time)
 	if err != nil {
 		return nil, err
