@@ -1,4 +1,4 @@
-package consensusmapper
+package mapper
 
 import (
 	"github.com/figment-networks/oasis-rpc-proxy/grpc/state/statepb"
@@ -6,7 +6,7 @@ import (
 	"github.com/oasislabs/oasis-core/go/consensus/genesis"
 )
 
-func ToPb(rawConsensus genesis.Genesis) *statepb.Consensus {
+func ConsensusToPb(rawConsensus genesis.Genesis) *statepb.Consensus {
 	return &statepb.Consensus{
 		Backend: rawConsensus.Backend,
 		Params: &statepb.ConsensusParams{

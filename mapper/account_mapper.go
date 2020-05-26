@@ -1,24 +1,24 @@
-package accountmapper
+package mapper
 
 import (
-	"github.com/figment-networks/oasis-rpc-proxy/grpc/state/statepb"
+	"github.com/figment-networks/oasis-rpc-proxy/grpc/account/accountpb"
 	"github.com/oasislabs/oasis-core/go/staking/api"
 )
 
-func ToPb(rawAccount api.Account) *statepb.Account {
+func AccountToPb(rawAccount api.Account) *accountpb.Account {
 	// Rates
-	var rates []*statepb.CommissionRateStep
+	var rates []*accountpb.CommissionRateStep
 	for _, rate := range rawAccount.Escrow.CommissionSchedule.Rates {
-		rates = append(rates, &statepb.CommissionRateStep{
+		rates = append(rates, &accountpb.CommissionRateStep{
 			Start: uint64(rate.Start),
 			Rate:  rate.Rate.ToBigInt().Bytes(),
 		})
 	}
 
 	// Bounds
-	var bounds []*statepb.CommissionRateBoundStep
+	var bounds []*accountpb.CommissionRateBoundStep
 	for _, bound := range rawAccount.Escrow.CommissionSchedule.Bounds {
-		bounds = append(bounds, &statepb.CommissionRateBoundStep{
+		bounds = append(bounds, &accountpb.CommissionRateBoundStep{
 			Start:   uint64(bound.Start),
 			RateMin: bound.RateMin.ToBigInt().Bytes(),
 			RateMax: bound.RateMax.ToBigInt().Bytes(),
@@ -26,37 +26,37 @@ func ToPb(rawAccount api.Account) *statepb.Account {
 	}
 
 	// Claims
-	claims := map[string]*statepb.ThresholdKinds{}
+	claims := map[string]*accountpb.ThresholdKinds{}
 	for claim, rawKinds := range rawAccount.Escrow.StakeAccumulator.Claims {
 		var kinds []int32
 		for _, kind := range rawKinds {
 			kinds = append(kinds, int32(kind))
 		}
 
-		claims[string(claim)] = &statepb.ThresholdKinds{
+		claims[string(claim)] = &accountpb.ThresholdKinds{
 			Kinds: kinds,
 		}
 	}
 
-	return &statepb.Account{
-		General: &statepb.GeneralAccount{
+	return &accountpb.Account{
+		General: &accountpb.GeneralAccount{
 			Balance:            rawAccount.General.Balance.ToBigInt().Bytes(),
 			Nonce:              rawAccount.General.Nonce,
 		},
-		Escrow: &statepb.EscrowAccount{
-			Active: &statepb.SharePool{
+		Escrow: &accountpb.EscrowAccount{
+			Active: &accountpb.SharePool{
 				Balance:     rawAccount.Escrow.Active.Balance.ToBigInt().Bytes(),
 				TotalShares: rawAccount.Escrow.Active.TotalShares.ToBigInt().Bytes(),
 			},
-			Debonding: &statepb.SharePool{
+			Debonding: &accountpb.SharePool{
 				Balance:     rawAccount.Escrow.Debonding.Balance.ToBigInt().Bytes(),
 				TotalShares: rawAccount.Escrow.Debonding.TotalShares.ToBigInt().Bytes(),
 			},
-			CommissionSchedule: &statepb.CommissionSchedule{
+			CommissionSchedule: &accountpb.CommissionSchedule{
 				Rates:  rates,
 				Bounds: bounds,
 			},
-			StakeAccumulator: &statepb.StakeAccumulator{
+			StakeAccumulator: &accountpb.StakeAccumulator{
 				Claims: claims,
 			},
 		},

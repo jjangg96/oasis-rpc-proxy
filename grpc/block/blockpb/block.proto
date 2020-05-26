@@ -1,7 +1,7 @@
 syntax = "proto3";
 
 package block;
-option go_package = "blockpb";
+option go_package = "github.com/figment-networks/oasis-rpc-proxy/grpc/block/blockpb";
 
 import "google/protobuf/timestamp.proto";
 

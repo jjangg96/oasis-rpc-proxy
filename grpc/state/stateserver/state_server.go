@@ -4,7 +4,7 @@ import (
 	"context"
 	"github.com/figment-networks/oasis-rpc-proxy/connections"
 	"github.com/figment-networks/oasis-rpc-proxy/grpc/state/statepb"
-	"github.com/figment-networks/oasis-rpc-proxy/mappers/statemapper"
+	"github.com/figment-networks/oasis-rpc-proxy/mapper"
 	"github.com/figment-networks/oasis-rpc-proxy/utils/log"
 	consensusApi "github.com/oasislabs/oasis-core/go/consensus/api"
 )
@@ -35,7 +35,7 @@ func (*server) GetByHeight(ctx context.Context, req *statepb.GetByHeightRequest)
 		return nil, err
 	}
 
-	state, err := statemapper.ToPb(rawState)
+	state, err := mapper.StateToPb(rawState)
 	if err != nil {
 		return nil, err
 	}

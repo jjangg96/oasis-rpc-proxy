@@ -3,7 +3,7 @@ package chainserver
 import (
 	"context"
 	"github.com/figment-networks/oasis-rpc-proxy/grpc/chain/chainpb"
-	"github.com/figment-networks/oasis-rpc-proxy/mappers/chainmapper"
+	"github.com/figment-networks/oasis-rpc-proxy/mapper"
 	"github.com/oasislabs/oasis-core/go/genesis/api"
 )
 
@@ -22,7 +22,7 @@ func New(doc api.Document) Server {
 }
 
 func (s *server) GetCurrent(ctx context.Context, req *chainpb.GetCurrentRequest) (*chainpb.GetCurrentResponse, error) {
-	chain, err := chainmapper.ToPb(s.doc)
+	chain, err := mapper.ChainToPb(s.doc)
 	if err != nil {
 		return nil, err
 	}

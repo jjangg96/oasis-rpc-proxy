@@ -1,4 +1,4 @@
-package blockmapper
+package mapper
 
 import (
 	"encoding/base64"
@@ -9,7 +9,7 @@ import (
 	tmApi "github.com/oasislabs/oasis-core/go/consensus/tendermint/api"
 )
 
-func ToPb(rawBlock api.Block) (*blockpb.Block, error) {
+func BlockToPb(rawBlock api.Block) (*blockpb.Block, error) {
 	var blockMeta tmApi.BlockMeta
 	if err := cbor.Unmarshal(rawBlock.Meta, &blockMeta); err != nil {
 		return nil, err

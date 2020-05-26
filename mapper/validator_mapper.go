@@ -1,4 +1,4 @@
-package validatormapper
+package mapper
 
 import (
 	"github.com/figment-networks/oasis-rpc-proxy/grpc/validator/validatorpb"
@@ -7,7 +7,7 @@ import (
 	"github.com/oasislabs/oasis-core/go/scheduler/api"
 )
 
-func ToPb(validator *api.Validator, node *node.Node) *validatorpb.Validator {
+func ValidatorToPb(validator *api.Validator, node *node.Node) *validatorpb.Validator {
 	cID := node.Consensus.ID
 	tmAddr := tmcrypto.PublicKeyToTendermint(&cID).Address().String()
 

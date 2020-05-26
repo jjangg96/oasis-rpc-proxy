@@ -3,6 +3,8 @@ package app
 import (
 	"fmt"
 	"github.com/figment-networks/oasis-rpc-proxy/config"
+	"github.com/figment-networks/oasis-rpc-proxy/grpc/account/accountpb"
+	"github.com/figment-networks/oasis-rpc-proxy/grpc/account/accountserver"
 	"github.com/figment-networks/oasis-rpc-proxy/grpc/block/blockpb"
 	"github.com/figment-networks/oasis-rpc-proxy/grpc/block/blockserver"
 	"github.com/figment-networks/oasis-rpc-proxy/grpc/chain/chainpb"
@@ -35,6 +37,7 @@ func StartApp() {
 
 	s := grpc.NewServer()
 	chainpb.RegisterChainServiceServer(s, chainserver.New(*doc))
+	accountpb.RegisterAccountServiceServer(s, accountserver.New())
 	blockpb.RegisterBlockServiceServer(s, blockserver.New())
 	statepb.RegisterStateServiceServer(s, stateserver.New())
 	validatorpb.RegisterValidatorServiceServer(s, validatorserver.New())

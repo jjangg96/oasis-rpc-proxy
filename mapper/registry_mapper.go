@@ -1,11 +1,11 @@
-package registrymapper
+package mapper
 
 import (
 	"github.com/figment-networks/oasis-rpc-proxy/grpc/state/statepb"
 	"github.com/oasislabs/oasis-core/go/registry/api"
 )
 
-func ToPb(rawRegistry api.Genesis) *statepb.Registry {
+func RegistryToPb(rawRegistry api.Genesis) *statepb.Registry {
 	// Gas Costs
 	gasCosts := map[string]uint64{}
 	for op, gas := range rawRegistry.Parameters.GasCosts {

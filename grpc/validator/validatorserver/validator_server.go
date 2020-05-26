@@ -4,7 +4,7 @@ import (
 	"context"
 	"github.com/figment-networks/oasis-rpc-proxy/connections"
 	"github.com/figment-networks/oasis-rpc-proxy/grpc/validator/validatorpb"
-	"github.com/figment-networks/oasis-rpc-proxy/mappers/validatormapper"
+	"github.com/figment-networks/oasis-rpc-proxy/mapper"
 	"github.com/figment-networks/oasis-rpc-proxy/utils/log"
 	registryApi "github.com/oasislabs/oasis-core/go/registry/api"
 	"github.com/oasislabs/oasis-core/go/scheduler/api"
@@ -47,7 +47,7 @@ func (*server) GetByHeight(ctx context.Context, req *validatorpb.GetByHeightRequ
 			log.Error("could not get node details", rErr)
 		}
 
-		validators = append(validators, validatormapper.ToPb(rawValidator, node))
+		validators = append(validators, mapper.ValidatorToPb(rawValidator, node))
 	}
 	return &validatorpb.GetByHeightResponse{Validators: validators}, nil
 }

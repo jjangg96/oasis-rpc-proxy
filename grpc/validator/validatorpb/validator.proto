@@ -1,7 +1,7 @@
 syntax = "proto3";
 
 package validator;
-option go_package = "validatorpb";
+option go_package = "github.com/figment-networks/oasis-rpc-proxy/grpc/validator/validatorpb";
 
 message CommitteeAddress {
     // Certificate is the certificate for establishing TLS connections.

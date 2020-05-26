@@ -1,10 +1,12 @@
 syntax = "proto3";
 
 package state;
-option go_package = "statepb";
+option go_package = "github.com/figment-networks/oasis-rpc-proxy/grpc/state/statepb";
 
 import "google/protobuf/timestamp.proto";
 import "google/protobuf/duration.proto";
+
+import "grpc/account/accountpb/account.proto";
 
 message RegistryParameters {
     // DebugAllowUnroutableAddresses is true iff node registration should
@@ -108,7 +110,7 @@ message Staking {
     bytes total_supply = 1;
     bytes common_pool = 2;
     StakingParameters parameters = 3;
-    map<string, Account> ledger = 4;
+    map<string, account.Account> ledger = 4;
     map<string, DelegationEntry> delegations = 5;
     map<string, DebondingDelegationEntry> debonding_delegations = 6;
 }
@@ -132,56 +134,6 @@ message DebondingDelegationInnerEntry {
 
 message DebondingDelegationEntry {
     map<string, DebondingDelegationInnerEntry> entries = 1;
-}
-
-message GeneralAccount {
-    bytes Balance = 1;
-    uint64 Nonce = 2;
-    uint64 TransfersNotBefore = 3;
-}
-
-message SharePool {
-    bytes Balance = 1;
-    bytes TotalShares = 2;
-}
-
-message CommissionRateStep {
-    uint64 Start = 1;
-    bytes Rate = 2;
-}
-
-message CommissionRateBoundStep {
-    uint64 Start = 1;
-    bytes RateMin = 2;
-    bytes RateMax = 3;
-}
-
-message CommissionSchedule {
-    repeated CommissionRateStep Rates = 1;
-    repeated CommissionRateBoundStep Bounds = 2;
-}
-
-// ThresholdKind is the kind of staking threshold.
-message ThresholdKinds {
-    repeated int32 Kinds = 1;
-}
-
-message StakeAccumulator {
-    // Claims are the stake claims that must be satisfied at any given point. Adding a new claim is
-    // only possible if all of the existing claims plus the new claim is satisfied.
-    map<string, ThresholdKinds> Claims = 1;
-}
-
-message EscrowAccount {
-    SharePool Active = 1;
-    SharePool Debonding = 2;
-    CommissionSchedule CommissionSchedule = 3;
-    StakeAccumulator StakeAccumulator = 4;
-}
-
-message Account {
-    GeneralAccount General = 1;
-    EscrowAccount Escrow = 2;
 }
 
 message SchedulerParams {

@@ -1,4 +1,4 @@
-package transactionmapper
+package mapper
 
 import (
 	"encoding/base64"
@@ -11,7 +11,7 @@ import (
 	"reflect"
 )
 
-func ToPb(rawTx []byte) *transactionpb.Transaction {
+func TransactionToPb(rawTx []byte) *transactionpb.Transaction {
 	stx := base64.StdEncoding.EncodeToString(rawTx)
 	t := transactionpb.Transaction{
 		Success:           false,

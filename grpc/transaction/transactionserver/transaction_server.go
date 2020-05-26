@@ -4,7 +4,7 @@ import (
 	"context"
 	"github.com/figment-networks/oasis-rpc-proxy/connections"
 	"github.com/figment-networks/oasis-rpc-proxy/grpc/transaction/transactionpb"
-	"github.com/figment-networks/oasis-rpc-proxy/mappers/transactionmapper"
+	"github.com/figment-networks/oasis-rpc-proxy/mapper"
 	"github.com/figment-networks/oasis-rpc-proxy/utils/log"
 	"github.com/oasislabs/oasis-core/go/consensus/api"
 )
@@ -37,7 +37,7 @@ func (*server) GetByHeight(ctx context.Context, req *transactionpb.GetByHeightRe
 
 	var transactions []*transactionpb.Transaction
 	for _, rawTx := range rawTxs {
-		transactions = append(transactions, transactionmapper.ToPb(rawTx))
+		transactions = append(transactions, mapper.TransactionToPb(rawTx))
 	}
 	return &transactionpb.GetByHeightResponse{Transactions: transactions}, nil
 }

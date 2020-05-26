@@ -1,12 +1,12 @@
-package stakingmapper
+package mapper
 
 import (
+	"github.com/figment-networks/oasis-rpc-proxy/grpc/account/accountpb"
 	"github.com/figment-networks/oasis-rpc-proxy/grpc/state/statepb"
-	"github.com/figment-networks/oasis-rpc-proxy/mappers/accountmapper"
 	"github.com/oasislabs/oasis-core/go/staking/api"
 )
 
-func ToPb(rawStaking api.Genesis) *statepb.Staking {
+func StakingToPb(rawStaking api.Genesis) *statepb.Staking {
 	// Thresholds
 	thresholds := map[int64][]byte{}
 	for kind, quantity := range rawStaking.Parameters.Thresholds {
@@ -44,9 +44,9 @@ func ToPb(rawStaking api.Genesis) *statepb.Staking {
 	}
 
 	// Ledger
-	ledger := map[string]*statepb.Account{}
+	ledger := map[string]*accountpb.Account{}
 	for key, account := range rawStaking.Ledger {
-		ledger[key.String()] = accountmapper.ToPb(*account)
+		ledger[key.String()] = AccountToPb(*account)
 	}
 
 	// Delegations

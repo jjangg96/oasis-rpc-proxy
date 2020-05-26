@@ -1,0 +1,67 @@
+syntax = "proto3";
+
+package account;
+option go_package = "github.com/figment-networks/oasis-rpc-proxy/grpc/account/accountpb";
+
+message GeneralAccount {
+    bytes Balance = 1;
+    uint64 Nonce = 2;
+    uint64 TransfersNotBefore = 3;
+}
+
+message SharePool {
+    bytes Balance = 1;
+    bytes TotalShares = 2;
+}
+
+message CommissionRateStep {
+    uint64 Start = 1;
+    bytes Rate = 2;
+}
+
+message CommissionRateBoundStep {
+    uint64 Start = 1;
+    bytes RateMin = 2;
+    bytes RateMax = 3;
+}
+
+message CommissionSchedule {
+    repeated CommissionRateStep Rates = 1;
+    repeated CommissionRateBoundStep Bounds = 2;
+}
+
+// ThresholdKind is the kind of staking threshold.
+message ThresholdKinds {
+    repeated int32 Kinds = 1;
+}
+
+message StakeAccumulator {
+    // Claims are the stake claims that must be satisfied at any given point. Adding a new claim is
+    // only possible if all of the existing claims plus the new claim is satisfied.
+    map<string, ThresholdKinds> Claims = 1;
+}
+
+message EscrowAccount {
+    SharePool Active = 1;
+    SharePool Debonding = 2;
+    CommissionSchedule CommissionSchedule = 3;
+    StakeAccumulator StakeAccumulator = 4;
+}
+
+message Account {
+    GeneralAccount General = 1;
+    EscrowAccount Escrow = 2;
+}
+
+message GetByPublicKeyRequest {
+    string public_key = 1;
+    int64 height = 2;
+}
+
+message GetByPublicKeyResponse {
+    Account account = 1;
+}
+
+service AccountService {
+    rpc GetByPublicKey (GetByPublicKeyRequest) returns (GetByPublicKeyResponse) {};
+}
