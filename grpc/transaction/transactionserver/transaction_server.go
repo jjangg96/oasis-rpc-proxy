@@ -2,36 +2,28 @@ package transactionserver
 
 import (
 	"context"
-	"github.com/figment-networks/oasis-rpc-proxy/connections"
+	"github.com/figment-networks/oasis-rpc-proxy/client"
 	"github.com/figment-networks/oasis-rpc-proxy/grpc/transaction/transactionpb"
 	"github.com/figment-networks/oasis-rpc-proxy/mapper"
-	"github.com/figment-networks/oasis-rpc-proxy/utils/log"
-	"github.com/oasislabs/oasis-core/go/consensus/api"
 )
 
 type Server interface {
 	GetByHeight(context.Context, *transactionpb.GetByHeightRequest) (*transactionpb.GetByHeightResponse, error)
 }
 
-type server struct{}
-
-func New() Server {
-	return &server{}
+type server struct {
+	client *client.Client
 }
 
-func (*server) GetByHeight(ctx context.Context, req *transactionpb.GetByHeightRequest) (*transactionpb.GetByHeightResponse, error) {
-	conn, err := connections.GetOasisConn()
-	if err != nil {
-		log.Error("error connecting to gRPC server", err)
-		return nil, err
+func New(c *client.Client) Server {
+	return &server{
+		client: c,
 	}
-	defer conn.Close()
+}
 
-	client := api.NewConsensusClient(conn)
-
-	rawTxs, err := client.GetTransactions(ctx, req.Height)
+func (s *server) GetByHeight(ctx context.Context, req *transactionpb.GetByHeightRequest) (*transactionpb.GetByHeightResponse, error) {
+	rawTxs, err := s.client.Consensus.GetTransactionsByHeight(ctx, req.Height)
 	if err != nil {
-		log.Error("could not get transactions", err)
 		return nil, err
 	}
 

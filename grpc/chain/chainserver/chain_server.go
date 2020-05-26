@@ -12,10 +12,10 @@ type Server interface {
 }
 
 type server struct {
-	doc api.Document
+	doc *api.Document
 }
 
-func New(doc api.Document) Server {
+func New(doc *api.Document) Server {
 	return &server{
 		doc: doc,
 	}
