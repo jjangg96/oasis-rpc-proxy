@@ -27,6 +27,7 @@ type Config struct {
 	LogLevel           string `json:"log_level" envconfig:"LOG_LEVEL"`
 	LogOutput          string `json:"log_output" envconfig:"LOG_OUTPUT"`
 	RollbarAccessToken string `json:"rollbar_access_token" envconfig:"ROLLBAR_ACCESS_TOKEN"`
+	RollbarServerRoot string `json:"rollbar_server_root" envconfig:"ROLLBAR_SERVER_ROOT"`
 }
 
 // Validate returns an error if config is invalid

@@ -22,3 +22,4 @@ services:
       LOG_LEVEL: debug
       LOG_OUTPUT: stdout
       ROLLBAR_ACCESS_TOKEN:
+      ROLLBAR_SERVER_ROOT:

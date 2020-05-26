@@ -17,5 +17,5 @@ func RecoverError() {
 func Init(cfg *config.Config) {
 	rollbar.SetToken(cfg.RollbarAccessToken)
 	rollbar.SetEnvironment(cfg.AppEnv)
-	rollbar.SetServerRoot("github.com/figment-networks/oasishub-indexer")
+	rollbar.SetServerRoot(cfg.RollbarServerRoot)
 }

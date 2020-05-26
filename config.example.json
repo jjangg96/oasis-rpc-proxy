@@ -6,5 +6,6 @@
   "genesis_file_path": "genesis.json",
   "log_level": "info",
   "log_output": "stdout",
-  "rollbar_access_token": ""
+  "rollbar_access_token": "",
+  "rollbar_server_root": ""
 }

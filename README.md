@@ -29,6 +29,7 @@ the format understood by the oasishub-indexer
 * `LOG_LEVEL` - level of log
 * `LOG_OUTPUT` - log output (ie. stdout or /tmp/logs.json)
 * `ROLLBAR_ACCESS_TOKEN` - Rollbar access token for error reporting
+* `ROLLBAR_SERVER_ROOT` - Rollbar server root for error reporting
 
 
 ### Running the project
