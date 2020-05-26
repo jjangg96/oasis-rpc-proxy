@@ -12,9 +12,13 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-      - name: Build project
-        run: |
-          make docker-build
+      - name: Install Go
+          uses: actions/setup-go@v2
+          with:
+            go-version: 1.13
+#      - name: Build Docker image
+#        run: |
+#          make docker-build
       - name: Create Release
         id: create_release
         uses: actions/create-release@v1
@@ -32,6 +36,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./my-artifact.zip
-          asset_name: my-artifact.zip
-          asset_content_type: application/zip
+          asset_path: ./oasis-rpc-proxy
+          asset_name: oasis-rpc-proxy
+          asset_content_type: application/x-mach-binary
