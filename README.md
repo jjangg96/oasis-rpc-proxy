@@ -37,5 +37,5 @@ the format understood by the oasishub-indexer
 To run the project use:
 
 ```shell script
-go run main.go -config path/to/config.json -cmd=grpc
+go run main.go -config path/to/config.json -cmd=server
 ```

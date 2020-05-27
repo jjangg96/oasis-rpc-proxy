@@ -1,4 +1,4 @@
-package chainserver
+package server
 
 import (
 	"context"
@@ -7,21 +7,21 @@ import (
 	"github.com/oasislabs/oasis-core/go/genesis/api"
 )
 
-type Server interface {
+type ChainServer interface {
 	GetCurrent(context.Context, *chainpb.GetCurrentRequest) (*chainpb.GetCurrentResponse, error)
 }
 
-type server struct {
+type chainServer struct {
 	doc *api.Document
 }
 
-func New(doc *api.Document) Server {
-	return &server{
+func NewChainServer(doc *api.Document) ChainServer {
+	return &chainServer{
 		doc: doc,
 	}
 }
 
-func (s *server) GetCurrent(ctx context.Context, req *chainpb.GetCurrentRequest) (*chainpb.GetCurrentResponse, error) {
+func (s *chainServer) GetCurrent(ctx context.Context, req *chainpb.GetCurrentRequest) (*chainpb.GetCurrentResponse, error) {
 	chain, err := mapper.ChainToPb(s.doc)
 	if err != nil {
 		return nil, err

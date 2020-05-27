@@ -1,4 +1,4 @@
-package validatorserver
+package server
 
 import (
 	"context"
@@ -7,21 +7,21 @@ import (
 	"github.com/figment-networks/oasis-rpc-proxy/mapper"
 )
 
-type Server interface {
+type ValidatorServer interface {
 	GetByHeight(context.Context, *validatorpb.GetByHeightRequest) (*validatorpb.GetByHeightResponse, error)
 }
 
-type server struct{
+type validatorServer struct{
 	client *client.Client
 }
 
-func New(c *client.Client) Server {
-	return &server{
+func NewValidatorServer(c *client.Client) ValidatorServer {
+	return &validatorServer{
 		client: c,
 	}
 }
 
-func (s *server) GetByHeight(ctx context.Context, req *validatorpb.GetByHeightRequest) (*validatorpb.GetByHeightResponse, error) {
+func (s *validatorServer) GetByHeight(ctx context.Context, req *validatorpb.GetByHeightRequest) (*validatorpb.GetByHeightResponse, error) {
 	rawValidators, err := s.client.Scheduler.GetValidatorsByHeight(ctx, req.Height)
 	if err != nil {
 		return nil, err

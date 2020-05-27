@@ -2,10 +2,10 @@ package cli
 
 import (
 	"github.com/figment-networks/oasis-rpc-proxy/config"
-	"github.com/figment-networks/oasis-rpc-proxy/grpc"
+	"github.com/figment-networks/oasis-rpc-proxy/server"
 )
 
-func startGrpc(cfg *config.Config) error {
+func startServer(cfg *config.Config) error {
 	doc, err := initGenesis(cfg)
 	if err != nil {
 		return err
@@ -16,7 +16,7 @@ func startGrpc(cfg *config.Config) error {
 	}
 	defer client.Close()
 
-	a := grpc.New(doc, client)
+	a := server.New(doc, client)
 	if err := a.Start(cfg.ServerAddr, cfg.ServerPort); err != nil {
 		return err
 	}

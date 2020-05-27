@@ -1,4 +1,4 @@
-package accountserver
+package server
 
 import (
 	"context"
@@ -7,21 +7,21 @@ import (
 	"github.com/figment-networks/oasis-rpc-proxy/mapper"
 )
 
-type Server interface {
+type AccountServer interface {
 	GetByPublicKey(context.Context, *accountpb.GetByPublicKeyRequest) (*accountpb.GetByPublicKeyResponse, error)
 }
 
-type server struct{
+type accountServer struct{
 	client *client.Client
 }
 
-func New(c *client.Client) Server {
-	return &server{
+func NewAccountServer(c *client.Client) AccountServer {
+	return &accountServer{
 		client: c,
 	}
 }
 
-func (s *server) GetByPublicKey(ctx context.Context, req *accountpb.GetByPublicKeyRequest) (*accountpb.GetByPublicKeyResponse, error) {
+func (s *accountServer) GetByPublicKey(ctx context.Context, req *accountpb.GetByPublicKeyRequest) (*accountpb.GetByPublicKeyResponse, error) {
 	rawAccount, err := s.client.Staking.GetAccountByPublicKey(ctx, req.PublicKey, req.Height)
 	if err != nil {
 		return nil, err

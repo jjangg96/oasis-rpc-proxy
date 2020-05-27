@@ -1,4 +1,4 @@
-package blockserver
+package server
 
 import (
 	"context"
@@ -7,21 +7,21 @@ import (
 	"github.com/figment-networks/oasis-rpc-proxy/mapper"
 )
 
-type Server interface {
+type BlockServer interface {
 	GetByHeight(context.Context, *blockpb.GetByHeightRequest) (*blockpb.GetByHeightResponse, error)
 }
 
-type server struct {
+type blockServer struct {
 	client *client.Client
 }
 
-func New(c *client.Client) Server {
-	return &server{
+func NewBlockServer(c *client.Client) BlockServer {
+	return &blockServer{
 		client: c,
 	}
 }
 
-func (s *server) GetByHeight(ctx context.Context, req *blockpb.GetByHeightRequest) (*blockpb.GetByHeightResponse, error) {
+func (s *blockServer) GetByHeight(ctx context.Context, req *blockpb.GetByHeightRequest) (*blockpb.GetByHeightResponse, error) {
 	rawBlock, err := s.client.Consensus.GetBlockByHeight(ctx, req.Height)
 	if err != nil {
 		return nil, err

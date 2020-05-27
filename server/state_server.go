@@ -1,4 +1,4 @@
-package stateserver
+package server
 
 import (
 	"context"
@@ -7,21 +7,21 @@ import (
 	"github.com/figment-networks/oasis-rpc-proxy/mapper"
 )
 
-type Server interface {
+type StateServer interface {
 	GetByHeight(context.Context, *statepb.GetByHeightRequest) (*statepb.GetByHeightResponse, error)
 }
 
-type server struct{
+type stateServer struct{
 	client *client.Client
 }
 
-func New(c *client.Client) Server {
-	return &server{
+func NewStateServer(c *client.Client) StateServer {
+	return &stateServer{
 		client: c,
 	}
 }
 
-func (s *server) GetByHeight(ctx context.Context, req *statepb.GetByHeightRequest) (*statepb.GetByHeightResponse, error) {
+func (s *stateServer) GetByHeight(ctx context.Context, req *statepb.GetByHeightRequest) (*statepb.GetByHeightResponse, error) {
 	rawState, err := s.client.Consensus.GetStateByHeight(ctx, req.Height)
 	if err != nil {
 		return nil, err

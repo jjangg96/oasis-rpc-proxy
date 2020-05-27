@@ -1,4 +1,4 @@
-package transactionserver
+package server
 
 import (
 	"context"
@@ -7,21 +7,21 @@ import (
 	"github.com/figment-networks/oasis-rpc-proxy/mapper"
 )
 
-type Server interface {
+type TransactionServer interface {
 	GetByHeight(context.Context, *transactionpb.GetByHeightRequest) (*transactionpb.GetByHeightResponse, error)
 }
 
-type server struct {
+type transactionServer struct {
 	client *client.Client
 }
 
-func New(c *client.Client) Server {
-	return &server{
+func NewTransactionServer(c *client.Client) TransactionServer {
+	return &transactionServer{
 		client: c,
 	}
 }
 
-func (s *server) GetByHeight(ctx context.Context, req *transactionpb.GetByHeightRequest) (*transactionpb.GetByHeightResponse, error) {
+func (s *transactionServer) GetByHeight(ctx context.Context, req *transactionpb.GetByHeightRequest) (*transactionpb.GetByHeightResponse, error) {
 	rawTxs, err := s.client.Consensus.GetTransactionsByHeight(ctx, req.Height)
 	if err != nil {
 		return nil, err

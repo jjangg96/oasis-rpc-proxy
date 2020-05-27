@@ -52,8 +52,8 @@ func Run() {
 
 func startCommand(cfg *config.Config, name string) error {
 	switch name {
-	case "grpc":
-		return startGrpc(cfg)
+	case "server":
+		return startServer(cfg)
 	default:
 		return errors.New(fmt.Sprintf("command %s not found", name))
 	}
