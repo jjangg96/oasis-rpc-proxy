@@ -68,11 +68,11 @@ func terminate(err error) {
 func initConfig(path string) (*config.Config, error) {
 	cfg := config.New()
 
-	if path == "" {
-		if err := config.FromEnv(cfg); err != nil {
-			return nil, err
-		}
-	} else {
+	if err := config.FromEnv(cfg); err != nil {
+		return nil, err
+	}
+
+	if path != "" {
 		if err := config.FromFile(path, cfg); err != nil {
 			return nil, err
 		}
