@@ -5,6 +5,7 @@ import (
 	"github.com/oasislabs/oasis-core/go/common/node"
 	"github.com/oasislabs/oasis-core/go/registry/api"
 	"google.golang.org/grpc"
+	"time"
 )
 
 var (
@@ -26,6 +27,8 @@ type registryClient struct {
 }
 
 func (c *registryClient) GeNodeById(ctx context.Context, key string, height int64) (*node.Node, error) {
+	defer logRequestDuration(time.Now(), "RegistryClient_GeNodeById")
+
 	pKey, err := getPublicKey(key)
 	if err != nil {
 		return nil, err

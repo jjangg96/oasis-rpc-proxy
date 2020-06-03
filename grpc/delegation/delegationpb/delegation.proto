@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+package delegation;
+option go_package = "github.com/figment-networks/oasis-rpc-proxy/grpc/delegation/delegationpb";
+
+message DelegationEntry {
+    map<string, Delegation> entries = 1;
+}
+
+message Delegation {
+    bytes shares = 1;
+}
+
+message GetByPublicKeyRequest {
+    string public_key = 1;
+    int64 height = 2;
+}
+
+message GetByPublicKeyResponse {
+    map<string, Delegation> delegations = 1;
+}
+
+service DelegationService {
+    rpc GetByPublicKey (GetByPublicKeyRequest) returns (GetByPublicKeyResponse) {};
+}

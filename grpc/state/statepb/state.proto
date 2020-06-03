@@ -7,6 +7,8 @@ import "google/protobuf/timestamp.proto";
 import "google/protobuf/duration.proto";
 
 import "grpc/account/accountpb/account.proto";
+import "grpc/delegation/delegationpb/delegation.proto";
+import "grpc/debondingdelegation/debondingdelegationpb/debonding_delegation.proto";
 
 message RegistryParameters {
     // DebugAllowUnroutableAddresses is true iff node registration should
@@ -111,29 +113,8 @@ message Staking {
     bytes common_pool = 2;
     StakingParameters parameters = 3;
     map<string, account.Account> ledger = 4;
-    map<string, DelegationEntry> delegations = 5;
-    map<string, DebondingDelegationEntry> debonding_delegations = 6;
-}
-
-message Delegation {
-    bytes shares = 1;
-}
-
-message DebondingDelegation {
-    bytes shares = 1;
-    uint64 DebondEndTime = 2;
-}
-
-message DelegationEntry {
-    map<string, Delegation> entries = 1;
-}
-
-message DebondingDelegationInnerEntry {
-    repeated DebondingDelegation debondingDelegations = 1;
-}
-
-message DebondingDelegationEntry {
-    map<string, DebondingDelegationInnerEntry> entries = 1;
+    map<string, delegation.DelegationEntry> delegations = 5;
+    map<string, debondingdelegation.DebondingDelegationEntry> debonding_delegations = 6;
 }
 
 message SchedulerParams {

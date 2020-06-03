@@ -4,6 +4,7 @@ import (
 	"context"
 	"github.com/oasislabs/oasis-core/go/scheduler/api"
 	"google.golang.org/grpc"
+	"time"
 )
 
 var (
@@ -25,5 +26,7 @@ type schedulerClient struct {
 }
 
 func (r *schedulerClient) GetValidatorsByHeight(ctx context.Context, h int64) ([]*api.Validator, error) {
+	defer logRequestDuration(time.Now(), "SchedulerClient_GetValidatorsByHeight")
+
 	return r.client.GetValidators(ctx, h)
 }

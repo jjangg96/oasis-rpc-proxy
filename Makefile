@@ -19,6 +19,10 @@ grpc-go:
 	@mv github.com/figment-networks/oasis-rpc-proxy/grpc/transaction/transactionpb/transaction.pb.go grpc/transaction/transactionpb/transaction.pb.go
 	@protoc -I ./ grpc/validator/validatorpb/validator.proto --go_out=plugins=grpc:.
 	@mv github.com/figment-networks/oasis-rpc-proxy/grpc/validator/validatorpb/validator.pb.go grpc/validator/validatorpb/validator.pb.go
+	@protoc -I ./ grpc/delegation/delegationpb/delegation.proto --go_out=plugins=grpc:.
+	@mv github.com/figment-networks/oasis-rpc-proxy/grpc/delegation/delegationpb/delegation.pb.go grpc/delegation/delegationpb/delegation.pb.go
+	@protoc -I ./ grpc/debondingdelegation/debondingdelegationpb/debonding_delegation.proto --go_out=plugins=grpc:.
+	@mv github.com/figment-networks/oasis-rpc-proxy/grpc/debondingdelegation/debondingdelegationpb/debonding_delegation.pb.go grpc/debondingdelegation/debondingdelegationpb/debonding_delegation.pb.go
 	@rm -rvf github.com
 
 # Build the binary

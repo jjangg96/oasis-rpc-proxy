@@ -22,6 +22,7 @@ require (
 	github.com/oasislabs/oasis-core/go v0.0.0-20200522162332-defba01417d8
 	github.com/pelletier/go-toml v1.6.0 // indirect
 	github.com/pkg/errors v0.9.1
+	github.com/prometheus/client_golang v1.5.1
 	github.com/prometheus/procfs v0.0.10 // indirect
 	github.com/rollbar/rollbar-go v1.2.0
 	github.com/spf13/afero v1.2.2 // indirect

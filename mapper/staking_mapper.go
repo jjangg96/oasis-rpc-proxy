@@ -2,6 +2,8 @@ package mapper
 
 import (
 	"github.com/figment-networks/oasis-rpc-proxy/grpc/account/accountpb"
+	"github.com/figment-networks/oasis-rpc-proxy/grpc/debondingdelegation/debondingdelegationpb"
+	"github.com/figment-networks/oasis-rpc-proxy/grpc/delegation/delegationpb"
 	"github.com/figment-networks/oasis-rpc-proxy/grpc/state/statepb"
 	"github.com/oasislabs/oasis-core/go/staking/api"
 )
@@ -50,40 +52,18 @@ func StakingToPb(rawStaking api.Genesis) *statepb.Staking {
 	}
 
 	// Delegations
-	delegations := map[string]*statepb.DelegationEntry{}
+	delegations := map[string]*delegationpb.DelegationEntry{}
 	for validatorId, items := range rawStaking.Delegations {
-		entries := map[string]*statepb.Delegation{}
-		for escrowPublicKey, delegation := range items {
-			entries[escrowPublicKey.String()] = &statepb.Delegation{
-				Shares: delegation.Shares.ToBigInt().Bytes(),
-			}
-		}
-
-		delegations[validatorId.String()] = &statepb.DelegationEntry{
-			Entries: entries,
+		delegations[validatorId.String()] = &delegationpb.DelegationEntry{
+			Entries: DelegationToPb(items),
 		}
 	}
 
 	// Debonding delegations
-	debondingDelegations := map[string]*statepb.DebondingDelegationEntry{}
+	debondingDelegations := map[string]*debondingdelegationpb.DebondingDelegationEntry{}
 	for validatorId, items := range rawStaking.DebondingDelegations {
-		innerEntries := map[string]*statepb.DebondingDelegationInnerEntry{}
-		for escrowPublicKey, innerItems := range items {
-			var dds []*statepb.DebondingDelegation
-			for _, item := range innerItems {
-				dds = append(dds, &statepb.DebondingDelegation{
-					Shares:        item.Shares.ToBigInt().Bytes(),
-					DebondEndTime: uint64(item.DebondEndTime),
-				})
-			}
-
-			innerEntries[escrowPublicKey.String()] = &statepb.DebondingDelegationInnerEntry{
-				DebondingDelegations: dds,
-			}
-		}
-
-		debondingDelegations[validatorId.String()] = &statepb.DebondingDelegationEntry{
-			Entries: innerEntries,
+		debondingDelegations[validatorId.String()] = &debondingdelegationpb.DebondingDelegationEntry{
+			Entries: DebondingDelegationToPb(items),
 		}
 	}
 

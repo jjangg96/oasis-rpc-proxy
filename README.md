@@ -17,7 +17,9 @@ the format understood by the oasishub-indexer
 * `BlockService@GetByHeight` - get block data by height
 * `StateService@GetByHeight` - get state data by height
 * `ValidatorService@GetByHeight` - get validators data by height
-* `TransactionsService@GetByHeight` - get transactions data by height
+* `TransactionService@GetByHeight` - get transactions data by height
+* `DelegationService@GetByPublicKey` - get delegations for provided public key (height is optional)
+* `DebondingDelegationService@GetByPublicKey` - get debonding delegations for provided public key (height is optional)
 
 ### Environmental variables
 
@@ -30,7 +32,8 @@ the format understood by the oasishub-indexer
 * `LOG_OUTPUT` - log output (ie. stdout or /tmp/logs.json)
 * `ROLLBAR_ACCESS_TOKEN` - Rollbar access token for error reporting
 * `ROLLBAR_SERVER_ROOT` - Rollbar server root for error reporting
-
+* `SERVER_METRIC_ADDR` - Prometheus server address for server metrics 
+* `METRIC_SERVER_URL` - Url at which metrics will be accessible
 
 ### Running the project
 
@@ -39,3 +42,9 @@ To run the project use:
 ```shell script
 go run main.go -config path/to/config.json -cmd=server
 ```
+
+### Exporting metrics for scrapping
+We use Prometheus for exposing metrics for indexer and for server.
+Check environmental variables section on what variables to use to setup connection details to metrics scrapper.
+We currently expose below metrics:
+* `figment_oasis_proxy_node_request_duration` (gauge) - total time required to execute request to node

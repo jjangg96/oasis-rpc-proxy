@@ -7,5 +7,7 @@
   "log_level": "info",
   "log_output": "stdout",
   "rollbar_access_token": "",
-  "rollbar_server_root": ""
+  "rollbar_server_root": "",
+  "server_metric_addr": ":8081",
+  "metric_server_url": "/metrics"
 }

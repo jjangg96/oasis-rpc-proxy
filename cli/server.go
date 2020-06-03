@@ -16,7 +16,7 @@ func startServer(cfg *config.Config) error {
 	}
 	defer client.Close()
 
-	a := server.New(doc, client)
+	a := server.New(cfg, client, doc)
 	if err := a.Start(cfg.ServerAddr, cfg.ServerPort); err != nil {
 		return err
 	}

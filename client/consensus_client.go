@@ -5,6 +5,7 @@ import (
 	"github.com/oasislabs/oasis-core/go/consensus/api"
 	genesisApi "github.com/oasislabs/oasis-core/go/genesis/api"
 	"google.golang.org/grpc"
+	"time"
 )
 
 var (
@@ -28,13 +29,19 @@ type consensusClient struct {
 }
 
 func (c *consensusClient) GetBlockByHeight(ctx context.Context, h int64) (*api.Block, error) {
+	defer logRequestDuration(time.Now(), "ConsensusClient_GetBlockByHeight")
+
 	return c.client.GetBlock(ctx, h)
 }
 
 func (c *consensusClient) GetStateByHeight(ctx context.Context, h int64) (*genesisApi.Document, error) {
+	defer logRequestDuration(time.Now(), "ConsensusClient_GetStateByHeight")
+
 	return c.client.StateToGenesis(ctx, h)
 }
 
 func (c *consensusClient) GetTransactionsByHeight(ctx context.Context, h int64) ([][]byte, error) {
+	defer logRequestDuration(time.Now(), "ConsensusClient_GetTransactionsByHeight")
+
 	return c.client.GetTransactions(ctx, h)
 }
