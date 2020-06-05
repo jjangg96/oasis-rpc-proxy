@@ -16,6 +16,7 @@ type StakingClient interface {
 	GetAccountByPublicKey(context.Context, string, int64) (*api.Account, error)
 	GetDelegations(context.Context, string, int64) (map[signature.PublicKey]*api.Delegation, error)
 	GetDebondingDelegations(context.Context, string, int64) (map[signature.PublicKey][]*api.DebondingDelegation, error)
+	GetState(context.Context, int64) (*api.Genesis, error)
 }
 
 func NewStakingClient(conn *grpc.ClientConn) *stakingClient {
@@ -56,6 +57,12 @@ func (c *stakingClient) GetDebondingDelegations(ctx context.Context, key string,
 		return nil, err
 	}
 	return c.client.DebondingDelegations(ctx, q)
+}
+
+func (c *stakingClient) GetState(ctx context.Context, height int64) (*api.Genesis, error) {
+	defer logRequestDuration(time.Now(), "StakingClient_GetState")
+
+	return c.client.StateToGenesis(ctx, height)
 }
 
 func (c *stakingClient) buildOwnerQuery(key string, height int64) (*api.OwnerQuery, error) {

@@ -190,6 +190,15 @@ message GetByHeightResponse {
     State state = 1;
 }
 
+message GetStakingByHeightRequest {
+    int64 height = 1;
+}
+
+message GetStakingByHeightResponse {
+    Staking staking = 1;
+}
+
 service StateService {
     rpc GetByHeight (GetByHeightRequest) returns (GetByHeightResponse) {};
+    rpc GetStakingByHeight (GetStakingByHeightRequest) returns (GetStakingByHeightResponse) {};
 }

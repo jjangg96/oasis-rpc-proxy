@@ -9,6 +9,7 @@ import (
 
 type StateServer interface {
 	GetByHeight(context.Context, *statepb.GetByHeightRequest) (*statepb.GetByHeightResponse, error)
+	GetStakingByHeight(context.Context, *statepb.GetStakingByHeightRequest) (*statepb.GetStakingByHeightResponse, error)
 }
 
 type stateServer struct{
@@ -34,3 +35,14 @@ func (s *stateServer) GetByHeight(ctx context.Context, req *statepb.GetByHeightR
 
 	return &statepb.GetByHeightResponse{State: state}, nil
 }
+
+func (s *stateServer) GetStakingByHeight(ctx context.Context, req *statepb.GetStakingByHeightRequest) (*statepb.GetStakingByHeightResponse, error) {
+	rawState, err := s.client.Staking.GetState(ctx, req.GetHeight())
+	if err != nil {
+		return nil, err
+	}
+
+	return &statepb.GetStakingByHeightResponse{Staking: mapper.StakingToPb(*rawState)}, nil
+}
+
+
