@@ -44,7 +44,7 @@ func (s *chainServer) GetStatus(ctx context.Context, req *chainpb.GetStatusReque
 }
 
 func (s *chainServer) GetMetaByHeight(ctx context.Context, req *chainpb.GetMetaByHeightRequest) (*chainpb.GetMetaByHeightResponse, error) {
-	block, err := s.getBlock(ctx)
+	block, err := s.getBlock(ctx, req.Height)
 	if err != nil {
 		return nil, err
 	}
@@ -58,7 +58,7 @@ func (s *chainServer) GetMetaByHeight(ctx context.Context, req *chainpb.GetMetaB
 }
 
 func (s *chainServer) GetHead(ctx context.Context, req *chainpb.GetHeadRequest) (*chainpb.GetHeadResponse, error) {
-	block, err := s.getBlock(ctx)
+	block, err := s.getBlock(ctx, 0)
 	if err != nil {
 		return nil, err
 	}
@@ -69,8 +69,8 @@ func (s *chainServer) GetHead(ctx context.Context, req *chainpb.GetHeadRequest) 
 	}, nil
 }
 
-func (s *chainServer) getBlock(ctx context.Context) (*blockpb.Block, error) {
-	rawBlock, err := s.client.Consensus.GetBlockByHeight(ctx, 0)
+func (s *chainServer) getBlock(ctx context.Context, height int64) (*blockpb.Block, error) {
+	rawBlock, err := s.client.Consensus.GetBlockByHeight(ctx, height)
 	if err != nil {
 		return nil, err
 	}
