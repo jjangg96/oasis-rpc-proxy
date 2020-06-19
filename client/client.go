@@ -4,8 +4,9 @@ import (
 	"fmt"
 	"github.com/figment-networks/oasis-rpc-proxy/metric"
 	"github.com/figment-networks/oasis-rpc-proxy/utils/logger"
-	"github.com/oasislabs/oasis-core/go/common/crypto/signature"
-	oasisGrpc "github.com/oasislabs/oasis-core/go/common/grpc"
+	"github.com/oasisprotocol/oasis-core/go/common/crypto/signature"
+	oasisGrpc "github.com/oasisprotocol/oasis-core/go/common/grpc"
+	"github.com/oasisprotocol/oasis-core/go/staking/api"
 	"google.golang.org/grpc"
 	"time"
 )
@@ -51,6 +52,15 @@ func getPublicKey(key string) (*signature.PublicKey, error) {
 		return nil, err
 	}
 	return &pKey, nil
+}
+
+func getAddress(key string) (*api.Address, error) {
+	var pk signature.PublicKey
+	if err := pk.UnmarshalText([]byte(key)); err != nil {
+		return nil, err
+	}
+	address := api.NewAddress(pk)
+	return &address, nil
 }
 
 func logRequestDuration(start time.Time, requestName string) {

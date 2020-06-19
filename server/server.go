@@ -14,7 +14,7 @@ import (
 	"github.com/figment-networks/oasis-rpc-proxy/grpc/validator/validatorpb"
 	"github.com/figment-networks/oasis-rpc-proxy/metric"
 	"github.com/figment-networks/oasis-rpc-proxy/utils/logger"
-	"github.com/oasislabs/oasis-core/go/genesis/api"
+	"github.com/oasisprotocol/oasis-core/go/genesis/api"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/reflection"
 	"net"
@@ -41,7 +41,7 @@ func New(cfg *config.Config, c *client.Client, doc *api.Document) *Server {
 func (s *Server) init() *Server {
 	logger.Info("initializing gRPC servers...", logger.Field("app", "server"))
 
-	chainpb.RegisterChainServiceServer(s.server, NewChainServer(s.doc))
+	chainpb.RegisterChainServiceServer(s.server, NewChainServer(s.client, s.doc))
 	accountpb.RegisterAccountServiceServer(s.server, NewAccountServer(s.client))
 	blockpb.RegisterBlockServiceServer(s.server, NewBlockServer(s.client))
 	statepb.RegisterStateServiceServer(s.server, NewStateServer(s.client))

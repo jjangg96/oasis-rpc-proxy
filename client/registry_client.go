@@ -2,8 +2,8 @@ package client
 
 import (
 	"context"
-	"github.com/oasislabs/oasis-core/go/common/node"
-	"github.com/oasislabs/oasis-core/go/registry/api"
+	"github.com/oasisprotocol/oasis-core/go/common/node"
+	"github.com/oasisprotocol/oasis-core/go/registry/api"
 	"google.golang.org/grpc"
 	"time"
 )

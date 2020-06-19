@@ -8,8 +8,8 @@ import (
 
 	"github.com/figment-networks/oasis-rpc-proxy/grpc/transaction/transactionpb"
 	"github.com/figment-networks/oasis-rpc-proxy/utils/logger"
-	"github.com/oasislabs/oasis-core/go/common/cbor"
-	"github.com/oasislabs/oasis-core/go/consensus/api/transaction"
+	"github.com/oasisprotocol/oasis-core/go/common/cbor"
+	"github.com/oasisprotocol/oasis-core/go/consensus/api/transaction"
 )
 
 func TransactionToPb(rawTx []byte) *transactionpb.Transaction {

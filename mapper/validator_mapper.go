@@ -2,23 +2,15 @@ package mapper
 
 import (
 	"github.com/figment-networks/oasis-rpc-proxy/grpc/validator/validatorpb"
-	"github.com/oasislabs/oasis-core/go/common/node"
-	tmcrypto "github.com/oasislabs/oasis-core/go/consensus/tendermint/crypto"
-	"github.com/oasislabs/oasis-core/go/scheduler/api"
+	"github.com/oasisprotocol/oasis-core/go/common/node"
+	tmcrypto "github.com/oasisprotocol/oasis-core/go/consensus/tendermint/crypto"
+	"github.com/oasisprotocol/oasis-core/go/scheduler/api"
+	stakingApi "github.com/oasisprotocol/oasis-core/go/staking/api"
 )
 
 func ValidatorToPb(validator *api.Validator, node *node.Node) *validatorpb.Validator {
 	cID := node.Consensus.ID
 	tmAddr := tmcrypto.PublicKeyToTendermint(&cID).Address().String()
-
-	// Committee addresses
-	var committeeAddresses []*validatorpb.CommitteeAddress
-	for _, ca := range node.Committee.Addresses {
-		committeeAddresses = append(committeeAddresses, &validatorpb.CommitteeAddress{
-			Certificate: ca.Certificate,
-			Address:     ca.Address.String(),
-		})
-	}
 
 	// P2P addresses
 	var p2pAddresses []string
@@ -49,19 +41,15 @@ func ValidatorToPb(validator *api.Validator, node *node.Node) *validatorpb.Valid
 	}
 
 	return &validatorpb.Validator{
-		Id:          validator.ID.String(),
-		Address:     tmAddr,
-		VotingPower: validator.VotingPower,
+		Id:                validator.ID.String(),
+		Address:           stakingApi.NewAddress(node.EntityID).String(),
+		TendermintAddress: tmAddr,
+		VotingPower:       validator.VotingPower,
 
 		Node: &validatorpb.Node{
 			Id:         node.ID.String(),
 			EntityId:   node.EntityID.String(),
 			Expiration: node.Expiration,
-
-			Committee: &validatorpb.CommitteeInfo{
-				Certificate: node.Committee.Certificate,
-				Addresses:   committeeAddresses,
-			},
 
 			P2P: &validatorpb.P2PInfo{
 				Id:        node.P2P.ID.String(),

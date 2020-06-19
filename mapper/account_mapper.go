@@ -2,7 +2,7 @@ package mapper
 
 import (
 	"github.com/figment-networks/oasis-rpc-proxy/grpc/account/accountpb"
-	"github.com/oasislabs/oasis-core/go/staking/api"
+	"github.com/oasisprotocol/oasis-core/go/staking/api"
 )
 
 func AccountToPb(rawAccount api.Account) *accountpb.Account {
@@ -27,10 +27,13 @@ func AccountToPb(rawAccount api.Account) *accountpb.Account {
 
 	// Claims
 	claims := map[string]*accountpb.ThresholdKinds{}
-	for claim, rawKinds := range rawAccount.Escrow.StakeAccumulator.Claims {
-		var kinds []int32
-		for _, kind := range rawKinds {
-			kinds = append(kinds, int32(kind))
+	for claim, rawThresholds := range rawAccount.Escrow.StakeAccumulator.Claims {
+		var kinds []*accountpb.StakeThreshold
+		for _, threshold := range rawThresholds {
+			kinds = append(kinds, &accountpb.StakeThreshold{
+				Global:               threshold.Global.String(),
+				Constant:             threshold.Constant.ToBigInt().Bytes(),
+			})
 		}
 
 		claims[string(claim)] = &accountpb.ThresholdKinds{

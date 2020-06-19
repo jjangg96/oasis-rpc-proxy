@@ -3,7 +3,7 @@ package mapper
 import (
 	"github.com/figment-networks/oasis-rpc-proxy/grpc/state/statepb"
 	"github.com/golang/protobuf/ptypes/duration"
-	"github.com/oasislabs/oasis-core/go/consensus/genesis"
+	"github.com/oasisprotocol/oasis-core/go/consensus/genesis"
 )
 
 func ConsensusToPb(rawConsensus genesis.Genesis) *statepb.Consensus {

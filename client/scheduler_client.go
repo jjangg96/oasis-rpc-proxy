@@ -2,7 +2,7 @@ package client
 
 import (
 	"context"
-	"github.com/oasislabs/oasis-core/go/scheduler/api"
+	"github.com/oasisprotocol/oasis-core/go/scheduler/api"
 	"google.golang.org/grpc"
 	"time"
 )

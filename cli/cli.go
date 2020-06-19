@@ -7,8 +7,8 @@ import (
 	"github.com/figment-networks/oasis-rpc-proxy/config"
 	"github.com/figment-networks/oasis-rpc-proxy/utils/logger"
 	"github.com/figment-networks/oasis-rpc-proxy/utils/reporting"
-	"github.com/oasislabs/oasis-core/go/genesis/api"
-	genesisFile "github.com/oasislabs/oasis-core/go/genesis/file"
+	"github.com/oasisprotocol/oasis-core/go/genesis/api"
+	genesisFile "github.com/oasisprotocol/oasis-core/go/genesis/file"
 	"github.com/pkg/errors"
 )
 

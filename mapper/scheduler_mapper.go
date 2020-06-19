@@ -2,7 +2,7 @@ package mapper
 
 import (
 	"github.com/figment-networks/oasis-rpc-proxy/grpc/state/statepb"
-	"github.com/oasislabs/oasis-core/go/scheduler/api"
+	"github.com/oasisprotocol/oasis-core/go/scheduler/api"
 )
 
 func SchedulerToPb(rawScheduler api.Genesis) *statepb.Scheduler {

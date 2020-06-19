@@ -2,7 +2,7 @@ package mapper
 
 import (
 	"github.com/figment-networks/oasis-rpc-proxy/grpc/state/statepb"
-	"github.com/oasislabs/oasis-core/go/registry/api"
+	"github.com/oasisprotocol/oasis-core/go/registry/api"
 )
 
 func RegistryToPb(rawRegistry api.Genesis) *statepb.Registry {

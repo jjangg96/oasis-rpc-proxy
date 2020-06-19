@@ -3,7 +3,7 @@ package mapper
 import (
 	"github.com/figment-networks/oasis-rpc-proxy/grpc/state/statepb"
 	"github.com/golang/protobuf/ptypes"
-	genesisApi "github.com/oasislabs/oasis-core/go/genesis/api"
+	genesisApi "github.com/oasisprotocol/oasis-core/go/genesis/api"
 )
 
 func StateToPb(rawState *genesisApi.Document) (*statepb.State, error) {

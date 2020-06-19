@@ -2,8 +2,8 @@ package client
 
 import (
 	"context"
-	"github.com/oasislabs/oasis-core/go/consensus/api"
-	genesisApi "github.com/oasislabs/oasis-core/go/genesis/api"
+	"github.com/oasisprotocol/oasis-core/go/consensus/api"
+	genesisApi "github.com/oasisprotocol/oasis-core/go/genesis/api"
 	"google.golang.org/grpc"
 	"time"
 )

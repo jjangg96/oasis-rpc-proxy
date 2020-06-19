@@ -2,8 +2,7 @@ package client
 
 import (
 	"context"
-	"github.com/oasislabs/oasis-core/go/common/crypto/signature"
-	"github.com/oasislabs/oasis-core/go/staking/api"
+	"github.com/oasisprotocol/oasis-core/go/staking/api"
 	"google.golang.org/grpc"
 	"time"
 )
@@ -14,8 +13,8 @@ var (
 
 type StakingClient interface {
 	GetAccountByPublicKey(context.Context, string, int64) (*api.Account, error)
-	GetDelegations(context.Context, string, int64) (map[signature.PublicKey]*api.Delegation, error)
-	GetDebondingDelegations(context.Context, string, int64) (map[signature.PublicKey][]*api.DebondingDelegation, error)
+	GetDelegations(context.Context, string, int64) (map[api.Address]*api.Delegation, error)
+	GetDebondingDelegations(context.Context, string, int64) (map[api.Address][]*api.DebondingDelegation, error)
 	GetState(context.Context, int64) (*api.Genesis, error)
 }
 
@@ -36,10 +35,10 @@ func (c *stakingClient) GetAccountByPublicKey(ctx context.Context, key string, h
 	if err != nil {
 		return nil, err
 	}
-	return c.client.AccountInfo(ctx, q)
+	return c.client.Account(ctx, q)
 }
 
-func (c *stakingClient) GetDelegations(ctx context.Context, key string, height int64) (map[signature.PublicKey]*api.Delegation, error) {
+func (c *stakingClient) GetDelegations(ctx context.Context, key string, height int64) (map[api.Address]*api.Delegation, error) {
 	defer logRequestDuration(time.Now(), "StakingClient_GetDelegations")
 
 	q, err := c.buildOwnerQuery(key, height)
@@ -49,7 +48,7 @@ func (c *stakingClient) GetDelegations(ctx context.Context, key string, height i
 	return c.client.Delegations(ctx, q)
 }
 
-func (c *stakingClient) GetDebondingDelegations(ctx context.Context, key string, height int64) (map[signature.PublicKey][]*api.DebondingDelegation, error) {
+func (c *stakingClient) GetDebondingDelegations(ctx context.Context, key string, height int64) (map[api.Address][]*api.DebondingDelegation, error) {
 	defer logRequestDuration(time.Now(), "StakingClient_GetDebondingDelegations")
 
 	q, err := c.buildOwnerQuery(key, height)
@@ -66,13 +65,13 @@ func (c *stakingClient) GetState(ctx context.Context, height int64) (*api.Genesi
 }
 
 func (c *stakingClient) buildOwnerQuery(key string, height int64) (*api.OwnerQuery, error) {
-	pKey, err := getPublicKey(key)
+	address, err := getAddress(key)
 	if err != nil {
 		return nil, err
 	}
 	q := &api.OwnerQuery{
 		Height: height,
-		Owner:  *pKey,
+		Owner:  *address,
 	}
 	return q, nil
 }

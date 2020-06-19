@@ -32,7 +32,13 @@ message CommissionSchedule {
 
 // ThresholdKind is the kind of staking threshold.
 message ThresholdKinds {
-    repeated int32 Kinds = 1;
+    repeated StakeThreshold Kinds = 1;
+}
+
+// StakeThreshold is a stake threshold as used in the stake accumulator.
+message StakeThreshold {
+    string Global = 1;
+    bytes Constant = 2;
 }
 
 message StakeAccumulator {

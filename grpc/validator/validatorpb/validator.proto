@@ -3,27 +3,6 @@ syntax = "proto3";
 package validator;
 option go_package = "github.com/figment-networks/oasis-rpc-proxy/grpc/validator/validatorpb";
 
-message CommitteeAddress {
-    // Certificate is the certificate for establishing TLS connections.
-    bytes certificate = 1;
-    // Address is the address at which the node can be reached
-    string address = 2;
-}
-
-message ConsensusAddress {
-    // ID is public key identifying the node.
-    string id = 1;
-    // Address is the address at which the node can be reached.
-    string address = 2;
-}
-
-message CommitteeInfo {
-    // Certificate is the certificate for establishing TLS connections.
-    bytes certificate = 1;
-
-    // Addresses is the list of committee addresses at which the node can be reached.
-    repeated CommitteeAddress addresses = 2;
-}
 
 message P2PInfo {
     // ID is the unique identifier of the node on the P2P transport.
@@ -31,6 +10,13 @@ message P2PInfo {
 
     // Addresses is the list of addresses at which the node can be reached.
     repeated string addresses = 2;
+}
+
+message ConsensusAddress {
+    // ID is public key identifying the node.
+    string id = 1;
+    // Address is the address at which the node can be reached.
+    string address = 2;
 }
 
 message ConsensusInfo {
@@ -66,10 +52,6 @@ message Node {
     // Expiration is the epoch in which this node's commitment expires.
     uint64 expiration = 3;
 
-    // Committee contains information for connecting to this node as a committee
-    // member.
-    CommitteeInfo committee = 4;
-
     // P2P contains information for connecting to this node via P2P transport.
     P2PInfo p2p = 5;
 
@@ -88,7 +70,8 @@ message Validator {
     string id = 1;
     int64 voting_power = 2;
     string address = 3;
-    Node node = 4;
+    string tendermint_address = 4;
+    Node node = 5;
 }
 
 message GetByHeightRequest {
