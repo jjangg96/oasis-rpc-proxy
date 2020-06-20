@@ -30,10 +30,17 @@ func AccountToPb(rawAccount api.Account) *accountpb.Account {
 	for claim, rawThresholds := range rawAccount.Escrow.StakeAccumulator.Claims {
 		var kinds []*accountpb.StakeThreshold
 		for _, threshold := range rawThresholds {
-			kinds = append(kinds, &accountpb.StakeThreshold{
-				Global:               threshold.Global.String(),
-				Constant:             threshold.Constant.ToBigInt().Bytes(),
-			})
+			stakeThreshold := &accountpb.StakeThreshold{}
+
+			if threshold.Global != nil {
+				stakeThreshold.Global = threshold.Global.String()
+			}
+
+			if threshold.Constant != nil {
+				stakeThreshold.Constant = threshold.Constant.ToBigInt().Bytes()
+			}
+
+			kinds = append(kinds, stakeThreshold)
 		}
 
 		claims[string(claim)] = &accountpb.ThresholdKinds{

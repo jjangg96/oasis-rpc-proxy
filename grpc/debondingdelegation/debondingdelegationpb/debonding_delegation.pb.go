@@ -149,86 +149,86 @@ func (m *DebondingDelegation) GetDebondEndTime() uint64 {
 	return 0
 }
 
-type GetByPublicKeyRequest struct {
-	PublicKey            string   `protobuf:"bytes,1,opt,name=public_key,json=publicKey,proto3" json:"public_key,omitempty"`
+type GetByAddressRequest struct {
+	Address              string   `protobuf:"bytes,1,opt,name=address,proto3" json:"address,omitempty"`
 	Height               int64    `protobuf:"varint,2,opt,name=height,proto3" json:"height,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
 }
 
-func (m *GetByPublicKeyRequest) Reset()         { *m = GetByPublicKeyRequest{} }
-func (m *GetByPublicKeyRequest) String() string { return proto.CompactTextString(m) }
-func (*GetByPublicKeyRequest) ProtoMessage()    {}
-func (*GetByPublicKeyRequest) Descriptor() ([]byte, []int) {
+func (m *GetByAddressRequest) Reset()         { *m = GetByAddressRequest{} }
+func (m *GetByAddressRequest) String() string { return proto.CompactTextString(m) }
+func (*GetByAddressRequest) ProtoMessage()    {}
+func (*GetByAddressRequest) Descriptor() ([]byte, []int) {
 	return fileDescriptor_ba916d0766223a0e, []int{3}
 }
 
-func (m *GetByPublicKeyRequest) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_GetByPublicKeyRequest.Unmarshal(m, b)
+func (m *GetByAddressRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_GetByAddressRequest.Unmarshal(m, b)
 }
-func (m *GetByPublicKeyRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_GetByPublicKeyRequest.Marshal(b, m, deterministic)
+func (m *GetByAddressRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_GetByAddressRequest.Marshal(b, m, deterministic)
 }
-func (m *GetByPublicKeyRequest) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_GetByPublicKeyRequest.Merge(m, src)
+func (m *GetByAddressRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_GetByAddressRequest.Merge(m, src)
 }
-func (m *GetByPublicKeyRequest) XXX_Size() int {
-	return xxx_messageInfo_GetByPublicKeyRequest.Size(m)
+func (m *GetByAddressRequest) XXX_Size() int {
+	return xxx_messageInfo_GetByAddressRequest.Size(m)
 }
-func (m *GetByPublicKeyRequest) XXX_DiscardUnknown() {
-	xxx_messageInfo_GetByPublicKeyRequest.DiscardUnknown(m)
+func (m *GetByAddressRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_GetByAddressRequest.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_GetByPublicKeyRequest proto.InternalMessageInfo
+var xxx_messageInfo_GetByAddressRequest proto.InternalMessageInfo
 
-func (m *GetByPublicKeyRequest) GetPublicKey() string {
+func (m *GetByAddressRequest) GetAddress() string {
 	if m != nil {
-		return m.PublicKey
+		return m.Address
 	}
 	return ""
 }
 
-func (m *GetByPublicKeyRequest) GetHeight() int64 {
+func (m *GetByAddressRequest) GetHeight() int64 {
 	if m != nil {
 		return m.Height
 	}
 	return 0
 }
 
-type GetByPublicKeyResponse struct {
+type GetByAddressResponse struct {
 	DebondingDelegations map[string]*DebondingDelegationInnerEntry `protobuf:"bytes,1,rep,name=debonding_delegations,json=debondingDelegations,proto3" json:"debonding_delegations,omitempty" protobuf_key:"bytes,1,opt,name=key,proto3" protobuf_val:"bytes,2,opt,name=value,proto3"`
 	XXX_NoUnkeyedLiteral struct{}                                  `json:"-"`
 	XXX_unrecognized     []byte                                    `json:"-"`
 	XXX_sizecache        int32                                     `json:"-"`
 }
 
-func (m *GetByPublicKeyResponse) Reset()         { *m = GetByPublicKeyResponse{} }
-func (m *GetByPublicKeyResponse) String() string { return proto.CompactTextString(m) }
-func (*GetByPublicKeyResponse) ProtoMessage()    {}
-func (*GetByPublicKeyResponse) Descriptor() ([]byte, []int) {
+func (m *GetByAddressResponse) Reset()         { *m = GetByAddressResponse{} }
+func (m *GetByAddressResponse) String() string { return proto.CompactTextString(m) }
+func (*GetByAddressResponse) ProtoMessage()    {}
+func (*GetByAddressResponse) Descriptor() ([]byte, []int) {
 	return fileDescriptor_ba916d0766223a0e, []int{4}
 }
 
-func (m *GetByPublicKeyResponse) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_GetByPublicKeyResponse.Unmarshal(m, b)
+func (m *GetByAddressResponse) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_GetByAddressResponse.Unmarshal(m, b)
 }
-func (m *GetByPublicKeyResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_GetByPublicKeyResponse.Marshal(b, m, deterministic)
+func (m *GetByAddressResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_GetByAddressResponse.Marshal(b, m, deterministic)
 }
-func (m *GetByPublicKeyResponse) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_GetByPublicKeyResponse.Merge(m, src)
+func (m *GetByAddressResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_GetByAddressResponse.Merge(m, src)
 }
-func (m *GetByPublicKeyResponse) XXX_Size() int {
-	return xxx_messageInfo_GetByPublicKeyResponse.Size(m)
+func (m *GetByAddressResponse) XXX_Size() int {
+	return xxx_messageInfo_GetByAddressResponse.Size(m)
 }
-func (m *GetByPublicKeyResponse) XXX_DiscardUnknown() {
-	xxx_messageInfo_GetByPublicKeyResponse.DiscardUnknown(m)
+func (m *GetByAddressResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_GetByAddressResponse.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_GetByPublicKeyResponse proto.InternalMessageInfo
+var xxx_messageInfo_GetByAddressResponse proto.InternalMessageInfo
 
-func (m *GetByPublicKeyResponse) GetDebondingDelegations() map[string]*DebondingDelegationInnerEntry {
+func (m *GetByAddressResponse) GetDebondingDelegations() map[string]*DebondingDelegationInnerEntry {
 	if m != nil {
 		return m.DebondingDelegations
 	}
@@ -240,9 +240,9 @@ func init() {
 	proto.RegisterMapType((map[string]*DebondingDelegationInnerEntry)(nil), "debondingdelegation.DebondingDelegationEntry.EntriesEntry")
 	proto.RegisterType((*DebondingDelegationInnerEntry)(nil), "debondingdelegation.DebondingDelegationInnerEntry")
 	proto.RegisterType((*DebondingDelegation)(nil), "debondingdelegation.DebondingDelegation")
-	proto.RegisterType((*GetByPublicKeyRequest)(nil), "debondingdelegation.GetByPublicKeyRequest")
-	proto.RegisterType((*GetByPublicKeyResponse)(nil), "debondingdelegation.GetByPublicKeyResponse")
-	proto.RegisterMapType((map[string]*DebondingDelegationInnerEntry)(nil), "debondingdelegation.GetByPublicKeyResponse.DebondingDelegationsEntry")
+	proto.RegisterType((*GetByAddressRequest)(nil), "debondingdelegation.GetByAddressRequest")
+	proto.RegisterType((*GetByAddressResponse)(nil), "debondingdelegation.GetByAddressResponse")
+	proto.RegisterMapType((map[string]*DebondingDelegationInnerEntry)(nil), "debondingdelegation.GetByAddressResponse.DebondingDelegationsEntry")
 }
 
 func init() {
@@ -250,33 +250,33 @@ func init() {
 }
 
 var fileDescriptor_ba916d0766223a0e = []byte{
-	// 416 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xb4, 0x94, 0xdf, 0x6a, 0xd4, 0x40,
-	0x14, 0xc6, 0x9d, 0x5d, 0xad, 0xf4, 0xb4, 0x8a, 0x4c, 0x6d, 0x89, 0x81, 0xc2, 0x12, 0xbc, 0x08,
-	0xca, 0x26, 0x10, 0x6f, 0xa4, 0x97, 0xa5, 0x41, 0x8b, 0x20, 0x92, 0xf6, 0xaa, 0x14, 0x4a, 0xfe,
-	0x1c, 0x93, 0x61, 0x77, 0x67, 0xc6, 0x99, 0x49, 0x35, 0x8a, 0x0f, 0xe0, 0xa5, 0x6f, 0xe8, 0xa3,
-	0xc8, 0x26, 0x1b, 0xd7, 0xd5, 0x59, 0xd9, 0xbd, 0xf0, 0x2e, 0xe7, 0xcb, 0x77, 0xbe, 0xc3, 0xfc,
-	0xe6, 0x30, 0x70, 0x5e, 0x2a, 0x99, 0x87, 0x05, 0x66, 0x82, 0x17, 0x8c, 0x97, 0x05, 0x4e, 0xb1,
-	0x4c, 0x0d, 0x13, 0xdc, 0xa6, 0xc9, 0x6c, 0xa9, 0xde, 0x2c, 0xe5, 0x40, 0x2a, 0x61, 0x04, 0x3d,
-	0xb0, 0x74, 0x78, 0x3f, 0x08, 0x38, 0x67, 0xbd, 0x7e, 0xf6, 0x4b, 0x8f, 0xb9, 0x51, 0x0d, 0xbd,
-	0x84, 0xfb, 0xc8, 0x8d, 0x62, 0xa8, 0x1d, 0x32, 0x1a, 0xfa, 0x7b, 0xd1, 0x49, 0x60, 0xc9, 0x08,
-	0xd6, 0xf5, 0x07, 0x71, 0xd7, 0xdc, 0x16, 0x49, 0x1f, 0xe5, 0x72, 0xd8, 0xff, 0xfd, 0x07, 0x7d,
-	0x04, 0xc3, 0x09, 0x36, 0x0e, 0x19, 0x11, 0x7f, 0x37, 0x99, 0x7f, 0xd2, 0xd7, 0x70, 0xef, 0x36,
-	0x9d, 0xd6, 0xe8, 0x0c, 0x46, 0xc4, 0xdf, 0x8b, 0xa2, 0x4d, 0xa7, 0x9e, 0x73, 0x8e, 0xaa, 0x9b,
-	0xd6, 0x05, 0x9c, 0x0c, 0x5e, 0x12, 0xef, 0x2b, 0x1c, 0xff, 0xd3, 0x4b, 0xaf, 0xe1, 0x71, 0xf1,
-	0xb7, 0xa1, 0x3f, 0xb3, 0xbf, 0xe9, 0xf4, 0xc4, 0x9a, 0xe2, 0x5d, 0xc0, 0x81, 0xc5, 0x4c, 0x8f,
-	0x60, 0x47, 0x57, 0xa9, 0x6a, 0xd1, 0x12, 0x7f, 0x3f, 0x59, 0x54, 0xf4, 0x29, 0x3c, 0xe8, 0xec,
-	0x31, 0x2f, 0x2e, 0xd9, 0xac, 0x63, 0x70, 0x37, 0x59, 0x15, 0xbd, 0xb7, 0x70, 0xf8, 0x0a, 0xcd,
-	0x69, 0xf3, 0xae, 0xce, 0xa6, 0x2c, 0x7f, 0x83, 0x4d, 0x82, 0x1f, 0x6a, 0xd4, 0x86, 0x1e, 0x03,
-	0xc8, 0x56, 0xbb, 0x59, 0x32, 0xdd, 0x95, 0xbd, 0x6b, 0x3e, 0xb5, 0x42, 0x56, 0x56, 0xa6, 0x8d,
-	0x1d, 0x26, 0x8b, 0xca, 0xfb, 0x3e, 0x80, 0xa3, 0x3f, 0x03, 0xb5, 0x14, 0x5c, 0x23, 0xfd, 0x0c,
-	0x87, 0xb6, 0xa5, 0xea, 0xf1, 0xc4, 0x56, 0x3c, 0xf6, 0x2c, 0x1b, 0xb5, 0xc5, 0x76, 0x58, 0xd9,
-	0xb9, 0x5f, 0xe0, 0xc9, 0xda, 0x96, 0xff, 0xbd, 0x37, 0xd1, 0x37, 0x02, 0xae, 0xc5, 0x7c, 0x81,
-	0xea, 0x96, 0xe5, 0x48, 0x27, 0xf0, 0x70, 0xf5, 0x94, 0xf4, 0xd9, 0x46, 0x28, 0xda, 0x7b, 0x72,
-	0x9f, 0x6f, 0x81, 0xcd, 0xbb, 0x73, 0x7a, 0x7d, 0x75, 0x55, 0x32, 0x53, 0xd5, 0x59, 0x90, 0x8b,
-	0x59, 0xf8, 0x9e, 0x95, 0x33, 0xe4, 0x66, 0xcc, 0xd1, 0x7c, 0x14, 0x6a, 0xa2, 0x43, 0x91, 0x6a,
-	0xa6, 0xc7, 0x4a, 0xe6, 0x63, 0xa9, 0xc4, 0xa7, 0x26, 0xdc, 0xee, 0xd1, 0xc8, 0x76, 0xda, 0x07,
-	0xe2, 0xc5, 0xcf, 0x00, 0x00, 0x00, 0xff, 0xff, 0x2d, 0x1f, 0x00, 0x6a, 0x6d, 0x04, 0x00, 0x00,
+	// 407 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xb4, 0x94, 0xcf, 0x8b, 0xd3, 0x40,
+	0x14, 0xc7, 0x9d, 0x56, 0x77, 0xf1, 0x6d, 0x05, 0x99, 0xae, 0x12, 0x03, 0x42, 0x09, 0x1e, 0xe2,
+	0xa1, 0x09, 0xc4, 0x8b, 0xec, 0xcd, 0x75, 0xcb, 0xba, 0xd7, 0x6c, 0x4f, 0xa5, 0x20, 0xf9, 0xf1,
+	0x4c, 0x86, 0xb6, 0x33, 0x71, 0x66, 0x5a, 0x1b, 0xc4, 0x93, 0x67, 0xff, 0x47, 0xff, 0x14, 0x69,
+	0x7e, 0xd8, 0x16, 0xa7, 0x12, 0x0f, 0xde, 0xf2, 0xbe, 0xf9, 0xbe, 0xef, 0x63, 0x3e, 0xf3, 0x18,
+	0xb8, 0xcb, 0x64, 0x91, 0xf8, 0x29, 0xc6, 0x82, 0xa7, 0x8c, 0x67, 0x29, 0x2e, 0x31, 0x8b, 0x34,
+	0x13, 0xdc, 0xa4, 0x15, 0xf1, 0x5e, 0xfd, 0xb8, 0x97, 0xbd, 0x42, 0x0a, 0x2d, 0xe8, 0xd0, 0xd0,
+	0xe1, 0xfc, 0x24, 0x60, 0xdd, 0xb4, 0xfa, 0xcd, 0x6f, 0x7d, 0xc2, 0xb5, 0x2c, 0xe9, 0x14, 0xce,
+	0x91, 0x6b, 0xc9, 0x50, 0x59, 0x64, 0xd4, 0x77, 0x2f, 0x82, 0x2b, 0xcf, 0x90, 0xe1, 0x9d, 0xea,
+	0xf7, 0x26, 0x75, 0x73, 0x55, 0x84, 0x6d, 0x94, 0xcd, 0x61, 0x70, 0xf8, 0x83, 0x3e, 0x85, 0xfe,
+	0x02, 0x4b, 0x8b, 0x8c, 0x88, 0xfb, 0x38, 0xdc, 0x7d, 0xd2, 0x0f, 0xf0, 0x68, 0x13, 0x2d, 0xd7,
+	0x68, 0xf5, 0x46, 0xc4, 0xbd, 0x08, 0x82, 0xae, 0x53, 0xef, 0x38, 0x47, 0x59, 0x4f, 0xab, 0x03,
+	0xae, 0x7a, 0x6f, 0x89, 0xf3, 0x0d, 0x5e, 0xfe, 0xd5, 0x4b, 0xe7, 0x70, 0x99, 0xfe, 0x69, 0x68,
+	0xcf, 0xec, 0x76, 0x9d, 0x1e, 0x1a, 0x53, 0x9c, 0x7b, 0x18, 0x1a, 0xcc, 0xf4, 0x39, 0x9c, 0xa9,
+	0x3c, 0x92, 0x15, 0x5a, 0xe2, 0x0e, 0xc2, 0xa6, 0xa2, 0xaf, 0xe0, 0x49, 0x6d, 0x9f, 0xf0, 0x74,
+	0xca, 0x56, 0x35, 0x83, 0x87, 0xe1, 0xb1, 0xe8, 0xdc, 0xc2, 0xf0, 0x16, 0xf5, 0x75, 0xf9, 0x2e,
+	0x4d, 0x25, 0x2a, 0x15, 0xe2, 0xe7, 0x35, 0x2a, 0x4d, 0x2d, 0x38, 0x8f, 0x6a, 0xa5, 0xc1, 0xd9,
+	0x96, 0xbb, 0x71, 0x39, 0xb2, 0x2c, 0xd7, 0x55, 0x5e, 0x3f, 0x6c, 0x2a, 0xe7, 0x47, 0x0f, 0x2e,
+	0x8f, 0x93, 0x54, 0x21, 0xb8, 0x42, 0xba, 0x85, 0x67, 0xa6, 0x5d, 0x6a, 0xa9, 0xbc, 0x37, 0x52,
+	0x31, 0x25, 0x99, 0x50, 0x35, 0x2b, 0x61, 0x04, 0x66, 0x7f, 0x85, 0x17, 0x27, 0x5b, 0xfe, 0xf7,
+	0xb2, 0x04, 0xdf, 0x09, 0xd8, 0x06, 0xf3, 0x3d, 0xca, 0x0d, 0x4b, 0x90, 0x22, 0x0c, 0x0e, 0xcf,
+	0x48, 0xdd, 0x0e, 0x18, 0xaa, 0xab, 0xb1, 0x5f, 0x77, 0x06, 0xe6, 0x3c, 0xb8, 0x9e, 0xcf, 0x66,
+	0x19, 0xd3, 0xf9, 0x3a, 0xf6, 0x12, 0xb1, 0xf2, 0x3f, 0xb1, 0x6c, 0x85, 0x5c, 0x8f, 0x39, 0xea,
+	0x2f, 0x42, 0x2e, 0x94, 0x2f, 0x22, 0xc5, 0xd4, 0x58, 0x16, 0xc9, 0xb8, 0x90, 0x62, 0x5b, 0xfa,
+	0xff, 0xf6, 0x46, 0xc4, 0x67, 0xd5, 0x7b, 0xf0, 0xe6, 0x57, 0x00, 0x00, 0x00, 0xff, 0xff, 0x4e,
+	0xf9, 0x2a, 0x1e, 0x5c, 0x04, 0x00, 0x00,
 }
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -291,7 +291,7 @@ const _ = grpc.SupportPackageIsVersion6
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://godoc.org/google.golang.org/grpc#ClientConn.NewStream.
 type DebondingDelegationServiceClient interface {
-	GetByPublicKey(ctx context.Context, in *GetByPublicKeyRequest, opts ...grpc.CallOption) (*GetByPublicKeyResponse, error)
+	GetByAddress(ctx context.Context, in *GetByAddressRequest, opts ...grpc.CallOption) (*GetByAddressResponse, error)
 }
 
 type debondingDelegationServiceClient struct {
@@ -302,9 +302,9 @@ func NewDebondingDelegationServiceClient(cc grpc.ClientConnInterface) DebondingD
 	return &debondingDelegationServiceClient{cc}
 }
 
-func (c *debondingDelegationServiceClient) GetByPublicKey(ctx context.Context, in *GetByPublicKeyRequest, opts ...grpc.CallOption) (*GetByPublicKeyResponse, error) {
-	out := new(GetByPublicKeyResponse)
-	err := c.cc.Invoke(ctx, "/debondingdelegation.DebondingDelegationService/GetByPublicKey", in, out, opts...)
+func (c *debondingDelegationServiceClient) GetByAddress(ctx context.Context, in *GetByAddressRequest, opts ...grpc.CallOption) (*GetByAddressResponse, error) {
+	out := new(GetByAddressResponse)
+	err := c.cc.Invoke(ctx, "/debondingdelegation.DebondingDelegationService/GetByAddress", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -313,35 +313,35 @@ func (c *debondingDelegationServiceClient) GetByPublicKey(ctx context.Context, i
 
 // DebondingDelegationServiceServer is the server API for DebondingDelegationService service.
 type DebondingDelegationServiceServer interface {
-	GetByPublicKey(context.Context, *GetByPublicKeyRequest) (*GetByPublicKeyResponse, error)
+	GetByAddress(context.Context, *GetByAddressRequest) (*GetByAddressResponse, error)
 }
 
 // UnimplementedDebondingDelegationServiceServer can be embedded to have forward compatible implementations.
 type UnimplementedDebondingDelegationServiceServer struct {
 }
 
-func (*UnimplementedDebondingDelegationServiceServer) GetByPublicKey(ctx context.Context, req *GetByPublicKeyRequest) (*GetByPublicKeyResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetByPublicKey not implemented")
+func (*UnimplementedDebondingDelegationServiceServer) GetByAddress(ctx context.Context, req *GetByAddressRequest) (*GetByAddressResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetByAddress not implemented")
 }
 
 func RegisterDebondingDelegationServiceServer(s *grpc.Server, srv DebondingDelegationServiceServer) {
 	s.RegisterService(&_DebondingDelegationService_serviceDesc, srv)
 }
 
-func _DebondingDelegationService_GetByPublicKey_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(GetByPublicKeyRequest)
+func _DebondingDelegationService_GetByAddress_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetByAddressRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(DebondingDelegationServiceServer).GetByPublicKey(ctx, in)
+		return srv.(DebondingDelegationServiceServer).GetByAddress(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/debondingdelegation.DebondingDelegationService/GetByPublicKey",
+		FullMethod: "/debondingdelegation.DebondingDelegationService/GetByAddress",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(DebondingDelegationServiceServer).GetByPublicKey(ctx, req.(*GetByPublicKeyRequest))
+		return srv.(DebondingDelegationServiceServer).GetByAddress(ctx, req.(*GetByAddressRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -351,8 +351,8 @@ var _DebondingDelegationService_serviceDesc = grpc.ServiceDesc{
 	HandlerType: (*DebondingDelegationServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
-			MethodName: "GetByPublicKey",
-			Handler:    _DebondingDelegationService_GetByPublicKey_Handler,
+			MethodName: "GetByAddress",
+			Handler:    _DebondingDelegationService_GetByAddress_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

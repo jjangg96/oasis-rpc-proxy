@@ -8,7 +8,7 @@ import (
 )
 
 type DebondingDelegationServer interface {
-	GetByPublicKey(context.Context, *debondingdelegationpb.GetByPublicKeyRequest) (*debondingdelegationpb.GetByPublicKeyResponse, error)
+	GetByAddress(context.Context, *debondingdelegationpb.GetByAddressRequest) (*debondingdelegationpb.GetByAddressResponse, error)
 }
 
 type debondingDelegationServer struct {
@@ -21,11 +21,11 @@ func NewDebondingDelegationServer(c *client.Client) DebondingDelegationServer {
 	}
 }
 
-func (s *debondingDelegationServer) GetByPublicKey(ctx context.Context, req *debondingdelegationpb.GetByPublicKeyRequest) (*debondingdelegationpb.GetByPublicKeyResponse, error) {
-	rawDelegations, err := s.client.Staking.GetDebondingDelegations(ctx, req.GetPublicKey(), req.GetHeight())
+func (s *debondingDelegationServer) GetByAddress(ctx context.Context, req *debondingdelegationpb.GetByAddressRequest) (*debondingdelegationpb.GetByAddressResponse, error) {
+	rawDelegations, err := s.client.Staking.GetDebondingDelegations(ctx, req.GetAddress(), req.GetHeight())
 	if err != nil {
 		return nil, err
 	}
 
-	return &debondingdelegationpb.GetByPublicKeyResponse{DebondingDelegations: mapper.DebondingDelegationToPb(rawDelegations)}, nil
+	return &debondingdelegationpb.GetByAddressResponse{DebondingDelegations: mapper.DebondingDelegationToPb(rawDelegations)}, nil
 }

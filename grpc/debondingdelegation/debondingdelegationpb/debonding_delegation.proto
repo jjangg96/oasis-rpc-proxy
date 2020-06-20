@@ -16,15 +16,15 @@ message DebondingDelegation {
     uint64 DebondEndTime = 2;
 }
 
-message GetByPublicKeyRequest {
-    string public_key = 1;
+message GetByAddressRequest {
+    string address = 1;
     int64 height = 2;
 }
 
-message GetByPublicKeyResponse {
+message GetByAddressResponse {
     map<string, DebondingDelegationInnerEntry> debonding_delegations = 1;
 }
 
 service DebondingDelegationService {
-    rpc GetByPublicKey (GetByPublicKeyRequest) returns (GetByPublicKeyResponse) {};
+    rpc GetByAddress (GetByAddressRequest) returns (GetByAddressResponse) {};
 }

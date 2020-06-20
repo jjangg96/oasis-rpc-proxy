@@ -4,9 +4,9 @@ import "fmt"
 
 var (
 	appName    = "oasis-rpc-proxy"
-	appVersion = "0.3.9"
+	appVersion = "0.3.10"
 	gitCommit  = "-"
-	goVersion  = "-"
+	goVersion  = "1.14"
 )
 
 func versionString() string {

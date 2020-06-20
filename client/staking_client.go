@@ -12,7 +12,7 @@ var (
 )
 
 type StakingClient interface {
-	GetAccountByPublicKey(context.Context, string, int64) (*api.Account, error)
+	GetAccountByAddress(context.Context, string, int64) (*api.Account, error)
 	GetDelegations(context.Context, string, int64) (map[api.Address]*api.Delegation, error)
 	GetDebondingDelegations(context.Context, string, int64) (map[api.Address][]*api.DebondingDelegation, error)
 	GetState(context.Context, int64) (*api.Genesis, error)
@@ -28,7 +28,7 @@ type stakingClient struct {
 	client api.Backend
 }
 
-func (c *stakingClient) GetAccountByPublicKey(ctx context.Context, key string, height int64) (*api.Account, error) {
+func (c *stakingClient) GetAccountByAddress(ctx context.Context, key string, height int64) (*api.Account, error) {
 	defer logRequestDuration(time.Now(), "StakingClient_GetAccountByPublicKey")
 
 	q, err := c.buildOwnerQuery(key, height)

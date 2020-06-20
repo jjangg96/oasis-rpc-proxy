@@ -102,86 +102,86 @@ func (m *Delegation) GetShares() []byte {
 	return nil
 }
 
-type GetByPublicKeyRequest struct {
-	PublicKey            string   `protobuf:"bytes,1,opt,name=public_key,json=publicKey,proto3" json:"public_key,omitempty"`
+type GetByAddressRequest struct {
+	Address              string   `protobuf:"bytes,1,opt,name=address,proto3" json:"address,omitempty"`
 	Height               int64    `protobuf:"varint,2,opt,name=height,proto3" json:"height,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
 }
 
-func (m *GetByPublicKeyRequest) Reset()         { *m = GetByPublicKeyRequest{} }
-func (m *GetByPublicKeyRequest) String() string { return proto.CompactTextString(m) }
-func (*GetByPublicKeyRequest) ProtoMessage()    {}
-func (*GetByPublicKeyRequest) Descriptor() ([]byte, []int) {
+func (m *GetByAddressRequest) Reset()         { *m = GetByAddressRequest{} }
+func (m *GetByAddressRequest) String() string { return proto.CompactTextString(m) }
+func (*GetByAddressRequest) ProtoMessage()    {}
+func (*GetByAddressRequest) Descriptor() ([]byte, []int) {
 	return fileDescriptor_6a8c295276666357, []int{2}
 }
 
-func (m *GetByPublicKeyRequest) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_GetByPublicKeyRequest.Unmarshal(m, b)
+func (m *GetByAddressRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_GetByAddressRequest.Unmarshal(m, b)
 }
-func (m *GetByPublicKeyRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_GetByPublicKeyRequest.Marshal(b, m, deterministic)
+func (m *GetByAddressRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_GetByAddressRequest.Marshal(b, m, deterministic)
 }
-func (m *GetByPublicKeyRequest) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_GetByPublicKeyRequest.Merge(m, src)
+func (m *GetByAddressRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_GetByAddressRequest.Merge(m, src)
 }
-func (m *GetByPublicKeyRequest) XXX_Size() int {
-	return xxx_messageInfo_GetByPublicKeyRequest.Size(m)
+func (m *GetByAddressRequest) XXX_Size() int {
+	return xxx_messageInfo_GetByAddressRequest.Size(m)
 }
-func (m *GetByPublicKeyRequest) XXX_DiscardUnknown() {
-	xxx_messageInfo_GetByPublicKeyRequest.DiscardUnknown(m)
+func (m *GetByAddressRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_GetByAddressRequest.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_GetByPublicKeyRequest proto.InternalMessageInfo
+var xxx_messageInfo_GetByAddressRequest proto.InternalMessageInfo
 
-func (m *GetByPublicKeyRequest) GetPublicKey() string {
+func (m *GetByAddressRequest) GetAddress() string {
 	if m != nil {
-		return m.PublicKey
+		return m.Address
 	}
 	return ""
 }
 
-func (m *GetByPublicKeyRequest) GetHeight() int64 {
+func (m *GetByAddressRequest) GetHeight() int64 {
 	if m != nil {
 		return m.Height
 	}
 	return 0
 }
 
-type GetByPublicKeyResponse struct {
+type GetByAddressResponse struct {
 	Delegations          map[string]*Delegation `protobuf:"bytes,1,rep,name=delegations,proto3" json:"delegations,omitempty" protobuf_key:"bytes,1,opt,name=key,proto3" protobuf_val:"bytes,2,opt,name=value,proto3"`
 	XXX_NoUnkeyedLiteral struct{}               `json:"-"`
 	XXX_unrecognized     []byte                 `json:"-"`
 	XXX_sizecache        int32                  `json:"-"`
 }
 
-func (m *GetByPublicKeyResponse) Reset()         { *m = GetByPublicKeyResponse{} }
-func (m *GetByPublicKeyResponse) String() string { return proto.CompactTextString(m) }
-func (*GetByPublicKeyResponse) ProtoMessage()    {}
-func (*GetByPublicKeyResponse) Descriptor() ([]byte, []int) {
+func (m *GetByAddressResponse) Reset()         { *m = GetByAddressResponse{} }
+func (m *GetByAddressResponse) String() string { return proto.CompactTextString(m) }
+func (*GetByAddressResponse) ProtoMessage()    {}
+func (*GetByAddressResponse) Descriptor() ([]byte, []int) {
 	return fileDescriptor_6a8c295276666357, []int{3}
 }
 
-func (m *GetByPublicKeyResponse) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_GetByPublicKeyResponse.Unmarshal(m, b)
+func (m *GetByAddressResponse) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_GetByAddressResponse.Unmarshal(m, b)
 }
-func (m *GetByPublicKeyResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_GetByPublicKeyResponse.Marshal(b, m, deterministic)
+func (m *GetByAddressResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_GetByAddressResponse.Marshal(b, m, deterministic)
 }
-func (m *GetByPublicKeyResponse) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_GetByPublicKeyResponse.Merge(m, src)
+func (m *GetByAddressResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_GetByAddressResponse.Merge(m, src)
 }
-func (m *GetByPublicKeyResponse) XXX_Size() int {
-	return xxx_messageInfo_GetByPublicKeyResponse.Size(m)
+func (m *GetByAddressResponse) XXX_Size() int {
+	return xxx_messageInfo_GetByAddressResponse.Size(m)
 }
-func (m *GetByPublicKeyResponse) XXX_DiscardUnknown() {
-	xxx_messageInfo_GetByPublicKeyResponse.DiscardUnknown(m)
+func (m *GetByAddressResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_GetByAddressResponse.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_GetByPublicKeyResponse proto.InternalMessageInfo
+var xxx_messageInfo_GetByAddressResponse proto.InternalMessageInfo
 
-func (m *GetByPublicKeyResponse) GetDelegations() map[string]*Delegation {
+func (m *GetByAddressResponse) GetDelegations() map[string]*Delegation {
 	if m != nil {
 		return m.Delegations
 	}
@@ -192,9 +192,9 @@ func init() {
 	proto.RegisterType((*DelegationEntry)(nil), "delegation.DelegationEntry")
 	proto.RegisterMapType((map[string]*Delegation)(nil), "delegation.DelegationEntry.EntriesEntry")
 	proto.RegisterType((*Delegation)(nil), "delegation.Delegation")
-	proto.RegisterType((*GetByPublicKeyRequest)(nil), "delegation.GetByPublicKeyRequest")
-	proto.RegisterType((*GetByPublicKeyResponse)(nil), "delegation.GetByPublicKeyResponse")
-	proto.RegisterMapType((map[string]*Delegation)(nil), "delegation.GetByPublicKeyResponse.DelegationsEntry")
+	proto.RegisterType((*GetByAddressRequest)(nil), "delegation.GetByAddressRequest")
+	proto.RegisterType((*GetByAddressResponse)(nil), "delegation.GetByAddressResponse")
+	proto.RegisterMapType((map[string]*Delegation)(nil), "delegation.GetByAddressResponse.DelegationsEntry")
 }
 
 func init() {
@@ -202,29 +202,29 @@ func init() {
 }
 
 var fileDescriptor_6a8c295276666357 = []byte{
-	// 348 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xac, 0x52, 0xc1, 0x4a, 0xeb, 0x40,
-	0x14, 0x7d, 0xd3, 0xf2, 0xfa, 0xe8, 0x6d, 0x79, 0xd6, 0x01, 0x4b, 0x29, 0x08, 0x35, 0xb8, 0xc8,
-	0xc2, 0x24, 0xd0, 0x6e, 0xc4, 0x65, 0xb1, 0x28, 0x0a, 0x22, 0x11, 0x05, 0xdd, 0x48, 0x12, 0xaf,
-	0xc9, 0xd0, 0x36, 0x33, 0xce, 0x4c, 0xaa, 0xf9, 0x24, 0xbf, 0xc4, 0xdf, 0x92, 0xa6, 0xad, 0x19,
-	0x4b, 0xa9, 0x1b, 0x77, 0x73, 0xe6, 0x9e, 0x39, 0x73, 0xce, 0xe1, 0x82, 0x13, 0x4b, 0x11, 0x79,
-	0x4f, 0x38, 0xc1, 0x38, 0xd0, 0x8c, 0xa7, 0xc6, 0x51, 0x84, 0x06, 0x70, 0x85, 0xe4, 0x9a, 0x53,
-	0x28, 0x6f, 0xac, 0x77, 0x02, 0x3b, 0xa7, 0x5f, 0x70, 0x94, 0x6a, 0x99, 0xd3, 0x21, 0xfc, 0xc3,
-	0x54, 0x4b, 0x86, 0xaa, 0x43, 0x7a, 0x55, 0xbb, 0xd1, 0xb7, 0x5d, 0x43, 0x63, 0x8d, 0xed, 0x8e,
-	0x16, 0xd4, 0x02, 0xf8, 0xab, 0x87, 0x5d, 0x1f, 0x9a, 0xe6, 0x80, 0xb6, 0xa0, 0x3a, 0xc6, 0xbc,
-	0x43, 0x7a, 0xc4, 0xae, 0xfb, 0xf3, 0x23, 0x3d, 0x82, 0xbf, 0xb3, 0x60, 0x92, 0x61, 0xa7, 0xd2,
-	0x23, 0x76, 0xa3, 0xdf, 0xde, 0xfc, 0x87, 0xbf, 0x20, 0x9d, 0x54, 0x8e, 0x89, 0x75, 0x08, 0x50,
-	0x0e, 0x68, 0x1b, 0x6a, 0x2a, 0x09, 0x64, 0x61, 0x92, 0xd8, 0x4d, 0x7f, 0x89, 0xac, 0x2b, 0xd8,
-	0x3b, 0x43, 0x3d, 0xcc, 0xaf, 0xb3, 0x70, 0xc2, 0xa2, 0x4b, 0xcc, 0x7d, 0x7c, 0xc9, 0x50, 0x69,
-	0xba, 0x0f, 0x20, 0x8a, 0xbb, 0xc7, 0xd2, 0x49, 0x5d, 0xac, 0x58, 0x73, 0xbd, 0x04, 0x59, 0x9c,
-	0xe8, 0xc2, 0x50, 0xd5, 0x5f, 0x22, 0xeb, 0x83, 0x40, 0x7b, 0x5d, 0x50, 0x09, 0x9e, 0x2a, 0xa4,
-	0xb7, 0xd0, 0x28, 0x4d, 0xaf, 0xca, 0x1a, 0x98, 0x41, 0x36, 0x3f, 0x34, 0xf2, 0x2d, 0x7b, 0x33,
-	0x75, 0xba, 0x77, 0xd0, 0x5a, 0x27, 0xfc, 0x46, 0x7f, 0xfd, 0x14, 0x76, 0xcb, 0xc1, 0x0d, 0xca,
-	0x19, 0x8b, 0x90, 0xde, 0xc3, 0xff, 0xef, 0x26, 0xe9, 0xc1, 0xb6, 0x00, 0x45, 0x95, 0x5d, 0xeb,
-	0xe7, 0x8c, 0xd6, 0x9f, 0xe1, 0xc5, 0xc3, 0x79, 0xcc, 0x74, 0x92, 0x85, 0x6e, 0xc4, 0xa7, 0xde,
-	0x33, 0x8b, 0xa7, 0x98, 0x6a, 0x27, 0x45, 0xfd, 0xca, 0xe5, 0x58, 0x79, 0x3c, 0x50, 0x4c, 0x39,
-	0x52, 0x44, 0x8e, 0x90, 0xfc, 0x2d, 0xf7, 0xb6, 0x2d, 0x71, 0x58, 0x2b, 0x56, 0x77, 0xf0, 0x19,
-	0x00, 0x00, 0xff, 0xff, 0xf7, 0x2b, 0xc8, 0xf0, 0xeb, 0x02, 0x00, 0x00,
+	// 340 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xac, 0x52, 0x41, 0x4f, 0xf2, 0x40,
+	0x10, 0xfd, 0x16, 0xf2, 0x41, 0x1c, 0x48, 0xc4, 0xd5, 0x90, 0x86, 0x8b, 0x4d, 0xe3, 0xa1, 0x07,
+	0xdb, 0x46, 0xbc, 0x18, 0x6f, 0x12, 0x09, 0xc6, 0xe3, 0x92, 0x78, 0xf0, 0x56, 0xca, 0xd8, 0x6e,
+	0x80, 0x6e, 0xdd, 0x5d, 0xd0, 0xfe, 0x24, 0x7f, 0x87, 0x7f, 0xcc, 0x50, 0x8a, 0x5d, 0x09, 0xea,
+	0xc5, 0xdb, 0xbe, 0x99, 0x37, 0x6f, 0xdf, 0xbc, 0x0c, 0x78, 0xb1, 0xcc, 0xa2, 0x60, 0x8a, 0x73,
+	0x8c, 0x43, 0xcd, 0x45, 0x6a, 0x3c, 0xb3, 0x89, 0x01, 0xfc, 0x4c, 0x0a, 0x2d, 0x28, 0x54, 0x15,
+	0xe7, 0x8d, 0xc0, 0xe1, 0xed, 0x27, 0x1c, 0xa6, 0x5a, 0xe6, 0x74, 0x00, 0x4d, 0x4c, 0xb5, 0xe4,
+	0xa8, 0x2c, 0x62, 0xd7, 0xdd, 0x56, 0xdf, 0xf5, 0x0d, 0x8d, 0x1d, 0xb6, 0x3f, 0xdc, 0x50, 0x0b,
+	0xc0, 0xb6, 0x83, 0x3d, 0x06, 0x6d, 0xb3, 0x41, 0x3b, 0x50, 0x9f, 0x61, 0x6e, 0x11, 0x9b, 0xb8,
+	0x07, 0x6c, 0xfd, 0xa4, 0xe7, 0xf0, 0x7f, 0x15, 0xce, 0x97, 0x68, 0xd5, 0x6c, 0xe2, 0xb6, 0xfa,
+	0xdd, 0xfd, 0x7f, 0xb0, 0x0d, 0xe9, 0xba, 0x76, 0x45, 0x9c, 0x33, 0x80, 0xaa, 0x41, 0xbb, 0xd0,
+	0x50, 0x49, 0x28, 0x0b, 0x93, 0xc4, 0x6d, 0xb3, 0x12, 0x39, 0x23, 0x38, 0x1e, 0xa1, 0x1e, 0xe4,
+	0x37, 0xd3, 0xa9, 0x44, 0xa5, 0x18, 0x3e, 0x2f, 0x51, 0x69, 0x6a, 0x41, 0x33, 0xdc, 0x54, 0x4a,
+	0x13, 0x5b, 0xb8, 0x16, 0x4a, 0x90, 0xc7, 0x89, 0x2e, 0x9c, 0xd4, 0x59, 0x89, 0x9c, 0x77, 0x02,
+	0x27, 0x5f, 0x95, 0x54, 0x26, 0x52, 0x85, 0x74, 0x0c, 0xad, 0xca, 0xeb, 0x36, 0xa3, 0x0b, 0xd3,
+	0xff, 0xbe, 0x31, 0x63, 0xa9, 0x32, 0x2c, 0x53, 0xa5, 0xf7, 0x00, 0x9d, 0x5d, 0xc2, 0x5f, 0x84,
+	0xd6, 0x4f, 0xe0, 0xa8, 0x6a, 0x8c, 0x51, 0xae, 0x78, 0xb4, 0xde, 0xa0, 0x6d, 0x5a, 0xa4, 0xa7,
+	0xdf, 0x9b, 0x2f, 0xd2, 0xeb, 0xd9, 0xbf, 0x6d, 0xe7, 0xfc, 0x1b, 0xdc, 0x3f, 0xde, 0xc5, 0x5c,
+	0x27, 0xcb, 0x89, 0x1f, 0x89, 0x45, 0xf0, 0xc4, 0xe3, 0x05, 0xa6, 0xda, 0x4b, 0x51, 0xbf, 0x08,
+	0x39, 0x53, 0x81, 0x08, 0x15, 0x57, 0x9e, 0xcc, 0x22, 0x2f, 0x93, 0xe2, 0x35, 0x0f, 0x7e, 0xba,
+	0xd9, 0x49, 0xa3, 0xb8, 0xd4, 0xcb, 0x8f, 0x00, 0x00, 0x00, 0xff, 0xff, 0xcb, 0x21, 0x64, 0xc4,
+	0xda, 0x02, 0x00, 0x00,
 }
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -239,7 +239,7 @@ const _ = grpc.SupportPackageIsVersion6
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://godoc.org/google.golang.org/grpc#ClientConn.NewStream.
 type DelegationServiceClient interface {
-	GetByPublicKey(ctx context.Context, in *GetByPublicKeyRequest, opts ...grpc.CallOption) (*GetByPublicKeyResponse, error)
+	GetByAddress(ctx context.Context, in *GetByAddressRequest, opts ...grpc.CallOption) (*GetByAddressResponse, error)
 }
 
 type delegationServiceClient struct {
@@ -250,9 +250,9 @@ func NewDelegationServiceClient(cc grpc.ClientConnInterface) DelegationServiceCl
 	return &delegationServiceClient{cc}
 }
 
-func (c *delegationServiceClient) GetByPublicKey(ctx context.Context, in *GetByPublicKeyRequest, opts ...grpc.CallOption) (*GetByPublicKeyResponse, error) {
-	out := new(GetByPublicKeyResponse)
-	err := c.cc.Invoke(ctx, "/delegation.DelegationService/GetByPublicKey", in, out, opts...)
+func (c *delegationServiceClient) GetByAddress(ctx context.Context, in *GetByAddressRequest, opts ...grpc.CallOption) (*GetByAddressResponse, error) {
+	out := new(GetByAddressResponse)
+	err := c.cc.Invoke(ctx, "/delegation.DelegationService/GetByAddress", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -261,35 +261,35 @@ func (c *delegationServiceClient) GetByPublicKey(ctx context.Context, in *GetByP
 
 // DelegationServiceServer is the server API for DelegationService service.
 type DelegationServiceServer interface {
-	GetByPublicKey(context.Context, *GetByPublicKeyRequest) (*GetByPublicKeyResponse, error)
+	GetByAddress(context.Context, *GetByAddressRequest) (*GetByAddressResponse, error)
 }
 
 // UnimplementedDelegationServiceServer can be embedded to have forward compatible implementations.
 type UnimplementedDelegationServiceServer struct {
 }
 
-func (*UnimplementedDelegationServiceServer) GetByPublicKey(ctx context.Context, req *GetByPublicKeyRequest) (*GetByPublicKeyResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetByPublicKey not implemented")
+func (*UnimplementedDelegationServiceServer) GetByAddress(ctx context.Context, req *GetByAddressRequest) (*GetByAddressResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetByAddress not implemented")
 }
 
 func RegisterDelegationServiceServer(s *grpc.Server, srv DelegationServiceServer) {
 	s.RegisterService(&_DelegationService_serviceDesc, srv)
 }
 
-func _DelegationService_GetByPublicKey_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(GetByPublicKeyRequest)
+func _DelegationService_GetByAddress_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetByAddressRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(DelegationServiceServer).GetByPublicKey(ctx, in)
+		return srv.(DelegationServiceServer).GetByAddress(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/delegation.DelegationService/GetByPublicKey",
+		FullMethod: "/delegation.DelegationService/GetByAddress",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(DelegationServiceServer).GetByPublicKey(ctx, req.(*GetByPublicKeyRequest))
+		return srv.(DelegationServiceServer).GetByAddress(ctx, req.(*GetByAddressRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -299,8 +299,8 @@ var _DelegationService_serviceDesc = grpc.ServiceDesc{
 	HandlerType: (*DelegationServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
-			MethodName: "GetByPublicKey",
-			Handler:    _DelegationService_GetByPublicKey_Handler,
+			MethodName: "GetByAddress",
+			Handler:    _DelegationService_GetByAddress_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

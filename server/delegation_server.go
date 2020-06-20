@@ -8,7 +8,7 @@ import (
 )
 
 type DelegationServer interface {
-	GetByPublicKey(context.Context, *delegationpb.GetByPublicKeyRequest) (*delegationpb.GetByPublicKeyResponse, error)
+	GetByAddress(context.Context, *delegationpb.GetByAddressRequest) (*delegationpb.GetByAddressResponse, error)
 }
 
 type delegationServer struct {
@@ -21,12 +21,12 @@ func NewDelegationServer(c *client.Client) DelegationServer {
 	}
 }
 
-func (s *delegationServer) GetByPublicKey(ctx context.Context, req *delegationpb.GetByPublicKeyRequest) (*delegationpb.GetByPublicKeyResponse, error) {
-	rawDelegations, err := s.client.Staking.GetDelegations(ctx, req.GetPublicKey(), req.GetHeight())
+func (s *delegationServer) GetByAddress(ctx context.Context, req *delegationpb.GetByAddressRequest) (*delegationpb.GetByAddressResponse, error) {
+	rawDelegations, err := s.client.Staking.GetDelegations(ctx, req.GetAddress(), req.GetHeight())
 	if err != nil {
 		return nil, err
 	}
 
-	return &delegationpb.GetByPublicKeyResponse{Delegations: mapper.DelegationToPb(rawDelegations)}, nil
+	return &delegationpb.GetByAddressResponse{Delegations: mapper.DelegationToPb(rawDelegations)}, nil
 }
 

@@ -54,7 +54,15 @@ func getPublicKey(key string) (*signature.PublicKey, error) {
 	return &pKey, nil
 }
 
-func getAddress(key string) (*api.Address, error) {
+func getAddress(rawAddress string) (*api.Address, error) {
+	address := api.Address{}
+	if err := address.UnmarshalText([]byte(rawAddress)); err != nil {
+		return nil, err
+	}
+	return &address, nil
+}
+
+func getAddressFromPublicKey(key string) (*api.Address, error) {
 	var pk signature.PublicKey
 	if err := pk.UnmarshalText([]byte(key)); err != nil {
 		return nil, err

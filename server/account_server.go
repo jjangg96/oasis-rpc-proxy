@@ -8,7 +8,7 @@ import (
 )
 
 type AccountServer interface {
-	GetByPublicKey(context.Context, *accountpb.GetByPublicKeyRequest) (*accountpb.GetByPublicKeyResponse, error)
+	GetByAddress(context.Context, *accountpb.GetByAddressRequest) (*accountpb.GetByAddressResponse, error)
 }
 
 type accountServer struct{
@@ -21,13 +21,13 @@ func NewAccountServer(c *client.Client) AccountServer {
 	}
 }
 
-func (s *accountServer) GetByPublicKey(ctx context.Context, req *accountpb.GetByPublicKeyRequest) (*accountpb.GetByPublicKeyResponse, error) {
-	rawAccount, err := s.client.Staking.GetAccountByPublicKey(ctx, req.PublicKey, req.Height)
+func (s *accountServer) GetByAddress(ctx context.Context, req *accountpb.GetByAddressRequest) (*accountpb.GetByAddressResponse, error) {
+	rawAccount, err := s.client.Staking.GetAccountByAddress(ctx, req.Address, req.Height)
 	if err != nil {
 		return nil, err
 	}
 
 	account := mapper.AccountToPb(*rawAccount)
 
-	return &accountpb.GetByPublicKeyResponse{Account: account}, nil
+	return &accountpb.GetByAddressResponse{Account: account}, nil
 }
