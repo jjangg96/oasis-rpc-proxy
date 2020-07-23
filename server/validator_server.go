@@ -5,6 +5,7 @@ import (
 	"github.com/figment-networks/oasis-rpc-proxy/client"
 	"github.com/figment-networks/oasis-rpc-proxy/grpc/validator/validatorpb"
 	"github.com/figment-networks/oasis-rpc-proxy/mapper"
+	stakingApi "github.com/oasisprotocol/oasis-core/go/staking/api"
 )
 
 type ValidatorServer interface {
@@ -27,14 +28,26 @@ func (s *validatorServer) GetByHeight(ctx context.Context, req *validatorpb.GetB
 		return nil, err
 	}
 
+	rawEpochTime, err := s.client.Consensus.GetEpochByHeight(ctx, req.Height)
+	if err != nil {
+		return nil, err
+	}
+
 	var validators []*validatorpb.Validator
 	for _, rawValidator := range rawValidators {
-		node, err := s.client.Registry.GeNodeById(ctx, rawValidator.ID.String(), req.Height)
+		rawNode, err := s.client.Registry.GeNodeById(ctx, rawValidator.ID.String(), req.Height)
 		if err != nil {
 			return nil, err
 		}
 
-		validators = append(validators, mapper.ValidatorToPb(rawValidator, node))
+		address := stakingApi.NewAddress(rawNode.EntityID).String()
+
+		rawAccount, err := s.client.Staking.GetAccountByAddress(ctx, address, req.Height)
+		if err != nil {
+			return nil, err
+		}
+
+		validators = append(validators, mapper.ValidatorToPb(rawValidator, address, rawNode, rawAccount, rawEpochTime))
 	}
 	return &validatorpb.GetByHeightResponse{Validators: validators}, nil
 }

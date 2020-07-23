@@ -49,11 +49,17 @@ func (s *chainServer) GetMetaByHeight(ctx context.Context, req *chainpb.GetMetaB
 		return nil, err
 	}
 
+	epochTime, err := s.client.Consensus.GetEpochByHeight(ctx, req.Height)
+	if err != nil {
+		return nil, err
+	}
+
 	return &chainpb.GetMetaByHeightResponse{
 		Height:       block.GetHeader().GetHeight(),
 		Time:         block.GetHeader().GetTime(),
 		AppVersion:   block.GetHeader().GetVersion().GetApp(),
 		BlockVersion: block.GetHeader().GetVersion().GetBlock(),
+		Epoch:        uint64(epochTime),
 	}, nil
 }
 

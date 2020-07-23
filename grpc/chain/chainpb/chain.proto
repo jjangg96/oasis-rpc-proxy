@@ -30,6 +30,7 @@ message GetMetaByHeightResponse {
     google.protobuf.Timestamp time = 2;
     uint64 app_version = 3;
     uint64 block_version = 4;
+    uint64 epoch = 5;
 }
 
 service ChainService {
