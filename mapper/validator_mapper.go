@@ -7,12 +7,13 @@ import (
 	epochTimeApi "github.com/oasisprotocol/oasis-core/go/epochtime/api"
 	"github.com/oasisprotocol/oasis-core/go/scheduler/api"
 	stakingApi "github.com/oasisprotocol/oasis-core/go/staking/api"
+	"math/big"
 )
 
 func ValidatorToPb(rawValidator *api.Validator, address string, rawNode *node.Node, rawAccount *stakingApi.Account, rawEpochTime epochTimeApi.EpochTime) *validatorpb.Validator {
 	cID := rawNode.Consensus.ID
 	tmAddr := tmcrypto.PublicKeyToTendermint(&cID).Address().String()
-	commission := rawAccount.Escrow.CommissionSchedule.CurrentRate(rawEpochTime)
+	rateNumerator := rawAccount.Escrow.CommissionSchedule.CurrentRate(rawEpochTime)
 
 	// P2P addresses
 	var p2pAddresses []string
@@ -68,8 +69,10 @@ func ValidatorToPb(rawValidator *api.Validator, address string, rawNode *node.No
 		},
 	}
 
-	if commission != nil {
-		validator.Commission = commission.ToBigInt().Bytes()
+	if rateNumerator != nil {
+		rate := big.NewRat(rateNumerator.ToBigInt().Int64(), stakingApi.CommissionRateDenominator.ToBigInt().Int64())
+		rate.Mul(rate, big.NewRat(100, 1))
+		validator.Commission = rateNumerator.ToBigInt().Bytes()
 	}
 
 	return validator
