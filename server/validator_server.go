@@ -6,6 +6,8 @@ import (
 	"github.com/figment-networks/oasis-rpc-proxy/grpc/validator/validatorpb"
 	"github.com/figment-networks/oasis-rpc-proxy/mapper"
 	stakingApi "github.com/oasisprotocol/oasis-core/go/staking/api"
+	registryApi "github.com/oasisprotocol/oasis-core/go/registry/api"
+	"github.com/figment-networks/oasis-rpc-proxy/utils/logger"
 )
 
 type ValidatorServer interface {
@@ -35,8 +37,13 @@ func (s *validatorServer) GetByHeight(ctx context.Context, req *validatorpb.GetB
 
 	var validators []*validatorpb.Validator
 	for _, rawValidator := range rawValidators {
-		rawNode, err := s.client.Registry.GeNodeById(ctx, rawValidator.ID.String(), req.Height)
-		if err != nil {
+		rawNode, err := s.client.Registry.GetNodeById(ctx, rawValidator.ID, req.Height)
+	
+		if err == registryApi.ErrNoSuchNode {
+			// some validators are missing nodes after the network upgrade on august 6
+			logger.Info("skipping validator...", logger.Field("rawValidator.ID", rawValidator.ID.String()))
+			continue
+		} else if err != nil {
 			return nil, err
 		}
 

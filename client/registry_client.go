@@ -4,6 +4,7 @@ import (
 	"context"
 	"github.com/oasisprotocol/oasis-core/go/common/node"
 	"github.com/oasisprotocol/oasis-core/go/registry/api"
+	"github.com/oasisprotocol/oasis-core/go/common/crypto/signature"
 	"google.golang.org/grpc"
 	"time"
 )
@@ -13,7 +14,7 @@ var (
 )
 
 type RegistryClient interface {
-	GeNodeById(context.Context, string, int64) (*node.Node, error)
+	GetNodeById(context.Context, signature.PublicKey, int64) (*node.Node, error)
 }
 
 func NewRegistryClient(conn *grpc.ClientConn) *registryClient {
@@ -26,16 +27,12 @@ type registryClient struct {
 	client api.Backend
 }
 
-func (c *registryClient) GeNodeById(ctx context.Context, key string, height int64) (*node.Node, error) {
-	defer logRequestDuration(time.Now(), "RegistryClient_GeNodeById")
+func (c *registryClient) GetNodeById(ctx context.Context, key signature.PublicKey, height int64) (*node.Node, error) {
+	defer logRequestDuration(time.Now(), "RegistryClient_GetNodeById")
 
-	pKey, err := getPublicKey(key)
-	if err != nil {
-		return nil, err
-	}
 	q := &api.IDQuery{
 		Height: height,
-		ID:     *pKey,
+		ID:     key,
 	}
 	return c.client.GetNode(ctx, q)
 }
