@@ -1,12 +1,14 @@
 package mapper
 
 import (
+	"time"
+
 	"github.com/figment-networks/oasis-rpc-proxy/grpc/state/statepb"
 	"github.com/golang/protobuf/ptypes/duration"
 	"github.com/oasisprotocol/oasis-core/go/consensus/genesis"
 )
 
-func ConsensusToPb(rawConsensus genesis.Genesis) *statepb.Consensus {
+func ConsensusToPb(rawConsensus genesis.Genesis, maxAgeNumBlocks int64) *statepb.Consensus {
 	return &statepb.Consensus{
 		Backend: rawConsensus.Backend,
 		Params: &statepb.ConsensusParams{
@@ -19,11 +21,12 @@ func ConsensusToPb(rawConsensus genesis.Genesis) *statepb.Consensus {
 				Seconds: int64(rawConsensus.Parameters.EmptyBlockInterval.Seconds()),
 				Nanos:   int32(rawConsensus.Parameters.EmptyBlockInterval.Nanoseconds()),
 			},
-			MaxTxSize:            rawConsensus.Parameters.MaxTxSize,
-			MaxBlockSize:         rawConsensus.Parameters.MaxBlockSize,
-			MaxBlockGas:          uint64(rawConsensus.Parameters.MaxBlockGas),
-			MaxEvidenceAgeBlocks: rawConsensus.Parameters.MaxEvidenceAgeBlocks,
-			MaxEvidenceAgeTime:   rawConsensus.Parameters.MaxEvidenceAgeTime.String(),
+			MaxTxSize:    rawConsensus.Parameters.MaxTxSize,
+			MaxBlockSize: rawConsensus.Parameters.MaxBlockSize,
+			MaxBlockGas:  uint64(rawConsensus.Parameters.MaxBlockGas),
+
+			MaxEvidenceAgeBlocks: uint64(maxAgeNumBlocks),
+			MaxEvidenceAgeTime:   (time.Duration(maxAgeNumBlocks) * (rawConsensus.Parameters.TimeoutCommit + 1*time.Second)).String(),
 		},
 	}
 }

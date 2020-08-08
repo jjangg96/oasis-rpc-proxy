@@ -17,8 +17,8 @@ func BlockToPb(rawBlock api.Block) (*blockpb.Block, error) {
 
 	// Version
 	version := &blockpb.Version{
-		Block: blockMeta.Header.Version.Block.Uint64(),
-		App:   blockMeta.Header.Version.App.Uint64(),
+		Block: blockMeta.Header.Version.GetBlock(),
+		App:   blockMeta.Header.Version.GetApp(),
 	}
 
 	// LastBlockId
