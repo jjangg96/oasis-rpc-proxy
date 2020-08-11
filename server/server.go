@@ -9,6 +9,7 @@ import (
 	"github.com/figment-networks/oasis-rpc-proxy/grpc/chain/chainpb"
 	"github.com/figment-networks/oasis-rpc-proxy/grpc/debondingdelegation/debondingdelegationpb"
 	"github.com/figment-networks/oasis-rpc-proxy/grpc/delegation/delegationpb"
+	"github.com/figment-networks/oasis-rpc-proxy/grpc/event/eventpb"
 	"github.com/figment-networks/oasis-rpc-proxy/grpc/state/statepb"
 	"github.com/figment-networks/oasis-rpc-proxy/grpc/transaction/transactionpb"
 	"github.com/figment-networks/oasis-rpc-proxy/grpc/validator/validatorpb"
@@ -44,6 +45,7 @@ func (s *Server) init() *Server {
 	chainpb.RegisterChainServiceServer(s.server, NewChainServer(s.client, s.doc))
 	accountpb.RegisterAccountServiceServer(s.server, NewAccountServer(s.client))
 	blockpb.RegisterBlockServiceServer(s.server, NewBlockServer(s.client))
+	eventpb.RegisterEventServiceServer(s.server, NewEventServer(s.client))
 	statepb.RegisterStateServiceServer(s.server, NewStateServer(s.client))
 	validatorpb.RegisterValidatorServiceServer(s.server, NewValidatorServer(s.client))
 	transactionpb.RegisterTransactionServiceServer(s.server, NewTransactionServer(s.client))

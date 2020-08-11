@@ -1,0 +1,24 @@
+syntax = "proto3";
+
+package event;
+option go_package = "github.com/figment-networks/oasis-rpc-proxy/grpc/event/eventpb";
+
+
+message GetAddEscrowEventsByHeightRequest {
+    int64 height = 1;
+}
+
+message AddEscrowEvent {
+	string         owner = 1;
+	string         escrow = 2;
+	bytes amount = 3;
+}
+
+message GetAddEscrowEventsByHeightResponse {
+	repeated AddEscrowEvent events = 1;
+	string commonPoolAddress =2;
+}
+
+service EventService {
+    rpc GetAddEscrowEventsByHeight (GetAddEscrowEventsByHeightRequest) returns (GetAddEscrowEventsByHeightResponse) {};
+}

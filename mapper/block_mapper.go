@@ -2,6 +2,7 @@ package mapper
 
 import (
 	"encoding/base64"
+
 	"github.com/figment-networks/oasis-rpc-proxy/grpc/block/blockpb"
 	"github.com/golang/protobuf/ptypes"
 	"github.com/oasisprotocol/oasis-core/go/common/cbor"
