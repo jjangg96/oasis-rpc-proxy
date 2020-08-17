@@ -2,6 +2,8 @@ package server
 
 import (
 	"fmt"
+	"net"
+
 	"github.com/figment-networks/oasis-rpc-proxy/client"
 	"github.com/figment-networks/oasis-rpc-proxy/config"
 	"github.com/figment-networks/oasis-rpc-proxy/grpc/account/accountpb"
@@ -18,7 +20,6 @@ import (
 	"github.com/oasisprotocol/oasis-core/go/genesis/api"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/reflection"
-	"net"
 )
 
 type Server struct {

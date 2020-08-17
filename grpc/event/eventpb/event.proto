@@ -16,7 +16,6 @@ message AddEscrowEvent {
 
 message GetAddEscrowEventsByHeightResponse {
 	repeated AddEscrowEvent events = 1;
-	string commonPoolAddress =2;
 }
 
 service EventService {

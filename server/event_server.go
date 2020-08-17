@@ -6,7 +6,6 @@ import (
 	"github.com/figment-networks/oasis-rpc-proxy/client"
 	"github.com/figment-networks/oasis-rpc-proxy/grpc/event/eventpb"
 	"github.com/figment-networks/oasis-rpc-proxy/mapper"
-	"github.com/oasisprotocol/oasis-core/go/staking/api"
 )
 
 type EventServer interface {
@@ -31,11 +30,10 @@ func (s *eventServer) GetAddEscrowEventsByHeight(ctx context.Context, req *event
 
 	var events []*eventpb.AddEscrowEvent
 	for _, rawEvent := range rawEvents {
-		events = append(events, mapper.EventToPb(rawEvent))
+		events = append(events, mapper.AddEscrowEventToPb(rawEvent))
 	}
 
 	return &eventpb.GetAddEscrowEventsByHeightResponse{
-		Events:            events,
-		CommonPoolAddress: api.CommonPoolAddress.String(),
+		Events: events,
 	}, nil
 }

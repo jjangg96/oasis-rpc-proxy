@@ -2,12 +2,14 @@ package server
 
 import (
 	"context"
+
 	"github.com/figment-networks/oasis-rpc-proxy/client"
 	"github.com/figment-networks/oasis-rpc-proxy/grpc/block/blockpb"
 	"github.com/figment-networks/oasis-rpc-proxy/grpc/chain/chainpb"
 	"github.com/figment-networks/oasis-rpc-proxy/mapper"
 	"github.com/golang/protobuf/ptypes"
 	"github.com/oasisprotocol/oasis-core/go/genesis/api"
+	stakingApi "github.com/oasisprotocol/oasis-core/go/staking/api"
 	tmtypes "github.com/tendermint/tendermint/types"
 )
 
@@ -15,6 +17,7 @@ type ChainServer interface {
 	GetStatus(context.Context, *chainpb.GetStatusRequest) (*chainpb.GetStatusResponse, error)
 	GetMetaByHeight(context.Context, *chainpb.GetMetaByHeightRequest) (*chainpb.GetMetaByHeightResponse, error)
 	GetHead(context.Context, *chainpb.GetHeadRequest) (*chainpb.GetHeadResponse, error)
+	GetConstants(context.Context, *chainpb.GetConstantsRequest) (*chainpb.GetConstantsResponse, error)
 }
 
 type chainServer struct {
@@ -27,6 +30,10 @@ func NewChainServer(c *client.Client, doc *api.Document) ChainServer {
 		client: c,
 		doc:    doc,
 	}
+}
+
+func (s *chainServer) GetConstants(ctx context.Context, req *chainpb.GetConstantsRequest) (*chainpb.GetConstantsResponse, error) {
+	return &chainpb.GetConstantsResponse{CommonPoolAddress: stakingApi.CommonPoolAddress.String()}, nil
 }
 
 func (s *chainServer) GetStatus(ctx context.Context, req *chainpb.GetStatusRequest) (*chainpb.GetStatusResponse, error) {
