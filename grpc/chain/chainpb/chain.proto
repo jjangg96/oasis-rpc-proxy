@@ -33,7 +33,14 @@ message GetMetaByHeightResponse {
     uint64 epoch = 5;
 }
 
+message GetConstantsRequest {}
+
+message GetConstantsResponse {
+    string CommonPoolAddress = 1;
+}
+
 service ChainService {
+    rpc GetConstants (GetConstantsRequest)  returns (GetConstantsResponse) {};
     rpc GetHead (GetHeadRequest) returns (GetHeadResponse) {};
     rpc GetStatus (GetStatusRequest) returns (GetStatusResponse) {};
     rpc GetMetaByHeight (GetMetaByHeightRequest) returns (GetMetaByHeightResponse) {};

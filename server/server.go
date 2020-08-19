@@ -2,6 +2,8 @@ package server
 
 import (
 	"fmt"
+	"net"
+
 	"github.com/figment-networks/oasis-rpc-proxy/client"
 	"github.com/figment-networks/oasis-rpc-proxy/config"
 	"github.com/figment-networks/oasis-rpc-proxy/grpc/account/accountpb"
@@ -9,6 +11,7 @@ import (
 	"github.com/figment-networks/oasis-rpc-proxy/grpc/chain/chainpb"
 	"github.com/figment-networks/oasis-rpc-proxy/grpc/debondingdelegation/debondingdelegationpb"
 	"github.com/figment-networks/oasis-rpc-proxy/grpc/delegation/delegationpb"
+	"github.com/figment-networks/oasis-rpc-proxy/grpc/event/eventpb"
 	"github.com/figment-networks/oasis-rpc-proxy/grpc/state/statepb"
 	"github.com/figment-networks/oasis-rpc-proxy/grpc/transaction/transactionpb"
 	"github.com/figment-networks/oasis-rpc-proxy/grpc/validator/validatorpb"
@@ -17,7 +20,6 @@ import (
 	"github.com/oasisprotocol/oasis-core/go/genesis/api"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/reflection"
-	"net"
 )
 
 type Server struct {
@@ -44,6 +46,7 @@ func (s *Server) init() *Server {
 	chainpb.RegisterChainServiceServer(s.server, NewChainServer(s.client, s.doc))
 	accountpb.RegisterAccountServiceServer(s.server, NewAccountServer(s.client))
 	blockpb.RegisterBlockServiceServer(s.server, NewBlockServer(s.client))
+	eventpb.RegisterEventServiceServer(s.server, NewEventServer(s.client))
 	statepb.RegisterStateServiceServer(s.server, NewStateServer(s.client))
 	validatorpb.RegisterValidatorServiceServer(s.server, NewValidatorServer(s.client))
 	transactionpb.RegisterTransactionServiceServer(s.server, NewTransactionServer(s.client))

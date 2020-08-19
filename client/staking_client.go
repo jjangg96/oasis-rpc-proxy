@@ -2,9 +2,10 @@ package client
 
 import (
 	"context"
+	"time"
+
 	"github.com/oasisprotocol/oasis-core/go/staking/api"
 	"google.golang.org/grpc"
-	"time"
 )
 
 var (
@@ -16,6 +17,7 @@ type StakingClient interface {
 	GetDelegations(context.Context, string, int64) (map[api.Address]*api.Delegation, error)
 	GetDebondingDelegations(context.Context, string, int64) (map[api.Address][]*api.DebondingDelegation, error)
 	GetState(context.Context, int64) (*api.Genesis, error)
+	GetEvents(ctx context.Context, height int64) ([]*api.Event, error)
 }
 
 func NewStakingClient(conn *grpc.ClientConn) *stakingClient {
@@ -46,6 +48,12 @@ func (c *stakingClient) GetDelegations(ctx context.Context, key string, height i
 		return nil, err
 	}
 	return c.client.Delegations(ctx, q)
+}
+
+func (c *stakingClient) GetEvents(ctx context.Context, height int64) ([]*api.Event, error) {
+	defer logRequestDuration(time.Now(), "StakingClient_GetEvents")
+
+	return c.client.GetEvents(ctx, height)
 }
 
 func (c *stakingClient) GetDebondingDelegations(ctx context.Context, key string, height int64) (map[api.Address][]*api.DebondingDelegation, error) {
