@@ -30,7 +30,9 @@ func (s *eventServer) GetAddEscrowEventsByHeight(ctx context.Context, req *event
 
 	var events []*eventpb.AddEscrowEvent
 	for _, rawEvent := range rawEvents {
-		events = append(events, mapper.AddEscrowEventToPb(rawEvent))
+		if rawEvent.Escrow != nil && rawEvent.Escrow.Add != nil {
+			events = append(events, mapper.AddEscrowEventToPb(rawEvent.Escrow.Add))
+		}
 	}
 
 	return &eventpb.GetAddEscrowEventsByHeightResponse{
