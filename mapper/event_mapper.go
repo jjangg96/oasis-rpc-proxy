@@ -5,10 +5,10 @@ import (
 	"github.com/oasisprotocol/oasis-core/go/staking/api"
 )
 
-func AddEscrowEventToPb(rawEvent *api.Event) *eventpb.AddEscrowEvent {
+func AddEscrowEventToPb(escrowEvent *api.AddEscrowEvent) *eventpb.AddEscrowEvent {
 	return &eventpb.AddEscrowEvent{
-		Owner:  rawEvent.Escrow.Add.Owner.String(),
-		Escrow: rawEvent.Escrow.Add.Escrow.String(),
-		Amount: rawEvent.Escrow.Add.Amount.ToBigInt().Bytes(),
+		Owner:  escrowEvent.Owner.String(),
+		Escrow: escrowEvent.Escrow.String(),
+		Amount: escrowEvent.Amount.ToBigInt().Bytes(),
 	}
 }
