@@ -4,7 +4,7 @@ package event;
 option go_package = "github.com/figment-networks/oasis-rpc-proxy/grpc/event/eventpb";
 
 
-message GetAddEscrowEventsByHeightRequest {
+message GetEscrowEventsByHeightRequest {
     int64 height = 1;
 }
 
@@ -14,10 +14,17 @@ message AddEscrowEvent {
 	bytes amount = 3;
 }
 
-message GetAddEscrowEventsByHeightResponse {
-	repeated AddEscrowEvent events = 1;
+message TakeEscrowEvent {
+	string         owner = 1;
+	bytes amount = 2;
+}
+
+message GetEscrowEventsByHeightResponse {
+	repeated AddEscrowEvent add = 1;
+	repeated TakeEscrowEvent take = 2;
 }
 
 service EventService {
-    rpc GetAddEscrowEventsByHeight (GetAddEscrowEventsByHeightRequest) returns (GetAddEscrowEventsByHeightResponse) {};
+    rpc GetEscrowEventsByHeight (GetEscrowEventsByHeightRequest) returns (GetEscrowEventsByHeightResponse) {};
+	
 }

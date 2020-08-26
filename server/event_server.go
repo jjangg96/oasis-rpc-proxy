@@ -9,7 +9,7 @@ import (
 )
 
 type EventServer interface {
-	GetAddEscrowEventsByHeight(context.Context, *eventpb.GetAddEscrowEventsByHeightRequest) (*eventpb.GetAddEscrowEventsByHeightResponse, error)
+	GetEscrowEventsByHeight(context.Context, *eventpb.GetEscrowEventsByHeightRequest) (*eventpb.GetEscrowEventsByHeightResponse, error)
 }
 
 type eventServer struct {
@@ -22,20 +22,29 @@ func NewEventServer(c *client.Client) EventServer {
 	}
 }
 
-func (s *eventServer) GetAddEscrowEventsByHeight(ctx context.Context, req *eventpb.GetAddEscrowEventsByHeightRequest) (*eventpb.GetAddEscrowEventsByHeightResponse, error) {
+func (s *eventServer) GetEscrowEventsByHeight(ctx context.Context, req *eventpb.GetEscrowEventsByHeightRequest) (*eventpb.GetEscrowEventsByHeightResponse, error) {
 	rawEvents, err := s.client.Staking.GetEvents(ctx, req.Height)
 	if err != nil {
 		return nil, err
 	}
 
-	var events []*eventpb.AddEscrowEvent
+	var add []*eventpb.AddEscrowEvent
+	var take []*eventpb.TakeEscrowEvent
+
 	for _, rawEvent := range rawEvents {
-		if rawEvent.Escrow != nil && rawEvent.Escrow.Add != nil {
-			events = append(events, mapper.AddEscrowEventToPb(rawEvent.Escrow.Add))
+		if rawEvent.Escrow == nil {
+			continue
+		}
+
+		if rawEvent.Escrow.Add != nil {
+			add = append(add, mapper.AddEscrowEventToPb(rawEvent.Escrow.Add))
+		} else if rawEvent.Escrow.Take != nil {
+			take = append(take, mapper.TakeEscrowEventToPb(rawEvent.Escrow.Take))
 		}
 	}
 
-	return &eventpb.GetAddEscrowEventsByHeightResponse{
-		Events: events,
+	return &eventpb.GetEscrowEventsByHeightResponse{
+		Add:  add,
+		Take: take,
 	}, nil
 }

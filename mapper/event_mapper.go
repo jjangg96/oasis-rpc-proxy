@@ -12,3 +12,10 @@ func AddEscrowEventToPb(escrowEvent *api.AddEscrowEvent) *eventpb.AddEscrowEvent
 		Amount: escrowEvent.Amount.ToBigInt().Bytes(),
 	}
 }
+
+func TakeEscrowEventToPb(escrowEvent *api.TakeEscrowEvent) *eventpb.TakeEscrowEvent {
+	return &eventpb.TakeEscrowEvent{
+		Owner:  escrowEvent.Owner.String(),
+		Amount: escrowEvent.Amount.ToBigInt().Bytes(),
+	}
+}
