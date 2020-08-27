@@ -44,7 +44,9 @@ func (s *eventServer) GetEscrowEventsByHeight(ctx context.Context, req *eventpb.
 	}
 
 	return &eventpb.GetEscrowEventsByHeightResponse{
-		Add:  add,
-		Take: take,
+		Events: &eventpb.EscrowEvents{
+			Add:  add,
+			Take: take,
+		},
 	}, nil
 }

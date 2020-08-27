@@ -19,12 +19,16 @@ message TakeEscrowEvent {
 	bytes amount = 2;
 }
 
-message GetEscrowEventsByHeightResponse {
+message EscrowEvents {
 	repeated AddEscrowEvent add = 1;
 	repeated TakeEscrowEvent take = 2;
 }
 
+
+message GetEscrowEventsByHeightResponse {
+	EscrowEvents events = 1;
+}
+
 service EventService {
     rpc GetEscrowEventsByHeight (GetEscrowEventsByHeightRequest) returns (GetEscrowEventsByHeightResponse) {};
-	
 }
