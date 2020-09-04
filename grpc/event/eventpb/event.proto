@@ -3,32 +3,31 @@ syntax = "proto3";
 package event;
 option go_package = "github.com/figment-networks/oasis-rpc-proxy/grpc/event/eventpb";
 
-
 message GetEscrowEventsByHeightRequest {
-    int64 height = 1;
+  int64 height = 1;
 }
 
 message AddEscrowEvent {
-	string         owner = 1;
-	string         escrow = 2;
-	bytes amount = 3;
+  string owner = 1;
+  string escrow = 2;
+  bytes amount = 3;
 }
 
 message TakeEscrowEvent {
-	string         owner = 1;
-	bytes amount = 2;
+  string owner = 1;
+  bytes amount = 2;
 }
 
 message EscrowEvents {
-	repeated AddEscrowEvent add = 1;
-	repeated TakeEscrowEvent take = 2;
+  repeated AddEscrowEvent add = 1;
+  repeated TakeEscrowEvent take = 2;
 }
 
-
 message GetEscrowEventsByHeightResponse {
-	EscrowEvents events = 1;
+  EscrowEvents events = 1;
 }
 
 service EventService {
-    rpc GetEscrowEventsByHeight (GetEscrowEventsByHeightRequest) returns (GetEscrowEventsByHeightResponse) {};
+  rpc GetEscrowEventsByHeight(GetEscrowEventsByHeightRequest)
+      returns (GetEscrowEventsByHeightResponse) {};
 }
