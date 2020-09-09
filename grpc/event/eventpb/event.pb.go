@@ -29,7 +29,7 @@ const (
 // of the legacy proto package is being used.
 const _ = proto.ProtoPackageIsVersion4
 
-type GetAddEscrowEventsByHeightRequest struct {
+type GetEscrowEventsByHeightRequest struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
@@ -37,8 +37,8 @@ type GetAddEscrowEventsByHeightRequest struct {
 	Height int64 `protobuf:"varint,1,opt,name=height,proto3" json:"height,omitempty"`
 }
 
-func (x *GetAddEscrowEventsByHeightRequest) Reset() {
-	*x = GetAddEscrowEventsByHeightRequest{}
+func (x *GetEscrowEventsByHeightRequest) Reset() {
+	*x = GetEscrowEventsByHeightRequest{}
 	if protoimpl.UnsafeEnabled {
 		mi := &file_grpc_event_eventpb_event_proto_msgTypes[0]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -46,13 +46,13 @@ func (x *GetAddEscrowEventsByHeightRequest) Reset() {
 	}
 }
 
-func (x *GetAddEscrowEventsByHeightRequest) String() string {
+func (x *GetEscrowEventsByHeightRequest) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*GetAddEscrowEventsByHeightRequest) ProtoMessage() {}
+func (*GetEscrowEventsByHeightRequest) ProtoMessage() {}
 
-func (x *GetAddEscrowEventsByHeightRequest) ProtoReflect() protoreflect.Message {
+func (x *GetEscrowEventsByHeightRequest) ProtoReflect() protoreflect.Message {
 	mi := &file_grpc_event_eventpb_event_proto_msgTypes[0]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -64,12 +64,12 @@ func (x *GetAddEscrowEventsByHeightRequest) ProtoReflect() protoreflect.Message 
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use GetAddEscrowEventsByHeightRequest.ProtoReflect.Descriptor instead.
-func (*GetAddEscrowEventsByHeightRequest) Descriptor() ([]byte, []int) {
+// Deprecated: Use GetEscrowEventsByHeightRequest.ProtoReflect.Descriptor instead.
+func (*GetEscrowEventsByHeightRequest) Descriptor() ([]byte, []int) {
 	return file_grpc_event_eventpb_event_proto_rawDescGZIP(), []int{0}
 }
 
-func (x *GetAddEscrowEventsByHeightRequest) GetHeight() int64 {
+func (x *GetEscrowEventsByHeightRequest) GetHeight() int64 {
 	if x != nil {
 		return x.Height
 	}
@@ -139,16 +139,17 @@ func (x *AddEscrowEvent) GetAmount() []byte {
 	return nil
 }
 
-type GetAddEscrowEventsByHeightResponse struct {
+type TakeEscrowEvent struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Events []*AddEscrowEvent `protobuf:"bytes,1,rep,name=events,proto3" json:"events,omitempty"`
+	Owner  string `protobuf:"bytes,1,opt,name=owner,proto3" json:"owner,omitempty"`
+	Amount []byte `protobuf:"bytes,2,opt,name=amount,proto3" json:"amount,omitempty"`
 }
 
-func (x *GetAddEscrowEventsByHeightResponse) Reset() {
-	*x = GetAddEscrowEventsByHeightResponse{}
+func (x *TakeEscrowEvent) Reset() {
+	*x = TakeEscrowEvent{}
 	if protoimpl.UnsafeEnabled {
 		mi := &file_grpc_event_eventpb_event_proto_msgTypes[2]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -156,13 +157,13 @@ func (x *GetAddEscrowEventsByHeightResponse) Reset() {
 	}
 }
 
-func (x *GetAddEscrowEventsByHeightResponse) String() string {
+func (x *TakeEscrowEvent) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*GetAddEscrowEventsByHeightResponse) ProtoMessage() {}
+func (*TakeEscrowEvent) ProtoMessage() {}
 
-func (x *GetAddEscrowEventsByHeightResponse) ProtoReflect() protoreflect.Message {
+func (x *TakeEscrowEvent) ProtoReflect() protoreflect.Message {
 	mi := &file_grpc_event_eventpb_event_proto_msgTypes[2]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -174,12 +175,121 @@ func (x *GetAddEscrowEventsByHeightResponse) ProtoReflect() protoreflect.Message
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use GetAddEscrowEventsByHeightResponse.ProtoReflect.Descriptor instead.
-func (*GetAddEscrowEventsByHeightResponse) Descriptor() ([]byte, []int) {
+// Deprecated: Use TakeEscrowEvent.ProtoReflect.Descriptor instead.
+func (*TakeEscrowEvent) Descriptor() ([]byte, []int) {
 	return file_grpc_event_eventpb_event_proto_rawDescGZIP(), []int{2}
 }
 
-func (x *GetAddEscrowEventsByHeightResponse) GetEvents() []*AddEscrowEvent {
+func (x *TakeEscrowEvent) GetOwner() string {
+	if x != nil {
+		return x.Owner
+	}
+	return ""
+}
+
+func (x *TakeEscrowEvent) GetAmount() []byte {
+	if x != nil {
+		return x.Amount
+	}
+	return nil
+}
+
+type EscrowEvents struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Add  []*AddEscrowEvent  `protobuf:"bytes,1,rep,name=add,proto3" json:"add,omitempty"`
+	Take []*TakeEscrowEvent `protobuf:"bytes,2,rep,name=take,proto3" json:"take,omitempty"`
+}
+
+func (x *EscrowEvents) Reset() {
+	*x = EscrowEvents{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_grpc_event_eventpb_event_proto_msgTypes[3]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *EscrowEvents) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*EscrowEvents) ProtoMessage() {}
+
+func (x *EscrowEvents) ProtoReflect() protoreflect.Message {
+	mi := &file_grpc_event_eventpb_event_proto_msgTypes[3]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use EscrowEvents.ProtoReflect.Descriptor instead.
+func (*EscrowEvents) Descriptor() ([]byte, []int) {
+	return file_grpc_event_eventpb_event_proto_rawDescGZIP(), []int{3}
+}
+
+func (x *EscrowEvents) GetAdd() []*AddEscrowEvent {
+	if x != nil {
+		return x.Add
+	}
+	return nil
+}
+
+func (x *EscrowEvents) GetTake() []*TakeEscrowEvent {
+	if x != nil {
+		return x.Take
+	}
+	return nil
+}
+
+type GetEscrowEventsByHeightResponse struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Events *EscrowEvents `protobuf:"bytes,1,opt,name=events,proto3" json:"events,omitempty"`
+}
+
+func (x *GetEscrowEventsByHeightResponse) Reset() {
+	*x = GetEscrowEventsByHeightResponse{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_grpc_event_eventpb_event_proto_msgTypes[4]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *GetEscrowEventsByHeightResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetEscrowEventsByHeightResponse) ProtoMessage() {}
+
+func (x *GetEscrowEventsByHeightResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_grpc_event_eventpb_event_proto_msgTypes[4]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetEscrowEventsByHeightResponse.ProtoReflect.Descriptor instead.
+func (*GetEscrowEventsByHeightResponse) Descriptor() ([]byte, []int) {
+	return file_grpc_event_eventpb_event_proto_rawDescGZIP(), []int{4}
+}
+
+func (x *GetEscrowEventsByHeightResponse) GetEvents() *EscrowEvents {
 	if x != nil {
 		return x.Events
 	}
@@ -191,35 +301,44 @@ var File_grpc_event_eventpb_event_proto protoreflect.FileDescriptor
 var file_grpc_event_eventpb_event_proto_rawDesc = []byte{
 	0x0a, 0x1e, 0x67, 0x72, 0x70, 0x63, 0x2f, 0x65, 0x76, 0x65, 0x6e, 0x74, 0x2f, 0x65, 0x76, 0x65,
 	0x6e, 0x74, 0x70, 0x62, 0x2f, 0x65, 0x76, 0x65, 0x6e, 0x74, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f,
-	0x12, 0x05, 0x65, 0x76, 0x65, 0x6e, 0x74, 0x22, 0x3b, 0x0a, 0x21, 0x47, 0x65, 0x74, 0x41, 0x64,
-	0x64, 0x45, 0x73, 0x63, 0x72, 0x6f, 0x77, 0x45, 0x76, 0x65, 0x6e, 0x74, 0x73, 0x42, 0x79, 0x48,
-	0x65, 0x69, 0x67, 0x68, 0x74, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x16, 0x0a, 0x06,
-	0x68, 0x65, 0x69, 0x67, 0x68, 0x74, 0x18, 0x01, 0x20, 0x01, 0x28, 0x03, 0x52, 0x06, 0x68, 0x65,
-	0x69, 0x67, 0x68, 0x74, 0x22, 0x56, 0x0a, 0x0e, 0x41, 0x64, 0x64, 0x45, 0x73, 0x63, 0x72, 0x6f,
-	0x77, 0x45, 0x76, 0x65, 0x6e, 0x74, 0x12, 0x14, 0x0a, 0x05, 0x6f, 0x77, 0x6e, 0x65, 0x72, 0x18,
-	0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x05, 0x6f, 0x77, 0x6e, 0x65, 0x72, 0x12, 0x16, 0x0a, 0x06,
-	0x65, 0x73, 0x63, 0x72, 0x6f, 0x77, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x06, 0x65, 0x73,
-	0x63, 0x72, 0x6f, 0x77, 0x12, 0x16, 0x0a, 0x06, 0x61, 0x6d, 0x6f, 0x75, 0x6e, 0x74, 0x18, 0x03,
-	0x20, 0x01, 0x28, 0x0c, 0x52, 0x06, 0x61, 0x6d, 0x6f, 0x75, 0x6e, 0x74, 0x22, 0x53, 0x0a, 0x22,
-	0x47, 0x65, 0x74, 0x41, 0x64, 0x64, 0x45, 0x73, 0x63, 0x72, 0x6f, 0x77, 0x45, 0x76, 0x65, 0x6e,
+	0x12, 0x05, 0x65, 0x76, 0x65, 0x6e, 0x74, 0x22, 0x38, 0x0a, 0x1e, 0x47, 0x65, 0x74, 0x45, 0x73,
+	0x63, 0x72, 0x6f, 0x77, 0x45, 0x76, 0x65, 0x6e, 0x74, 0x73, 0x42, 0x79, 0x48, 0x65, 0x69, 0x67,
+	0x68, 0x74, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x16, 0x0a, 0x06, 0x68, 0x65, 0x69,
+	0x67, 0x68, 0x74, 0x18, 0x01, 0x20, 0x01, 0x28, 0x03, 0x52, 0x06, 0x68, 0x65, 0x69, 0x67, 0x68,
+	0x74, 0x22, 0x56, 0x0a, 0x0e, 0x41, 0x64, 0x64, 0x45, 0x73, 0x63, 0x72, 0x6f, 0x77, 0x45, 0x76,
+	0x65, 0x6e, 0x74, 0x12, 0x14, 0x0a, 0x05, 0x6f, 0x77, 0x6e, 0x65, 0x72, 0x18, 0x01, 0x20, 0x01,
+	0x28, 0x09, 0x52, 0x05, 0x6f, 0x77, 0x6e, 0x65, 0x72, 0x12, 0x16, 0x0a, 0x06, 0x65, 0x73, 0x63,
+	0x72, 0x6f, 0x77, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x06, 0x65, 0x73, 0x63, 0x72, 0x6f,
+	0x77, 0x12, 0x16, 0x0a, 0x06, 0x61, 0x6d, 0x6f, 0x75, 0x6e, 0x74, 0x18, 0x03, 0x20, 0x01, 0x28,
+	0x0c, 0x52, 0x06, 0x61, 0x6d, 0x6f, 0x75, 0x6e, 0x74, 0x22, 0x3f, 0x0a, 0x0f, 0x54, 0x61, 0x6b,
+	0x65, 0x45, 0x73, 0x63, 0x72, 0x6f, 0x77, 0x45, 0x76, 0x65, 0x6e, 0x74, 0x12, 0x14, 0x0a, 0x05,
+	0x6f, 0x77, 0x6e, 0x65, 0x72, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x05, 0x6f, 0x77, 0x6e,
+	0x65, 0x72, 0x12, 0x16, 0x0a, 0x06, 0x61, 0x6d, 0x6f, 0x75, 0x6e, 0x74, 0x18, 0x02, 0x20, 0x01,
+	0x28, 0x0c, 0x52, 0x06, 0x61, 0x6d, 0x6f, 0x75, 0x6e, 0x74, 0x22, 0x63, 0x0a, 0x0c, 0x45, 0x73,
+	0x63, 0x72, 0x6f, 0x77, 0x45, 0x76, 0x65, 0x6e, 0x74, 0x73, 0x12, 0x27, 0x0a, 0x03, 0x61, 0x64,
+	0x64, 0x18, 0x01, 0x20, 0x03, 0x28, 0x0b, 0x32, 0x15, 0x2e, 0x65, 0x76, 0x65, 0x6e, 0x74, 0x2e,
+	0x41, 0x64, 0x64, 0x45, 0x73, 0x63, 0x72, 0x6f, 0x77, 0x45, 0x76, 0x65, 0x6e, 0x74, 0x52, 0x03,
+	0x61, 0x64, 0x64, 0x12, 0x2a, 0x0a, 0x04, 0x74, 0x61, 0x6b, 0x65, 0x18, 0x02, 0x20, 0x03, 0x28,
+	0x0b, 0x32, 0x16, 0x2e, 0x65, 0x76, 0x65, 0x6e, 0x74, 0x2e, 0x54, 0x61, 0x6b, 0x65, 0x45, 0x73,
+	0x63, 0x72, 0x6f, 0x77, 0x45, 0x76, 0x65, 0x6e, 0x74, 0x52, 0x04, 0x74, 0x61, 0x6b, 0x65, 0x22,
+	0x4e, 0x0a, 0x1f, 0x47, 0x65, 0x74, 0x45, 0x73, 0x63, 0x72, 0x6f, 0x77, 0x45, 0x76, 0x65, 0x6e,
 	0x74, 0x73, 0x42, 0x79, 0x48, 0x65, 0x69, 0x67, 0x68, 0x74, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e,
-	0x73, 0x65, 0x12, 0x2d, 0x0a, 0x06, 0x65, 0x76, 0x65, 0x6e, 0x74, 0x73, 0x18, 0x01, 0x20, 0x03,
-	0x28, 0x0b, 0x32, 0x15, 0x2e, 0x65, 0x76, 0x65, 0x6e, 0x74, 0x2e, 0x41, 0x64, 0x64, 0x45, 0x73,
-	0x63, 0x72, 0x6f, 0x77, 0x45, 0x76, 0x65, 0x6e, 0x74, 0x52, 0x06, 0x65, 0x76, 0x65, 0x6e, 0x74,
-	0x73, 0x32, 0x83, 0x01, 0x0a, 0x0c, 0x45, 0x76, 0x65, 0x6e, 0x74, 0x53, 0x65, 0x72, 0x76, 0x69,
-	0x63, 0x65, 0x12, 0x73, 0x0a, 0x1a, 0x47, 0x65, 0x74, 0x41, 0x64, 0x64, 0x45, 0x73, 0x63, 0x72,
-	0x6f, 0x77, 0x45, 0x76, 0x65, 0x6e, 0x74, 0x73, 0x42, 0x79, 0x48, 0x65, 0x69, 0x67, 0x68, 0x74,
-	0x12, 0x28, 0x2e, 0x65, 0x76, 0x65, 0x6e, 0x74, 0x2e, 0x47, 0x65, 0x74, 0x41, 0x64, 0x64, 0x45,
-	0x73, 0x63, 0x72, 0x6f, 0x77, 0x45, 0x76, 0x65, 0x6e, 0x74, 0x73, 0x42, 0x79, 0x48, 0x65, 0x69,
-	0x67, 0x68, 0x74, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x29, 0x2e, 0x65, 0x76, 0x65,
-	0x6e, 0x74, 0x2e, 0x47, 0x65, 0x74, 0x41, 0x64, 0x64, 0x45, 0x73, 0x63, 0x72, 0x6f, 0x77, 0x45,
-	0x76, 0x65, 0x6e, 0x74, 0x73, 0x42, 0x79, 0x48, 0x65, 0x69, 0x67, 0x68, 0x74, 0x52, 0x65, 0x73,
-	0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22, 0x00, 0x42, 0x40, 0x5a, 0x3e, 0x67, 0x69, 0x74, 0x68, 0x75,
-	0x62, 0x2e, 0x63, 0x6f, 0x6d, 0x2f, 0x66, 0x69, 0x67, 0x6d, 0x65, 0x6e, 0x74, 0x2d, 0x6e, 0x65,
-	0x74, 0x77, 0x6f, 0x72, 0x6b, 0x73, 0x2f, 0x6f, 0x61, 0x73, 0x69, 0x73, 0x2d, 0x72, 0x70, 0x63,
-	0x2d, 0x70, 0x72, 0x6f, 0x78, 0x79, 0x2f, 0x67, 0x72, 0x70, 0x63, 0x2f, 0x65, 0x76, 0x65, 0x6e,
-	0x74, 0x2f, 0x65, 0x76, 0x65, 0x6e, 0x74, 0x70, 0x62, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f,
-	0x33,
+	0x73, 0x65, 0x12, 0x2b, 0x0a, 0x06, 0x65, 0x76, 0x65, 0x6e, 0x74, 0x73, 0x18, 0x01, 0x20, 0x01,
+	0x28, 0x0b, 0x32, 0x13, 0x2e, 0x65, 0x76, 0x65, 0x6e, 0x74, 0x2e, 0x45, 0x73, 0x63, 0x72, 0x6f,
+	0x77, 0x45, 0x76, 0x65, 0x6e, 0x74, 0x73, 0x52, 0x06, 0x65, 0x76, 0x65, 0x6e, 0x74, 0x73, 0x32,
+	0x7a, 0x0a, 0x0c, 0x45, 0x76, 0x65, 0x6e, 0x74, 0x53, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x12,
+	0x6a, 0x0a, 0x17, 0x47, 0x65, 0x74, 0x45, 0x73, 0x63, 0x72, 0x6f, 0x77, 0x45, 0x76, 0x65, 0x6e,
+	0x74, 0x73, 0x42, 0x79, 0x48, 0x65, 0x69, 0x67, 0x68, 0x74, 0x12, 0x25, 0x2e, 0x65, 0x76, 0x65,
+	0x6e, 0x74, 0x2e, 0x47, 0x65, 0x74, 0x45, 0x73, 0x63, 0x72, 0x6f, 0x77, 0x45, 0x76, 0x65, 0x6e,
+	0x74, 0x73, 0x42, 0x79, 0x48, 0x65, 0x69, 0x67, 0x68, 0x74, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73,
+	0x74, 0x1a, 0x26, 0x2e, 0x65, 0x76, 0x65, 0x6e, 0x74, 0x2e, 0x47, 0x65, 0x74, 0x45, 0x73, 0x63,
+	0x72, 0x6f, 0x77, 0x45, 0x76, 0x65, 0x6e, 0x74, 0x73, 0x42, 0x79, 0x48, 0x65, 0x69, 0x67, 0x68,
+	0x74, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22, 0x00, 0x42, 0x40, 0x5a, 0x3e, 0x67,
+	0x69, 0x74, 0x68, 0x75, 0x62, 0x2e, 0x63, 0x6f, 0x6d, 0x2f, 0x66, 0x69, 0x67, 0x6d, 0x65, 0x6e,
+	0x74, 0x2d, 0x6e, 0x65, 0x74, 0x77, 0x6f, 0x72, 0x6b, 0x73, 0x2f, 0x6f, 0x61, 0x73, 0x69, 0x73,
+	0x2d, 0x72, 0x70, 0x63, 0x2d, 0x70, 0x72, 0x6f, 0x78, 0x79, 0x2f, 0x67, 0x72, 0x70, 0x63, 0x2f,
+	0x65, 0x76, 0x65, 0x6e, 0x74, 0x2f, 0x65, 0x76, 0x65, 0x6e, 0x74, 0x70, 0x62, 0x62, 0x06, 0x70,
+	0x72, 0x6f, 0x74, 0x6f, 0x33,
 }
 
 var (
@@ -234,21 +353,25 @@ func file_grpc_event_eventpb_event_proto_rawDescGZIP() []byte {
 	return file_grpc_event_eventpb_event_proto_rawDescData
 }
 
-var file_grpc_event_eventpb_event_proto_msgTypes = make([]protoimpl.MessageInfo, 3)
+var file_grpc_event_eventpb_event_proto_msgTypes = make([]protoimpl.MessageInfo, 5)
 var file_grpc_event_eventpb_event_proto_goTypes = []interface{}{
-	(*GetAddEscrowEventsByHeightRequest)(nil),  // 0: event.GetAddEscrowEventsByHeightRequest
-	(*AddEscrowEvent)(nil),                     // 1: event.AddEscrowEvent
-	(*GetAddEscrowEventsByHeightResponse)(nil), // 2: event.GetAddEscrowEventsByHeightResponse
+	(*GetEscrowEventsByHeightRequest)(nil),  // 0: event.GetEscrowEventsByHeightRequest
+	(*AddEscrowEvent)(nil),                  // 1: event.AddEscrowEvent
+	(*TakeEscrowEvent)(nil),                 // 2: event.TakeEscrowEvent
+	(*EscrowEvents)(nil),                    // 3: event.EscrowEvents
+	(*GetEscrowEventsByHeightResponse)(nil), // 4: event.GetEscrowEventsByHeightResponse
 }
 var file_grpc_event_eventpb_event_proto_depIdxs = []int32{
-	1, // 0: event.GetAddEscrowEventsByHeightResponse.events:type_name -> event.AddEscrowEvent
-	0, // 1: event.EventService.GetAddEscrowEventsByHeight:input_type -> event.GetAddEscrowEventsByHeightRequest
-	2, // 2: event.EventService.GetAddEscrowEventsByHeight:output_type -> event.GetAddEscrowEventsByHeightResponse
-	2, // [2:3] is the sub-list for method output_type
-	1, // [1:2] is the sub-list for method input_type
-	1, // [1:1] is the sub-list for extension type_name
-	1, // [1:1] is the sub-list for extension extendee
-	0, // [0:1] is the sub-list for field type_name
+	1, // 0: event.EscrowEvents.add:type_name -> event.AddEscrowEvent
+	2, // 1: event.EscrowEvents.take:type_name -> event.TakeEscrowEvent
+	3, // 2: event.GetEscrowEventsByHeightResponse.events:type_name -> event.EscrowEvents
+	0, // 3: event.EventService.GetEscrowEventsByHeight:input_type -> event.GetEscrowEventsByHeightRequest
+	4, // 4: event.EventService.GetEscrowEventsByHeight:output_type -> event.GetEscrowEventsByHeightResponse
+	4, // [4:5] is the sub-list for method output_type
+	3, // [3:4] is the sub-list for method input_type
+	3, // [3:3] is the sub-list for extension type_name
+	3, // [3:3] is the sub-list for extension extendee
+	0, // [0:3] is the sub-list for field type_name
 }
 
 func init() { file_grpc_event_eventpb_event_proto_init() }
@@ -258,7 +381,7 @@ func file_grpc_event_eventpb_event_proto_init() {
 	}
 	if !protoimpl.UnsafeEnabled {
 		file_grpc_event_eventpb_event_proto_msgTypes[0].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*GetAddEscrowEventsByHeightRequest); i {
+			switch v := v.(*GetEscrowEventsByHeightRequest); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -282,7 +405,31 @@ func file_grpc_event_eventpb_event_proto_init() {
 			}
 		}
 		file_grpc_event_eventpb_event_proto_msgTypes[2].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*GetAddEscrowEventsByHeightResponse); i {
+			switch v := v.(*TakeEscrowEvent); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_grpc_event_eventpb_event_proto_msgTypes[3].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*EscrowEvents); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_grpc_event_eventpb_event_proto_msgTypes[4].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*GetEscrowEventsByHeightResponse); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -300,7 +447,7 @@ func file_grpc_event_eventpb_event_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: file_grpc_event_eventpb_event_proto_rawDesc,
 			NumEnums:      0,
-			NumMessages:   3,
+			NumMessages:   5,
 			NumExtensions: 0,
 			NumServices:   1,
 		},
@@ -326,7 +473,7 @@ const _ = grpc.SupportPackageIsVersion6
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://godoc.org/google.golang.org/grpc#ClientConn.NewStream.
 type EventServiceClient interface {
-	GetAddEscrowEventsByHeight(ctx context.Context, in *GetAddEscrowEventsByHeightRequest, opts ...grpc.CallOption) (*GetAddEscrowEventsByHeightResponse, error)
+	GetEscrowEventsByHeight(ctx context.Context, in *GetEscrowEventsByHeightRequest, opts ...grpc.CallOption) (*GetEscrowEventsByHeightResponse, error)
 }
 
 type eventServiceClient struct {
@@ -337,9 +484,9 @@ func NewEventServiceClient(cc grpc.ClientConnInterface) EventServiceClient {
 	return &eventServiceClient{cc}
 }
 
-func (c *eventServiceClient) GetAddEscrowEventsByHeight(ctx context.Context, in *GetAddEscrowEventsByHeightRequest, opts ...grpc.CallOption) (*GetAddEscrowEventsByHeightResponse, error) {
-	out := new(GetAddEscrowEventsByHeightResponse)
-	err := c.cc.Invoke(ctx, "/event.EventService/GetAddEscrowEventsByHeight", in, out, opts...)
+func (c *eventServiceClient) GetEscrowEventsByHeight(ctx context.Context, in *GetEscrowEventsByHeightRequest, opts ...grpc.CallOption) (*GetEscrowEventsByHeightResponse, error) {
+	out := new(GetEscrowEventsByHeightResponse)
+	err := c.cc.Invoke(ctx, "/event.EventService/GetEscrowEventsByHeight", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -348,35 +495,35 @@ func (c *eventServiceClient) GetAddEscrowEventsByHeight(ctx context.Context, in 
 
 // EventServiceServer is the server API for EventService service.
 type EventServiceServer interface {
-	GetAddEscrowEventsByHeight(context.Context, *GetAddEscrowEventsByHeightRequest) (*GetAddEscrowEventsByHeightResponse, error)
+	GetEscrowEventsByHeight(context.Context, *GetEscrowEventsByHeightRequest) (*GetEscrowEventsByHeightResponse, error)
 }
 
 // UnimplementedEventServiceServer can be embedded to have forward compatible implementations.
 type UnimplementedEventServiceServer struct {
 }
 
-func (*UnimplementedEventServiceServer) GetAddEscrowEventsByHeight(context.Context, *GetAddEscrowEventsByHeightRequest) (*GetAddEscrowEventsByHeightResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetAddEscrowEventsByHeight not implemented")
+func (*UnimplementedEventServiceServer) GetEscrowEventsByHeight(context.Context, *GetEscrowEventsByHeightRequest) (*GetEscrowEventsByHeightResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetEscrowEventsByHeight not implemented")
 }
 
 func RegisterEventServiceServer(s *grpc.Server, srv EventServiceServer) {
 	s.RegisterService(&_EventService_serviceDesc, srv)
 }
 
-func _EventService_GetAddEscrowEventsByHeight_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(GetAddEscrowEventsByHeightRequest)
+func _EventService_GetEscrowEventsByHeight_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetEscrowEventsByHeightRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(EventServiceServer).GetAddEscrowEventsByHeight(ctx, in)
+		return srv.(EventServiceServer).GetEscrowEventsByHeight(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/event.EventService/GetAddEscrowEventsByHeight",
+		FullMethod: "/event.EventService/GetEscrowEventsByHeight",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(EventServiceServer).GetAddEscrowEventsByHeight(ctx, req.(*GetAddEscrowEventsByHeightRequest))
+		return srv.(EventServiceServer).GetEscrowEventsByHeight(ctx, req.(*GetEscrowEventsByHeightRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -386,8 +533,8 @@ var _EventService_serviceDesc = grpc.ServiceDesc{
 	HandlerType: (*EventServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
-			MethodName: "GetAddEscrowEventsByHeight",
-			Handler:    _EventService_GetAddEscrowEventsByHeight_Handler,
+			MethodName: "GetEscrowEventsByHeight",
+			Handler:    _EventService_GetEscrowEventsByHeight_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
