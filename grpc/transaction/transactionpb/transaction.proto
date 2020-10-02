@@ -4,27 +4,36 @@ package transaction;
 option go_package = "github.com/figment-networks/oasis-rpc-proxy/grpc/transaction/transactionpb";
 
 message Transaction {
-	bool success = 1;
-	bool signature_verified = 2;
-	bool sanity_checked = 3;
-	string hash = 4;
-	string public_key = 5;
-	string signature = 6;
-	uint64 nonce = 7;
-	bytes fee = 8;
-	uint64 gas_limit = 9;
-	bytes gas_price = 10;
-	string method = 11;
+  bool success = 1;
+  bool signature_verified = 2;
+  bool sanity_checked = 3;
+  string hash = 4;
+  string public_key = 5;
+  string signature = 6;
+  uint64 nonce = 7;
+  bytes fee = 8;
+  uint64 gas_limit = 9;
+  bytes gas_price = 10;
+  string method = 11;
 }
 
-message GetByHeightRequest {
-    int64 height = 1;
+message GetByHeightRequest { int64 height = 1; }
+
+message GetByHeightResponse { repeated Transaction transactions = 1; }
+
+message Signature {
+  bytes public_key = 1;
+  bytes raw_signature = 2;
 }
 
-message GetByHeightResponse {
-   repeated Transaction transactions = 1;
+message BroadcastRequest {
+  bytes untrusted_raw_value = 1;
+  Signature signature = 2;
 }
+
+message BroadcastResponse { bool success = 1; }
 
 service TransactionService {
-    rpc GetByHeight (GetByHeightRequest) returns (GetByHeightResponse) {};
+  rpc Broadcast(BroadcastRequest) returns (BroadcastResponse) {};
+  rpc GetByHeight(GetByHeightRequest) returns (GetByHeightResponse) {};
 }
