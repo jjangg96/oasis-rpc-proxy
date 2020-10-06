@@ -53,10 +53,17 @@ func ToSignedTransaction(rawTx []byte, stx string, t *transactionpb.Transaction)
 
 func ToTransaction(sigTx *transaction.SignedTransaction, stx string, t *transactionpb.Transaction) (*transaction.Transaction, error) {
 	var tx transaction.Transaction
-	if err := sigTx.Open(&tx); err != nil {
-		return nil, err
-	}
 	t.SignatureVerified = true
+
+	if err := sigTx.Open(&tx); err != nil {
+		t.SignatureVerified = false
+
+		// Unmarshall blob if signature verification failed
+		if err := cbor.Unmarshal(sigTx.Blob, &tx); err != nil {
+			return nil, err
+		}
+	}
+
 	t.Nonce = tx.Nonce
 	t.Fee = tx.Fee.Amount.ToBigInt().Bytes()
 	t.GasLimit = uint64(tx.Fee.Gas)
