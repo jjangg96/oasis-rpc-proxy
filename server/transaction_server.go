@@ -2,11 +2,14 @@ package server
 
 import (
 	"context"
-	"encoding/json"
+	"encoding/base64"
+	"fmt"
 
 	"github.com/figment-networks/oasis-rpc-proxy/client"
 	"github.com/figment-networks/oasis-rpc-proxy/grpc/transaction/transactionpb"
 	"github.com/figment-networks/oasis-rpc-proxy/mapper"
+
+	"github.com/oasisprotocol/oasis-core/go/common/cbor"
 	"github.com/oasisprotocol/oasis-core/go/consensus/api/transaction"
 )
 
@@ -39,12 +42,17 @@ func (s *transactionServer) GetByHeight(ctx context.Context, req *transactionpb.
 }
 
 func (s *transactionServer) Broadcast(ctx context.Context, req *transactionpb.BroadcastRequest) (*transactionpb.BroadcastResponse, error) {
-	var tx *transaction.SignedTransaction
-	if err := json.Unmarshal([]byte(req.GetTxRaw()), &tx); err != nil {
-		return nil, err
+	rawTx, err := base64.StdEncoding.DecodeString(req.GetTxRaw())
+	if err != nil {
+		return nil, fmt.Errorf("base64 decode failed: %w", err)
 	}
 
-	err := s.client.Consensus.BroadcastTransaction(ctx, tx)
+	var tx *transaction.SignedTransaction
+	if err := cbor.Unmarshal(rawTx, &tx); err != nil {
+		return nil, fmt.Errorf("CBOR decode failed: %w", err)
+	}
+
+	err = s.client.Consensus.BroadcastTransaction(ctx, tx)
 	if err != nil {
 		return nil, err
 	}
