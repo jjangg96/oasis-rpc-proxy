@@ -2,12 +2,11 @@ package server
 
 import (
 	"context"
-	"fmt"
+	"encoding/json"
 
 	"github.com/figment-networks/oasis-rpc-proxy/client"
 	"github.com/figment-networks/oasis-rpc-proxy/grpc/transaction/transactionpb"
 	"github.com/figment-networks/oasis-rpc-proxy/mapper"
-	"github.com/oasisprotocol/oasis-core/go/common/crypto/signature"
 	"github.com/oasisprotocol/oasis-core/go/consensus/api/transaction"
 )
 
@@ -40,34 +39,9 @@ func (s *transactionServer) GetByHeight(ctx context.Context, req *transactionpb.
 }
 
 func (s *transactionServer) Broadcast(ctx context.Context, req *transactionpb.BroadcastRequest) (*transactionpb.BroadcastResponse, error) {
-	reqPublicKey := req.GetSignature().GetPublicKey()
-	if len(reqPublicKey) != signature.PublicKeySize {
-		return nil, fmt.Errorf("publickey is invalid, must be type [%v]byte", signature.PublicKeySize)
-	}
-
-	reqSignature := req.GetSignature().GetRawSignature()
-	if len(reqSignature) != signature.SignatureSize {
-		return nil, fmt.Errorf("rawsignature is invalid, must be type [%v]byte", signature.SignatureSize)
-	}
-
-	var publicKey [signature.PublicKeySize]byte
-	for i, val := range reqPublicKey {
-		publicKey[i] = val
-	}
-
-	var rawSignature [signature.SignatureSize]byte
-	for i, val := range reqSignature {
-		rawSignature[i] = val
-	}
-
-	tx := &transaction.SignedTransaction{
-		signature.Signed{
-			Blob: req.GetUntrustedRawValue(),
-			Signature: signature.Signature{
-				PublicKey: publicKey,
-				Signature: rawSignature,
-			},
-		},
+	var tx *transaction.SignedTransaction
+	if err := json.Unmarshal([]byte(req.GetTxRaw()), &tx); err != nil {
+		return nil, err
 	}
 
 	err := s.client.Consensus.BroadcastTransaction(ctx, tx)

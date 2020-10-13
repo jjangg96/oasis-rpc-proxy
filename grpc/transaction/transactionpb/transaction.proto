@@ -21,14 +21,8 @@ message GetByHeightRequest { int64 height = 1; }
 
 message GetByHeightResponse { repeated Transaction transactions = 1; }
 
-message Signature {
-  bytes public_key = 1;
-  bytes raw_signature = 2;
-}
-
 message BroadcastRequest {
-  bytes untrusted_raw_value = 1;
-  Signature signature = 2;
+  string txRaw = 1;
 }
 
 message BroadcastResponse { bool success = 1; }
