@@ -25,7 +25,7 @@ message BroadcastRequest {
   string txRaw = 1;
 }
 
-message BroadcastResponse { bool success = 1; }
+message BroadcastResponse { bool submitted = 1; }
 
 service TransactionService {
   rpc Broadcast(BroadcastRequest) returns (BroadcastResponse) {};

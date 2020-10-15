@@ -42,20 +42,23 @@ func (s *transactionServer) GetByHeight(ctx context.Context, req *transactionpb.
 }
 
 func (s *transactionServer) Broadcast(ctx context.Context, req *transactionpb.BroadcastRequest) (*transactionpb.BroadcastResponse, error) {
+	resp := &transactionpb.BroadcastResponse{Submitted: false}
+
 	rawTx, err := base64.StdEncoding.DecodeString(req.GetTxRaw())
 	if err != nil {
-		return nil, fmt.Errorf("base64 decode failed: %w", err)
+		return resp, fmt.Errorf("base64 decode failed: %w", err)
 	}
 
 	var tx *transaction.SignedTransaction
 	if err := cbor.Unmarshal(rawTx, &tx); err != nil {
-		return nil, fmt.Errorf("CBOR decode failed: %w", err)
+		return resp, fmt.Errorf("CBOR decode failed: %w", err)
 	}
 
 	err = s.client.Consensus.BroadcastTransaction(ctx, tx)
 	if err != nil {
-		return nil, err
+		return resp, err
 	}
 
-	return &transactionpb.BroadcastResponse{Success: true}, nil
+	resp.Submitted = true
+	return resp, nil
 }
