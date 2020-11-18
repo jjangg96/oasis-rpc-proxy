@@ -17,7 +17,7 @@ replace (
 require (
 	github.com/golang/protobuf v1.4.2
 	github.com/kelseyhightower/envconfig v1.4.0
-	github.com/oasisprotocol/oasis-core/go v0.2011.0
+	github.com/oasisprotocol/oasis-core/go v0.2012.2
 	github.com/pelletier/go-toml v1.6.0 // indirect
 	github.com/pkg/errors v0.9.1
 	github.com/prometheus/client_golang v1.7.1
