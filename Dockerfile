@@ -1,7 +1,7 @@
 # ------------------------------------------------------------------------------
 # Builder Image
 # ------------------------------------------------------------------------------
-FROM golang:1.16.3 AS build
+FROM golang:1.16 AS build
 
 WORKDIR /go/src/github.com/figment-networks/oasis-rpc-proxy
 

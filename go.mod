@@ -1,6 +1,6 @@
 module github.com/figment-networks/oasis-rpc-proxy
 
-go 1.16.3
+go 1.16
 
 replace (
 	// Updates the version used in spf13/cobra (dependency via tendermint) as
