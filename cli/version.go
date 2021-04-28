@@ -6,7 +6,7 @@ var (
 	appName    = "oasis-rpc-proxy"
 	appVersion = "0.8.0"
 	gitCommit  = "-"
-	goVersion  = "1.14"
+	goVersion  = "1.16.3"
 )
 
 func versionString() string {
