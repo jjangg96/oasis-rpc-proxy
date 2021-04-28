@@ -47,7 +47,7 @@ func (c *stakingClient) GetDelegations(ctx context.Context, key string, height i
 	if err != nil {
 		return nil, err
 	}
-	return c.client.Delegations(ctx, q)
+	return c.client.DelegationsFor(ctx, q)
 }
 
 func (c *stakingClient) GetEvents(ctx context.Context, height int64) ([]*api.Event, error) {
@@ -63,7 +63,7 @@ func (c *stakingClient) GetDebondingDelegations(ctx context.Context, key string,
 	if err != nil {
 		return nil, err
 	}
-	return c.client.DebondingDelegations(ctx, q)
+	return c.client.DebondingDelegationsFor(ctx, q)
 }
 
 func (c *stakingClient) GetState(ctx context.Context, height int64) (*api.Genesis, error) {
