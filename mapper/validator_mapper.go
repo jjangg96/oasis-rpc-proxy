@@ -4,13 +4,13 @@ import (
 	"github.com/figment-networks/oasis-rpc-proxy/grpc/validator/validatorpb"
 	"github.com/oasisprotocol/oasis-core/go/common/node"
 	tmcrypto "github.com/oasisprotocol/oasis-core/go/consensus/tendermint/crypto"
-	epochTimeApi "github.com/oasisprotocol/oasis-core/go/epochtime/api"
+	beaconApi "github.com/oasisprotocol/oasis-core/go/beacon/api"
 	"github.com/oasisprotocol/oasis-core/go/scheduler/api"
 	stakingApi "github.com/oasisprotocol/oasis-core/go/staking/api"
 	"math/big"
 )
 
-func ValidatorToPb(rawValidator *api.Validator, address string, rawNode *node.Node, rawAccount *stakingApi.Account, rawEpochTime epochTimeApi.EpochTime) *validatorpb.Validator {
+func ValidatorToPb(rawValidator *api.Validator, address string, rawNode *node.Node, rawAccount *stakingApi.Account, rawEpochTime beaconApi.EpochTime) *validatorpb.Validator {
 	cID := rawNode.Consensus.ID
 	tmAddr := tmcrypto.PublicKeyToTendermint(&cID).Address().String()
 	rateNumerator := rawAccount.Escrow.CommissionSchedule.CurrentRate(rawEpochTime)

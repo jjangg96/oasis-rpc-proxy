@@ -22,9 +22,8 @@ func RegistryToPb(rawRegistry api.Genesis) *statepb.Registry {
 
 	return &statepb.Registry{
 		Parameters: &statepb.RegistryParameters{
-			DebugAllowUnroutableAddresses:          rawRegistry.Parameters.DebugAllowEntitySignedNodeRegistration,
+			DebugAllowUnroutableAddresses:          rawRegistry.Parameters.DebugAllowUnroutableAddresses,
 			DebugAllowTestRuntimes:                 rawRegistry.Parameters.DebugAllowTestRuntimes,
-			DebugAllowEntitySignedNodeRegistration: rawRegistry.Parameters.DebugAllowEntitySignedNodeRegistration,
 			DebugBypassStake:                       rawRegistry.Parameters.DebugBypassStake,
 			DisableRuntimeRegistration:             rawRegistry.Parameters.DisableRuntimeRegistration,
 			DisableKeyManagerRuntimeRegistration:   rawRegistry.Parameters.DisableKeyManagerRuntimeRegistration,

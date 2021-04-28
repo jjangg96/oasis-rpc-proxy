@@ -6,7 +6,7 @@ import (
 
 	"github.com/oasisprotocol/oasis-core/go/consensus/api"
 	"github.com/oasisprotocol/oasis-core/go/consensus/api/transaction"
-	epochtimeApi "github.com/oasisprotocol/oasis-core/go/epochtime/api"
+	beaconApi "github.com/oasisprotocol/oasis-core/go/beacon/api"
 	genesisApi "github.com/oasisprotocol/oasis-core/go/genesis/api"
 	"google.golang.org/grpc"
 )
@@ -18,7 +18,7 @@ var (
 type ConsensusClient interface {
 	BroadcastTransaction(ctx context.Context, tx *transaction.SignedTransaction) error
 	GetBlockByHeight(context.Context, int64) (*api.Block, error)
-	GetEpochByHeight(context.Context, int64) (epochtimeApi.EpochTime, error)
+	GetEpochByHeight(context.Context, int64) (beaconApi.EpochTime, error)
 	GetStateByHeight(context.Context, int64) (*genesisApi.Document, error)
 	GetTransactionsByHeight(context.Context, int64) ([][]byte, error)
 }
@@ -45,10 +45,10 @@ func (c *consensusClient) GetBlockByHeight(ctx context.Context, h int64) (*api.B
 	return c.client.GetBlock(ctx, h)
 }
 
-func (c *consensusClient) GetEpochByHeight(ctx context.Context, h int64) (epochtimeApi.EpochTime, error) {
+func (c *consensusClient) GetEpochByHeight(ctx context.Context, h int64) (beaconApi.EpochTime, error) {
 	defer logRequestDuration(time.Now(), "ConsensusClient_GetEpochByHeight")
 
-	return c.client.GetEpoch(ctx, h)
+	return c.client.Beacon().GetEpoch(ctx, h)
 }
 
 func (c *consensusClient) GetStateByHeight(ctx context.Context, h int64) (*genesisApi.Document, error) {
