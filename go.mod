@@ -17,7 +17,7 @@ replace (
 require (
 	github.com/golang/protobuf v1.5.2
 	github.com/kelseyhightower/envconfig v1.4.0
-	github.com/oasisprotocol/oasis-core/go v0.2101.1
+	github.com/oasisprotocol/oasis-core/go v0.2102.1
 	github.com/pelletier/go-toml v1.6.0 // indirect
 	github.com/pkg/errors v0.9.1
 	github.com/prometheus/client_golang v1.10.0
@@ -27,9 +27,8 @@ require (
 	github.com/spf13/cast v1.3.1 // indirect
 	github.com/spf13/jwalterweatherman v1.1.0 // indirect
 	github.com/tendermint/tendermint v0.34.9
-	go.uber.org/zap v1.15.0
-	golang.org/x/lint v0.0.0-20200302205851-738671d3881b // indirect
-	google.golang.org/grpc v1.36.1
+	go.uber.org/zap v1.16.0
+	google.golang.org/grpc v1.38.0
 	google.golang.org/protobuf v1.26.0
 	gopkg.in/ini.v1 v1.52.0 // indirect
 	honnef.co/go/tools v0.0.1-2020.1.3 // indirect
