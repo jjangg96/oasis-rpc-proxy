@@ -10,7 +10,7 @@ import (
 
 type EventServer interface {
 	GetEscrowEventsByHeight(context.Context, *eventpb.GetEscrowEventsByHeightRequest) (*eventpb.GetEscrowEventsByHeightResponse, error)
-	GetTransferEventsByHeight(context.Context, *eventpb.GetEscrowEventsByHeightRequest) (*eventpb.GetEscrowEventsByHeightResponse, error)
+	GetTransferEventsByHeight(context.Context, *eventpb.GetTransferEventsByHeightRequest) (*eventpb.GetTransferEventsByHeightResponse, error)
 }
 
 type eventServer struct {
