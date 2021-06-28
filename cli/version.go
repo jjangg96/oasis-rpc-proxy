@@ -4,7 +4,7 @@ import "fmt"
 
 var (
 	appName    = "oasis-rpc-proxy"
-	appVersion = "0.9.0"
+	appVersion = "0.9.1"
 	gitCommit  = "-"
 	goVersion  = "1.16"
 )
