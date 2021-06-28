@@ -10,6 +10,7 @@ import (
 
 type EventServer interface {
 	GetEscrowEventsByHeight(context.Context, *eventpb.GetEscrowEventsByHeightRequest) (*eventpb.GetEscrowEventsByHeightResponse, error)
+	GetTransferEventsByHeight(context.Context, *eventpb.GetTransferEventsByHeightRequest) (*eventpb.GetTransferEventsByHeightResponse, error)
 }
 
 type eventServer struct {
@@ -48,5 +49,24 @@ func (s *eventServer) GetEscrowEventsByHeight(ctx context.Context, req *eventpb.
 			Add:  add,
 			Take: take,
 		},
+	}, nil
+}
+
+func (s *eventServer) GetTransferEventsByHeight(ctx context.Context, req *eventpb.GetTransferEventsByHeightRequest) (*eventpb.GetTransferEventsByHeightResponse, error) {
+	rawEvents, err := s.client.Staking.GetEvents(ctx, req.Height)
+	if err != nil {
+		return nil, err
+	}
+
+	var events []*eventpb.TransferEvent
+
+	for _, rawEvent := range rawEvents {
+		if rawEvent.Transfer != nil {
+			events = append(events, mapper.TransferEventToPb(rawEvent.Transfer))
+		}
+	}
+
+	return &eventpb.GetTransferEventsByHeightResponse{
+		Events: events,
 	}, nil
 }

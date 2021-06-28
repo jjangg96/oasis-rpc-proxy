@@ -28,7 +28,22 @@ message GetEscrowEventsByHeightResponse {
   EscrowEvents events = 1;
 }
 
+message GetTransferEventsByHeightRequest {
+  int64 height = 1;
+}
+
+message TransferEvent {
+  string from = 1;
+  string to = 2;
+  bytes amount = 3;
+}
+
+message GetTransferEventsByHeightResponse {
+  repeated TransferEvent events = 1;
+}
 service EventService {
   rpc GetEscrowEventsByHeight(GetEscrowEventsByHeightRequest)
       returns (GetEscrowEventsByHeightResponse) {};
+  rpc GetTransferEventsByHeight(GetTransferEventsByHeightRequest)
+      returns (GetTransferEventsByHeightResponse) {};
 }
