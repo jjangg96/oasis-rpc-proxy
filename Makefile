@@ -1,31 +1,25 @@
-.PHONY: grpc-go build test docker docker-build docker-push
+.PHONY: grpc-go build test docker docker-build docker-push proto
 
 GIT_COMMIT   ?= $(shell git rev-parse HEAD)
 GO_VERSION   ?= $(shell go version | awk {'print $$3'})
 DOCKER_IMAGE ?= figmentnetworks/oasis-rpc-proxy
 DOCKER_TAG   ?= latest
 
+# alias
+proto: grpc-go
+
 # Generate proto buffs
 grpc-go:
-	@protoc -I ./ grpc/account/accountpb/account.proto --go_out=plugins=grpc:.
-	@mv github.com/figment-networks/oasis-rpc-proxy/grpc/account/accountpb/account.pb.go grpc/account/accountpb/account.pb.go
-	@protoc -I ./ grpc/block/blockpb/block.proto --go_out=plugins=grpc:.
-	@mv github.com/figment-networks/oasis-rpc-proxy/grpc/block/blockpb/block.pb.go grpc/block/blockpb/block.pb.go
-	@protoc -I ./ grpc/chain/chainpb/chain.proto --go_out=plugins=grpc:.
-	@mv github.com/figment-networks/oasis-rpc-proxy/grpc/chain/chainpb/chain.pb.go grpc/chain/chainpb/chain.pb.go
-	@protoc -I ./ grpc/event/eventpb/event.proto --go_out=plugins=grpc:.
-	@mv github.com/figment-networks/oasis-rpc-proxy/grpc/event/eventpb/event.pb.go grpc/event/eventpb/event.pb.go
-	@protoc -I ./ grpc/state/statepb/state.proto --go_out=plugins=grpc:.
-	@mv github.com/figment-networks/oasis-rpc-proxy/grpc/state/statepb/state.pb.go grpc/state/statepb/state.pb.go
-	@protoc -I ./ grpc/transaction/transactionpb/transaction.proto --go_out=plugins=grpc:.
-	@mv github.com/figment-networks/oasis-rpc-proxy/grpc/transaction/transactionpb/transaction.pb.go grpc/transaction/transactionpb/transaction.pb.go
-	@protoc -I ./ grpc/validator/validatorpb/validator.proto --go_out=plugins=grpc:.
-	@mv github.com/figment-networks/oasis-rpc-proxy/grpc/validator/validatorpb/validator.pb.go grpc/validator/validatorpb/validator.pb.go
-	@protoc -I ./ grpc/delegation/delegationpb/delegation.proto --go_out=plugins=grpc:.
-	@mv github.com/figment-networks/oasis-rpc-proxy/grpc/delegation/delegationpb/delegation.pb.go grpc/delegation/delegationpb/delegation.pb.go
-	@protoc -I ./ grpc/debondingdelegation/debondingdelegationpb/debonding_delegation.proto --go_out=plugins=grpc:.
-	@mv github.com/figment-networks/oasis-rpc-proxy/grpc/debondingdelegation/debondingdelegationpb/debonding_delegation.pb.go grpc/debondingdelegation/debondingdelegationpb/debonding_delegation.pb.go
-	@rm -rvf github.com
+	@protoc -I ./ grpc/account/accountpb/account.proto --go_out=plugins=grpc:. --go_opt=paths=source_relative
+	@protoc -I ./ grpc/block/blockpb/block.proto --go_out=plugins=grpc:. --go_opt=paths=source_relative
+	@protoc -I ./ grpc/chain/chainpb/chain.proto --go_out=plugins=grpc:. --go_opt=paths=source_relative
+	@protoc -I ./ grpc/event/eventpb/event.proto --go_out=plugins=grpc:. --go_opt=paths=source_relative
+	@protoc -I ./ grpc/state/statepb/state.proto --go_out=plugins=grpc:. --go_opt=paths=source_relative
+	@protoc -I ./ grpc/transaction/transactionpb/transaction.proto --go_out=plugins=grpc:. --go_opt=paths=source_relative
+	@protoc -I ./ grpc/validator/validatorpb/validator.proto --go_out=plugins=grpc:. --go_opt=paths=source_relative
+	@protoc -I ./ grpc/delegation/delegationpb/delegation.proto --go_out=plugins=grpc:. --go_opt=paths=source_relative
+	@protoc -I ./ grpc/debondingdelegation/debondingdelegationpb/debonding_delegation.proto --go_out=plugins=grpc:. --go_opt=paths=source_relative
+	@protoc -I ./ grpc/rawdata/rawdatapb/rawdata.proto --go_out=plugins=grpc:. --go_opt=paths=source_relative
 
 # Build the binary
 build:
