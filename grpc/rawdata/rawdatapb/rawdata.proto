@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+package rawdata;
+option go_package = "github.com/figment-networks/oasis-rpc-proxy/grpc/rawdata/rawdatapb";
+
+import "grpc/block/blockpb/block.proto";
+import "grpc/event/eventpb/event.proto";
+import "grpc/state/statepb/state.proto";
+import "grpc/transaction/transactionpb/transaction.proto";
+import "grpc/validator/validatorpb/validator.proto";
+
+message RawData {
+	block.Block block = 1;
+	event.EscrowEvents escrow_events = 2;
+	state.Staking staking = 3;
+	state.State state = 4;
+	repeated event.TransferEvent transfer_events = 5;
+	repeated transaction.Transaction transactions = 6;
+	repeated validator.Validator validators = 7;
+}
