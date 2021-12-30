@@ -31,8 +31,12 @@ type Server struct {
 }
 
 func New(cfg *config.Config, c *client.Client, doc *api.Document) *Server {
+
 	app := &Server{
-		server: grpc.NewServer(),
+		server: grpc.NewServer(
+			grpc.MaxSendMsgSize(cfg.GrpcMaxSendSize),
+			grpc.MaxRecvMsgSize(cfg.GrpcMaxRecvSize),
+		),
 		cfg:    cfg,
 		client: c,
 		doc:    doc,

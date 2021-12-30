@@ -21,11 +21,10 @@ require (
 	github.com/pelletier/go-toml v1.6.0 // indirect
 	github.com/pkg/errors v0.9.1
 	github.com/prometheus/client_golang v1.10.0
-	github.com/rollbar/rollbar-go v1.2.0
 	github.com/smartystreets/assertions v1.0.0 // indirect
 	github.com/spf13/afero v1.2.2 // indirect
 	github.com/spf13/cast v1.3.1 // indirect
-	github.com/spf13/jwalterweatherman v1.1.0 // indirect
+	github.com/spf13/jwalterweatherman v1.1.0 // indirect; indire ct
 	github.com/tendermint/tendermint v0.34.9
 	go.uber.org/zap v1.16.0
 	google.golang.org/grpc v1.38.0
