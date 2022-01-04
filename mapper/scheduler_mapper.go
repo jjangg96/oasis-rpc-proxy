@@ -12,7 +12,6 @@ func SchedulerToPb(rawScheduler api.Genesis) *statepb.Scheduler {
 			MaxValidators:                int64(rawScheduler.Parameters.MaxValidators),
 			MaxValidatorsPerEntity:       int64(rawScheduler.Parameters.MaxValidatorsPerEntity),
 			DebugBypassStake:             rawScheduler.Parameters.DebugBypassStake,
-			DebugStaticValidators:        rawScheduler.Parameters.DebugStaticValidators,
 			RewardFactorEpochElectionAny: rawScheduler.Parameters.RewardFactorEpochElectionAny.ToBigInt().Bytes(),
 		},
 	}
