@@ -30,7 +30,7 @@ func TestGetStaking(t *testing.T) {
 		grpc.WithDefaultCallOptions(grpc.MaxCallSendMsgSize(1073741824)),
 	)
 	if err != nil {
-		panic(err)
+		t.Error(err)
 	}
 
 	stateServer := statepb.NewStateServiceClient(conn)
@@ -39,7 +39,7 @@ func TestGetStaking(t *testing.T) {
 	data, err := stateServer.GetStakingByHeight(ctx, &statepb.GetStakingByHeightRequest{Height: int64(height), OmitAccountsAndDelegations: true})
 	fmt.Printf("GetStakingByHeight with omit duration: %f\n", time.Since(start).Seconds())
 	if err != nil {
-		panic(err)
+		t.Error(err)
 	}
 
 	totalSupply := &quantity.Quantity{}
@@ -59,7 +59,7 @@ func TestGetStaking(t *testing.T) {
 	stakingState, err := stateServer.GetStakingByHeight(ctx, &statepb.GetStakingByHeightRequest{Height: int64(height)})
 	fmt.Printf("GetStakingByHeight duration: %f\n", time.Since(start).Seconds())
 	if err != nil {
-		panic(err)
+		t.Error(err)
 	}
 
 	totalSupply2 := &quantity.Quantity{}
