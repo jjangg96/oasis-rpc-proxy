@@ -32,6 +32,9 @@ build:
 test:
 	go test -race -cover ./...
 
+test-integration:
+	go test -v -tags=integration ./test/integration
+
 # Build a local docker image for testing
 docker:
 	docker build -t oasis-rpc-proxy -f Dockerfile .

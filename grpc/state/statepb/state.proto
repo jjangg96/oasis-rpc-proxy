@@ -188,6 +188,9 @@ message GetByHeightResponse {
 
 message GetStakingByHeightRequest {
     int64 height = 1;
+
+    // omitting the accounts and delegations decreases response time
+    bool omit_accounts_and_delegations = 2;
 }
 
 message GetStakingByHeightResponse {

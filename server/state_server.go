@@ -2,6 +2,7 @@ package server
 
 import (
 	"context"
+
 	"github.com/figment-networks/oasis-rpc-proxy/client"
 	"github.com/figment-networks/oasis-rpc-proxy/grpc/state/statepb"
 	"github.com/figment-networks/oasis-rpc-proxy/mapper"
@@ -12,7 +13,7 @@ type StateServer interface {
 	GetStakingByHeight(context.Context, *statepb.GetStakingByHeightRequest) (*statepb.GetStakingByHeightResponse, error)
 }
 
-type stateServer struct{
+type stateServer struct {
 	client *client.Client
 }
 
@@ -37,12 +38,23 @@ func (s *stateServer) GetByHeight(ctx context.Context, req *statepb.GetByHeightR
 }
 
 func (s *stateServer) GetStakingByHeight(ctx context.Context, req *statepb.GetStakingByHeightRequest) (*statepb.GetStakingByHeightResponse, error) {
-	rawState, err := s.client.Staking.GetState(ctx, req.GetHeight())
-	if err != nil {
-		return nil, err
+	if req.OmitAccountsAndDelegations {
+		totalSupply, commonPool, params, err := s.client.Staking.GetStatus(ctx, req.GetHeight())
+		if err != nil {
+			return nil, err
+		}
+
+		return &statepb.GetStakingByHeightResponse{Staking: &statepb.Staking{
+			TotalSupply: totalSupply.ToBigInt().Bytes(),
+			CommonPool:  commonPool.ToBigInt().Bytes(),
+			Parameters:  mapper.ConsensusParametersToStakingParameters(*params),
+		}}, nil
+	} else {
+		rawState, err := s.client.Staking.GetState(ctx, req.GetHeight())
+		if err != nil {
+			return nil, err
+		}
+
+		return &statepb.GetStakingByHeightResponse{Staking: mapper.StakingToPb(*rawState)}, nil
 	}
-
-	return &statepb.GetStakingByHeightResponse{Staking: mapper.StakingToPb(*rawState)}, nil
 }
-
-

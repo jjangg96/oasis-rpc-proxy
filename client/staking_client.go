@@ -4,6 +4,7 @@ import (
 	"context"
 	"time"
 
+	"github.com/oasisprotocol/oasis-core/go/common/quantity"
 	"github.com/oasisprotocol/oasis-core/go/staking/api"
 	"google.golang.org/grpc"
 )
@@ -17,6 +18,7 @@ type StakingClient interface {
 	GetDelegations(context.Context, string, int64) (map[api.Address]*api.Delegation, error)
 	GetDebondingDelegations(context.Context, string, int64) (map[api.Address][]*api.DebondingDelegation, error)
 	GetState(context.Context, int64) (*api.Genesis, error)
+	GetStatus(context.Context, int64) (*quantity.Quantity, *quantity.Quantity, *api.ConsensusParameters, error)
 	GetEvents(ctx context.Context, height int64) ([]*api.Event, error)
 }
 
@@ -70,6 +72,27 @@ func (c *stakingClient) GetState(ctx context.Context, height int64) (*api.Genesi
 	defer logRequestDuration(time.Now(), "StakingClient_GetState")
 
 	return c.client.StateToGenesis(ctx, height)
+}
+
+func (c *stakingClient) GetStatus(ctx context.Context, height int64) (totalSupply *quantity.Quantity, commonPool *quantity.Quantity, params *api.ConsensusParameters, err error) {
+	defer logRequestDuration(time.Now(), "StakingClient_GetStatus")
+
+	totalSupply, err = c.client.TotalSupply(ctx, height)
+	if err != nil {
+		return
+	}
+
+	commonPool, err = c.client.CommonPool(ctx, height)
+	if err != nil {
+		return
+	}
+
+	params, err = c.client.ConsensusParameters(ctx, height)
+	if err != nil {
+		return
+	}
+
+	return
 }
 
 func (c *stakingClient) buildOwnerQuery(key string, height int64) (*api.OwnerQuery, error) {
