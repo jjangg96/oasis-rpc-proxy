@@ -9,5 +9,7 @@
   "rollbar_access_token": "",
   "rollbar_server_root": "",
   "server_metric_addr": ":8081",
-  "metric_server_url": "/metrics"
+  "metric_server_url": "/metrics",
+  "grpc_max_recv_size": 1073741824,
+  "grpc_max_send_size": 1073741824
 }
