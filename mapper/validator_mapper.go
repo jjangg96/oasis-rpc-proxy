@@ -4,7 +4,7 @@ import (
 	"github.com/jjangg96/oasis-rpc-proxy/grpc/validator/validatorpb"
 	beaconApi "github.com/oasisprotocol/oasis-core/go/beacon/api"
 	"github.com/oasisprotocol/oasis-core/go/common/node"
-	tmcrypto "github.com/oasisprotocol/oasis-core/go/consensus/tendermint/crypto"
+	tmcrypto "github.com/oasisprotocol/oasis-core/go/consensus/cometbft/crypto"
 	"github.com/oasisprotocol/oasis-core/go/scheduler/api"
 	stakingApi "github.com/oasisprotocol/oasis-core/go/staking/api"
 	"math/big"
@@ -12,7 +12,7 @@ import (
 
 func ValidatorToPb(rawValidator *api.Validator, address string, rawNode *node.Node, rawAccount *stakingApi.Account, rawEpochTime beaconApi.EpochTime) *validatorpb.Validator {
 	cID := rawNode.Consensus.ID
-	tmAddr := tmcrypto.PublicKeyToTendermint(&cID).Address().String()
+	tmAddr := tmcrypto.PublicKeyToCometBFT(&cID).Address().String()
 	rateNumerator := rawAccount.Escrow.CommissionSchedule.CurrentRate(rawEpochTime)
 
 	// P2P addresses

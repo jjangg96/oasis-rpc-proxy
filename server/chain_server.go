@@ -3,6 +3,7 @@ package server
 import (
 	"context"
 
+	tmtypes "github.com/cometbft/cometbft/types"
 	"github.com/golang/protobuf/ptypes"
 	"github.com/jjangg96/oasis-rpc-proxy/client"
 	"github.com/jjangg96/oasis-rpc-proxy/grpc/block/blockpb"
@@ -10,7 +11,6 @@ import (
 	"github.com/jjangg96/oasis-rpc-proxy/mapper"
 	"github.com/oasisprotocol/oasis-core/go/genesis/api"
 	stakingApi "github.com/oasisprotocol/oasis-core/go/staking/api"
-	tmtypes "github.com/tendermint/tendermint/types"
 )
 
 type ChainServer interface {

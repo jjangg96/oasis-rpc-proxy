@@ -7,7 +7,7 @@ import (
 	"github.com/jjangg96/oasis-rpc-proxy/grpc/block/blockpb"
 	"github.com/oasisprotocol/oasis-core/go/common/cbor"
 	"github.com/oasisprotocol/oasis-core/go/consensus/api"
-	tmApi "github.com/oasisprotocol/oasis-core/go/consensus/tendermint/api"
+	tmApi "github.com/oasisprotocol/oasis-core/go/consensus/cometbft/api"
 )
 
 func BlockToPb(rawBlock api.Block) (*blockpb.Block, error) {
