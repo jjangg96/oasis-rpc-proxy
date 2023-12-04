@@ -2,7 +2,7 @@ package metric
 
 import (
 	"fmt"
-	"github.com/figment-networks/oasis-rpc-proxy/utils/logger"
+	"github.com/jjangg96/oasis-rpc-proxy/utils/logger"
 	"github.com/prometheus/client_golang/prometheus"
 	"github.com/prometheus/client_golang/prometheus/promhttp"
 	"net/http"
@@ -13,15 +13,15 @@ var (
 		prometheus.GaugeOpts{
 			Namespace: "figment",
 			Subsystem: "oasis_proxy",
-			Name: "node_request_duration",
-			Help: "The total time required to execute request to node",
+			Name:      "node_request_duration",
+			Help:      "The total time required to execute request to node",
 		},
 		[]string{"request"},
 	)
 )
 
 // ClientMetric handles HTTP requests
-type ClientMetric struct {}
+type ClientMetric struct{}
 
 // NewIndexerMetric returns a new server instance
 func NewClientMetric() *ClientMetric {

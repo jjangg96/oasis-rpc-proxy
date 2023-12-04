@@ -6,8 +6,8 @@ import (
 	"fmt"
 	"reflect"
 
-	"github.com/figment-networks/oasis-rpc-proxy/grpc/transaction/transactionpb"
-	"github.com/figment-networks/oasis-rpc-proxy/utils/logger"
+	"github.com/jjangg96/oasis-rpc-proxy/grpc/transaction/transactionpb"
+	"github.com/jjangg96/oasis-rpc-proxy/utils/logger"
 	"github.com/oasisprotocol/oasis-core/go/common/cbor"
 	"github.com/oasisprotocol/oasis-core/go/consensus/api/transaction"
 )

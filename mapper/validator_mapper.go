@@ -1,10 +1,10 @@
 package mapper
 
 import (
-	"github.com/figment-networks/oasis-rpc-proxy/grpc/validator/validatorpb"
+	"github.com/jjangg96/oasis-rpc-proxy/grpc/validator/validatorpb"
+	beaconApi "github.com/oasisprotocol/oasis-core/go/beacon/api"
 	"github.com/oasisprotocol/oasis-core/go/common/node"
 	tmcrypto "github.com/oasisprotocol/oasis-core/go/consensus/tendermint/crypto"
-	beaconApi "github.com/oasisprotocol/oasis-core/go/beacon/api"
 	"github.com/oasisprotocol/oasis-core/go/scheduler/api"
 	stakingApi "github.com/oasisprotocol/oasis-core/go/staking/api"
 	"math/big"

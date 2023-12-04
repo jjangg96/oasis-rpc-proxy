@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/figment-networks/oasis-rpc-proxy/config"
+	"github.com/jjangg96/oasis-rpc-proxy/config"
 	"go.uber.org/zap"
 	"go.uber.org/zap/zapcore"
 )

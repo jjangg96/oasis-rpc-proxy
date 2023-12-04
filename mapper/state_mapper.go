@@ -4,8 +4,8 @@ import (
 	"errors"
 	"fmt"
 
-	"github.com/figment-networks/oasis-rpc-proxy/grpc/state/statepb"
 	"github.com/golang/protobuf/ptypes"
+	"github.com/jjangg96/oasis-rpc-proxy/grpc/state/statepb"
 	beacon "github.com/oasisprotocol/oasis-core/go/beacon/api"
 	genesisApi "github.com/oasisprotocol/oasis-core/go/genesis/api"
 	cmdFlags "github.com/oasisprotocol/oasis-core/go/oasis-node/cmd/common/flags"

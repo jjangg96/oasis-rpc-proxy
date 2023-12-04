@@ -3,8 +3,8 @@ package reporting
 import (
 	"fmt"
 
-	"github.com/figment-networks/oasis-rpc-proxy/config"
-	"github.com/figment-networks/oasis-rpc-proxy/utils/logger"
+	"github.com/jjangg96/oasis-rpc-proxy/config"
+	"github.com/jjangg96/oasis-rpc-proxy/utils/logger"
 )
 
 func RecoverError() {

@@ -1,7 +1,7 @@
 package mapper
 
 import (
-	"github.com/figment-networks/oasis-rpc-proxy/grpc/delegation/delegationpb"
+	"github.com/jjangg96/oasis-rpc-proxy/grpc/delegation/delegationpb"
 	"github.com/oasisprotocol/oasis-core/go/staking/api"
 )
 
@@ -15,4 +15,3 @@ func DelegationToPb(rawDelegations map[api.Address]*api.Delegation) map[string]*
 
 	return entries
 }
-

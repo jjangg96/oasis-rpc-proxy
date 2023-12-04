@@ -25,8 +25,8 @@ grpc-go:
 build:
 	go build \
 		-ldflags "\
-			-X github.com/figment-networks/oasis-rpc-proxy/cli.gitCommit=${GIT_COMMIT} \
-			-X github.com/figment-networks/oasis-rpc-proxy/cli.goVersion=${GO_VERSION}"
+			-X github.com/jjangg96/oasis-rpc-proxy/cli.gitCommit=${GIT_COMMIT} \
+			-X github.com/jjangg96/oasis-rpc-proxy/cli.goVersion=${GO_VERSION}"
 
 # Run tests
 test:

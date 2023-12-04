@@ -1,7 +1,7 @@
 package mapper
 
 import (
-	"github.com/figment-networks/oasis-rpc-proxy/grpc/event/eventpb"
+	"github.com/jjangg96/oasis-rpc-proxy/grpc/event/eventpb"
 	"github.com/oasisprotocol/oasis-core/go/staking/api"
 )
 

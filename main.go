@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/figment-networks/oasis-rpc-proxy/cli"
+	"github.com/jjangg96/oasis-rpc-proxy/cli"
 )
 
 func main() {

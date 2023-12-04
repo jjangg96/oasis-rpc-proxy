@@ -1,7 +1,7 @@
 package mapper
 
 import (
-	"github.com/figment-networks/oasis-rpc-proxy/grpc/debondingdelegation/debondingdelegationpb"
+	"github.com/jjangg96/oasis-rpc-proxy/grpc/debondingdelegation/debondingdelegationpb"
 	"github.com/oasisprotocol/oasis-core/go/staking/api"
 )
 
@@ -22,5 +22,3 @@ func DebondingDelegationToPb(rawDebondingDelegations map[api.Address][]*api.Debo
 	}
 	return innerEntries
 }
-
-

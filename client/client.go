@@ -2,8 +2,8 @@ package client
 
 import (
 	"fmt"
-	"github.com/figment-networks/oasis-rpc-proxy/metric"
-	"github.com/figment-networks/oasis-rpc-proxy/utils/logger"
+	"github.com/jjangg96/oasis-rpc-proxy/metric"
+	"github.com/jjangg96/oasis-rpc-proxy/utils/logger"
 	"github.com/oasisprotocol/oasis-core/go/common/crypto/signature"
 	oasisGrpc "github.com/oasisprotocol/oasis-core/go/common/grpc"
 	"github.com/oasisprotocol/oasis-core/go/staking/api"

@@ -2,16 +2,16 @@ package server
 
 import (
 	"context"
-	"github.com/figment-networks/oasis-rpc-proxy/client"
-	"github.com/figment-networks/oasis-rpc-proxy/grpc/account/accountpb"
-	"github.com/figment-networks/oasis-rpc-proxy/mapper"
+	"github.com/jjangg96/oasis-rpc-proxy/client"
+	"github.com/jjangg96/oasis-rpc-proxy/grpc/account/accountpb"
+	"github.com/jjangg96/oasis-rpc-proxy/mapper"
 )
 
 type AccountServer interface {
 	GetByAddress(context.Context, *accountpb.GetByAddressRequest) (*accountpb.GetByAddressResponse, error)
 }
 
-type accountServer struct{
+type accountServer struct {
 	client *client.Client
 }
 

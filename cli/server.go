@@ -1,8 +1,8 @@
 package cli
 
 import (
-	"github.com/figment-networks/oasis-rpc-proxy/config"
-	"github.com/figment-networks/oasis-rpc-proxy/server"
+	"github.com/jjangg96/oasis-rpc-proxy/config"
+	"github.com/jjangg96/oasis-rpc-proxy/server"
 )
 
 func startServer(cfg *config.Config) error {

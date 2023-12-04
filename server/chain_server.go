@@ -3,11 +3,11 @@ package server
 import (
 	"context"
 
-	"github.com/figment-networks/oasis-rpc-proxy/client"
-	"github.com/figment-networks/oasis-rpc-proxy/grpc/block/blockpb"
-	"github.com/figment-networks/oasis-rpc-proxy/grpc/chain/chainpb"
-	"github.com/figment-networks/oasis-rpc-proxy/mapper"
 	"github.com/golang/protobuf/ptypes"
+	"github.com/jjangg96/oasis-rpc-proxy/client"
+	"github.com/jjangg96/oasis-rpc-proxy/grpc/block/blockpb"
+	"github.com/jjangg96/oasis-rpc-proxy/grpc/chain/chainpb"
+	"github.com/jjangg96/oasis-rpc-proxy/mapper"
 	"github.com/oasisprotocol/oasis-core/go/genesis/api"
 	stakingApi "github.com/oasisprotocol/oasis-core/go/staking/api"
 	tmtypes "github.com/tendermint/tendermint/types"

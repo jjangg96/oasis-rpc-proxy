@@ -1,7 +1,7 @@
 package mapper
 
 import (
-	"github.com/figment-networks/oasis-rpc-proxy/grpc/state/statepb"
+	"github.com/jjangg96/oasis-rpc-proxy/grpc/state/statepb"
 	"github.com/oasisprotocol/oasis-core/go/registry/api"
 )
 
@@ -22,13 +22,13 @@ func RegistryToPb(rawRegistry api.Genesis) *statepb.Registry {
 
 	return &statepb.Registry{
 		Parameters: &statepb.RegistryParameters{
-			DebugAllowUnroutableAddresses:          rawRegistry.Parameters.DebugAllowUnroutableAddresses,
-			DebugAllowTestRuntimes:                 rawRegistry.Parameters.DebugAllowTestRuntimes,
-			DebugBypassStake:                       rawRegistry.Parameters.DebugBypassStake,
-			DisableRuntimeRegistration:             rawRegistry.Parameters.DisableRuntimeRegistration,
-			DisableKeyManagerRuntimeRegistration:   rawRegistry.Parameters.DisableKeyManagerRuntimeRegistration,
-			GasCosts:                               gasCosts,
-			MaxNodeExpiration:                      rawRegistry.Parameters.MaxNodeExpiration,
+			DebugAllowUnroutableAddresses:        rawRegistry.Parameters.DebugAllowUnroutableAddresses,
+			DebugAllowTestRuntimes:               rawRegistry.Parameters.DebugAllowTestRuntimes,
+			DebugBypassStake:                     rawRegistry.Parameters.DebugBypassStake,
+			DisableRuntimeRegistration:           rawRegistry.Parameters.DisableRuntimeRegistration,
+			DisableKeyManagerRuntimeRegistration: rawRegistry.Parameters.DisableKeyManagerRuntimeRegistration,
+			GasCosts:                             gasCosts,
+			MaxNodeExpiration:                    rawRegistry.Parameters.MaxNodeExpiration,
 		},
 		Entities: entities,
 	}

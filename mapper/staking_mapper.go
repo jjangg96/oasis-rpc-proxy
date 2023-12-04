@@ -1,10 +1,10 @@
 package mapper
 
 import (
-	"github.com/figment-networks/oasis-rpc-proxy/grpc/account/accountpb"
-	"github.com/figment-networks/oasis-rpc-proxy/grpc/debondingdelegation/debondingdelegationpb"
-	"github.com/figment-networks/oasis-rpc-proxy/grpc/delegation/delegationpb"
-	"github.com/figment-networks/oasis-rpc-proxy/grpc/state/statepb"
+	"github.com/jjangg96/oasis-rpc-proxy/grpc/account/accountpb"
+	"github.com/jjangg96/oasis-rpc-proxy/grpc/debondingdelegation/debondingdelegationpb"
+	"github.com/jjangg96/oasis-rpc-proxy/grpc/delegation/delegationpb"
+	"github.com/jjangg96/oasis-rpc-proxy/grpc/state/statepb"
 	"github.com/oasisprotocol/oasis-core/go/staking/api"
 )
 

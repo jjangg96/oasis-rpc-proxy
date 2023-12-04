@@ -3,9 +3,9 @@ package server
 import (
 	"context"
 
-	"github.com/figment-networks/oasis-rpc-proxy/client"
-	"github.com/figment-networks/oasis-rpc-proxy/grpc/event/eventpb"
-	"github.com/figment-networks/oasis-rpc-proxy/mapper"
+	"github.com/jjangg96/oasis-rpc-proxy/client"
+	"github.com/jjangg96/oasis-rpc-proxy/grpc/event/eventpb"
+	"github.com/jjangg96/oasis-rpc-proxy/mapper"
 )
 
 type EventServer interface {

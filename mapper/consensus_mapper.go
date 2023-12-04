@@ -3,8 +3,8 @@ package mapper
 import (
 	"time"
 
-	"github.com/figment-networks/oasis-rpc-proxy/grpc/state/statepb"
 	"github.com/golang/protobuf/ptypes/duration"
+	"github.com/jjangg96/oasis-rpc-proxy/grpc/state/statepb"
 	"github.com/oasisprotocol/oasis-core/go/consensus/genesis"
 )
 

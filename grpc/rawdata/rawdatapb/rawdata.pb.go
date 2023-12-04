@@ -7,11 +7,11 @@
 package rawdatapb
 
 import (
-	blockpb "github.com/figment-networks/oasis-rpc-proxy/grpc/block/blockpb"
-	eventpb "github.com/figment-networks/oasis-rpc-proxy/grpc/event/eventpb"
-	statepb "github.com/figment-networks/oasis-rpc-proxy/grpc/state/statepb"
-	transactionpb "github.com/figment-networks/oasis-rpc-proxy/grpc/transaction/transactionpb"
-	validatorpb "github.com/figment-networks/oasis-rpc-proxy/grpc/validator/validatorpb"
+	blockpb "github.com/jjangg96/oasis-rpc-proxy/grpc/block/blockpb"
+	eventpb "github.com/jjangg96/oasis-rpc-proxy/grpc/event/eventpb"
+	statepb "github.com/jjangg96/oasis-rpc-proxy/grpc/state/statepb"
+	transactionpb "github.com/jjangg96/oasis-rpc-proxy/grpc/transaction/transactionpb"
+	validatorpb "github.com/jjangg96/oasis-rpc-proxy/grpc/validator/validatorpb"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	reflect "reflect"

@@ -3,7 +3,7 @@
 # ------------------------------------------------------------------------------
 FROM golang:1.16 AS build
 
-WORKDIR /go/src/github.com/figment-networks/oasis-rpc-proxy
+WORKDIR /go/src/github.com/jjangg96/oasis-rpc-proxy
 
 COPY ./go.mod .
 COPY ./go.sum .
@@ -28,7 +28,7 @@ FROM alpine:3.10 AS release
 
 WORKDIR /app
 
-COPY --from=build /go/src/github.com/figment-networks/oasis-rpc-proxy/oasis-rpc-proxy /app/oasis-rpc-proxy
+COPY --from=build /go/src/github.com/jjangg96/oasis-rpc-proxy/oasis-rpc-proxy /app/oasis-rpc-proxy
 
 EXPOSE 50051
 

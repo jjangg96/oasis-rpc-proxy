@@ -2,9 +2,9 @@ package server
 
 import (
 	"context"
-	"github.com/figment-networks/oasis-rpc-proxy/client"
-	"github.com/figment-networks/oasis-rpc-proxy/grpc/delegation/delegationpb"
-	"github.com/figment-networks/oasis-rpc-proxy/mapper"
+	"github.com/jjangg96/oasis-rpc-proxy/client"
+	"github.com/jjangg96/oasis-rpc-proxy/grpc/delegation/delegationpb"
+	"github.com/jjangg96/oasis-rpc-proxy/mapper"
 )
 
 type DelegationServer interface {
@@ -29,4 +29,3 @@ func (s *delegationServer) GetByAddress(ctx context.Context, req *delegationpb.G
 
 	return &delegationpb.GetByAddressResponse{Delegations: mapper.DelegationToPb(rawDelegations)}, nil
 }
-

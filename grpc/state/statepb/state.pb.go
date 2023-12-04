@@ -8,9 +8,9 @@ package statepb
 
 import (
 	context "context"
-	accountpb "github.com/figment-networks/oasis-rpc-proxy/grpc/account/accountpb"
-	debondingdelegationpb "github.com/figment-networks/oasis-rpc-proxy/grpc/debondingdelegation/debondingdelegationpb"
-	delegationpb "github.com/figment-networks/oasis-rpc-proxy/grpc/delegation/delegationpb"
+	accountpb "github.com/jjangg96/oasis-rpc-proxy/grpc/account/accountpb"
+	debondingdelegationpb "github.com/jjangg96/oasis-rpc-proxy/grpc/debondingdelegation/debondingdelegationpb"
+	delegationpb "github.com/jjangg96/oasis-rpc-proxy/grpc/delegation/delegationpb"
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"

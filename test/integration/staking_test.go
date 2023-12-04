@@ -10,7 +10,7 @@ import (
 
 	"testing"
 
-	"github.com/figment-networks/oasis-rpc-proxy/grpc/state/statepb"
+	"github.com/jjangg96/oasis-rpc-proxy/grpc/state/statepb"
 	"github.com/oasisprotocol/oasis-core/go/common/quantity"
 	"github.com/stretchr/testify/require"
 	"google.golang.org/grpc"

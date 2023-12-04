@@ -5,9 +5,9 @@ import (
 	"encoding/base64"
 	"fmt"
 
-	"github.com/figment-networks/oasis-rpc-proxy/client"
-	"github.com/figment-networks/oasis-rpc-proxy/grpc/transaction/transactionpb"
-	"github.com/figment-networks/oasis-rpc-proxy/mapper"
+	"github.com/jjangg96/oasis-rpc-proxy/client"
+	"github.com/jjangg96/oasis-rpc-proxy/grpc/transaction/transactionpb"
+	"github.com/jjangg96/oasis-rpc-proxy/mapper"
 
 	"github.com/oasisprotocol/oasis-core/go/common/cbor"
 	"github.com/oasisprotocol/oasis-core/go/consensus/api/transaction"

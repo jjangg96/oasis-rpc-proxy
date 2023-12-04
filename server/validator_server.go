@@ -2,19 +2,19 @@ package server
 
 import (
 	"context"
-	"github.com/figment-networks/oasis-rpc-proxy/client"
-	"github.com/figment-networks/oasis-rpc-proxy/grpc/validator/validatorpb"
-	"github.com/figment-networks/oasis-rpc-proxy/mapper"
-	stakingApi "github.com/oasisprotocol/oasis-core/go/staking/api"
+	"github.com/jjangg96/oasis-rpc-proxy/client"
+	"github.com/jjangg96/oasis-rpc-proxy/grpc/validator/validatorpb"
+	"github.com/jjangg96/oasis-rpc-proxy/mapper"
+	"github.com/jjangg96/oasis-rpc-proxy/utils/logger"
 	registryApi "github.com/oasisprotocol/oasis-core/go/registry/api"
-	"github.com/figment-networks/oasis-rpc-proxy/utils/logger"
+	stakingApi "github.com/oasisprotocol/oasis-core/go/staking/api"
 )
 
 type ValidatorServer interface {
 	GetByHeight(context.Context, *validatorpb.GetByHeightRequest) (*validatorpb.GetByHeightResponse, error)
 }
 
-type validatorServer struct{
+type validatorServer struct {
 	client *client.Client
 }
 
@@ -38,7 +38,7 @@ func (s *validatorServer) GetByHeight(ctx context.Context, req *validatorpb.GetB
 	var validators []*validatorpb.Validator
 	for _, rawValidator := range rawValidators {
 		rawNode, err := s.client.Registry.GetNodeById(ctx, rawValidator.ID, req.Height)
-	
+
 		if err == registryApi.ErrNoSuchNode {
 			// some validators are missing nodes after the network upgrade on august 6
 			logger.Info("skipping validator...", logger.Field("rawValidator.ID", rawValidator.ID.String()))

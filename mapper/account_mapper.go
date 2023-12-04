@@ -1,7 +1,7 @@
 package mapper
 
 import (
-	"github.com/figment-networks/oasis-rpc-proxy/grpc/account/accountpb"
+	"github.com/jjangg96/oasis-rpc-proxy/grpc/account/accountpb"
 	"github.com/oasisprotocol/oasis-core/go/staking/api"
 )
 
@@ -50,8 +50,8 @@ func AccountToPb(rawAccount api.Account) *accountpb.Account {
 
 	return &accountpb.Account{
 		General: &accountpb.GeneralAccount{
-			Balance:            rawAccount.General.Balance.ToBigInt().Bytes(),
-			Nonce:              rawAccount.General.Nonce,
+			Balance: rawAccount.General.Balance.ToBigInt().Bytes(),
+			Nonce:   rawAccount.General.Nonce,
 		},
 		Escrow: &accountpb.EscrowAccount{
 			Active: &accountpb.SharePool{
